@@ -26,7 +26,6 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 public final class DreamBlockRenderer implements BlockEntityRenderer<DreamBlock.DreamEntity> {
     private static final ResourceLocation PARTICLES = NoUltraDashPlease.id("textures/block/dream_block_particles.png");
     private static final RenderType SURFACE = SurfaceType.createSurface();
-    private static final RenderType EDGE = EdgeType.createEdge();
     private static final int[][] COLORS = {
             {0xFFEF11, 0xFF00D0, 0x08A310},
             {0x5FCDE4, 0x7FB25E, 0xE0564C},
@@ -85,7 +84,9 @@ public final class DreamBlockRenderer implements BlockEntityRenderer<DreamBlock.
             double minU = left ? 2 * PIXEL : 0, maxU = right ? 1 - 2 * PIXEL : 1;
             double minV = bottom ? 2 * PIXEL : 0, maxV = top ? 1 - 2 * PIXEL : 1;
             stars(vertices, pose, face, pos, camera, seconds, minU, minV, maxU, maxV);
-            VertexConsumer edges = buffers.getBuffer(EDGE);
+            // One shared text-format buffer keeps surfaces and outlines in the same
+            // Iris-compatible pass; switching fallback buffers here loses earlier faces.
+            VertexConsumer edges = vertices;
             if (left) edge(edges, pose, face, pos, seconds, 0, bottom, top);
             if (right) edge(edges, pose, face, pos, seconds, 1, bottom, top);
             if (bottom) edge(edges, pose, face, pos, seconds, 2, left, right);
@@ -208,12 +209,7 @@ public final class DreamBlockRenderer implements BlockEntityRenderer<DreamBlock.
 
     private static void vertexSolid(VertexConsumer out, PoseStack.Pose pose, Face face,
                                     double u, double v, double offset, int rgb) {
-        var n = face.normal;
-        float x = (float) (face.x + u * face.u.getStepX() + v * face.v.getStepX() + offset * n.getStepX());
-        float y = (float) (face.y + u * face.u.getStepY() + v * face.v.getStepY() + offset * n.getStepY());
-        float z = (float) (face.z + u * face.u.getStepZ() + v * face.v.getStepZ() + offset * n.getStepZ());
-        out.addVertex(pose, x, y, z).setColor((rgb >>> 16) & 255, (rgb >>> 8) & 255, rgb & 255, 255)
-                .setLight(LightTexture.FULL_BRIGHT);
+        vertex(out, pose, face, u, v, offset, rgb, WHITE_UV, WHITE_UV);
     }
 
     private static void rect(VertexConsumer out, PoseStack.Pose pose, Face face,
@@ -243,17 +239,6 @@ public final class DreamBlockRenderer implements BlockEntityRenderer<DreamBlock.
                     RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_TEXT_SHADER)
                             .setTextureState(new RenderStateShard.TextureStateShard(PARTICLES, false, false))
                             .setTransparencyState(RenderType.NO_TRANSPARENCY).setLightmapState(RenderType.LIGHTMAP)
-                            .createCompositeState(false));
-        }
-    }
-
-    private static final class EdgeType {
-        static RenderType createEdge() {
-            return RenderType.create("no_ultra_dash_please_dream_edge", DefaultVertexFormat.POSITION_COLOR_LIGHTMAP,
-                    VertexFormat.Mode.QUADS, 4096, false, false,
-                    RenderType.CompositeState.builder().setShaderState(RenderStateShard.POSITION_COLOR_LIGHTMAP_SHADER)
-                            .setLightmapState(RenderType.LIGHTMAP)
-                            .setTransparencyState(RenderType.NO_TRANSPARENCY)
                             .createCompositeState(false));
         }
     }

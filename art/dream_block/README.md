@@ -10,7 +10,7 @@
 - 像素遮罩：`dream_block_particles.png`，16×16，在一个小 atlas 中复用 5×5 像素点、十字与菱形环。游戏中颜色由原版色板计算。
 - 运行代码：`DreamBlock` 增加方块实体标记，`DreamBlockRenderer` 绘制外露面；加载旧区块时由 `RefillCrystalMigration` 懒创建旧版方块实体。
 
-世界表面使用 Minecraft 已有 Text shader、最近邻纹理采样和二值 alpha，不使用自定义 GLSL；外框使用原版 POSITION_COLOR_LIGHTMAP shader，不依赖纹理 mip 或 GUI bloom。在满亮度下保持黑色背景、彩色星点和白色外框清楚。物理方块本身正常不透明和阻挡，不参与实体半透明排序；粉尘粒子和边框覆面各自使用一个共享 RenderType。
+世界表面使用 Minecraft 已有 Text shader、最近邻纹理采样和二值 alpha，不使用自定义 GLSL；外框复用遮罩的白色像素，与黑底和星点使用同一个 POSITION_COLOR_TEX_LIGHTMAP 缓冲通道，避免在 Iris 下切换备用缓冲时丢失轮廓或面。无需纹理 mip 或 GUI bloom。在满亮度下保持黑色背景、彩色星点和白色外框清楚。物理方块本身正常不透明和阻挡，不参与实体半透明排序。
 
 ## 原版参考
 
@@ -25,4 +25,4 @@
 - 离线检查：帧尺寸和内容、边框连通性、二值 alpha、星形遮罩与色板、视差因子、负坐标和大坐标精度、相邻方块星点连续性、六个面外向、Java 1.21.1 模型 JSON、BB 内嵌贴图相符，以及代表性的 3×4 表面动画。
 - `texture-preview.png` 和 `texture-animation.gif` 展示物品贴图；`blockbench-preview.png` 是单方块 Blockbench 实际画面；`parallax-preview.png` 和 `parallax-animation.gif` 用 Python/Pillow 重画相邻表面与镜头运动。后两张离线图证明资产与同一组坐标数学正常，**不是游戏截图**。
 
-遵照“不构建，留给功能方”的后续工作安排，没有运行构建或 Minecraft 客户端。NeoForge API 编译、游戏资源重载、实际显卡图层排序、GUI 与手持效果、极远视距以及旧区块实体迁移需要由负责构建/客户端的人验收。
+0.1.3 已由功能方合入、构建并在地牢餐厅整合包（Sodium/Iris）中实测。加入六向穿入、底部上冲、封闭出口、斜向继承速度和普通墙不可穿行的回归测试；穿梭期间保持玩家姿态，避免原版自动压成游泳姿态后误判出块。普通墙会完整反转穿梭速度并沿原路返回；进入、循环穿梭、反弹与离开均使用 Celeste 原版声音。极远视距和实际性能未做专项测量。
