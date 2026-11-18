@@ -24,7 +24,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | 侧弹簧 | 冲刺或高速侧撞时向外弹开并回充。 | 弹簧 + 拉杆 |
 | 反弹 / 反射方块 | 冲刺碰撞时分别反弹起跳、沿碰撞轴反转速度；不回充。 | 黏液块 + 铁锭 / 反弹方块 + 浮冰 |
 | 冲刺恢复晶体 | 碰到它时补满冲刺和攀爬体力，变为空水晶；2.5 秒后伴随聚光粒子和轻响恢复。不可挖掘、抗爆且不能被活塞推动。水平旋转并上下浮动，黑暗中自发光并照亮周围。 | 紫水晶碎片 ×2 + 荧石粉 |
-| 推进器 / 红色推进器 | 进入或空手右键可回充，再按 `R` 或等片刻自动发射；红冲会持续到撞击、主动取消或安全时限。 | 末影珍珠 + 紫水晶碎片 + 黏液球 / 推进器 + 烈焰粉 + 红石粉 |
+| 推进器 / 红色推进器 | 进入或空手右键回充并由大泡泡裹住；泡泡将人拉向中心，按 `R` 或稍等自动带人冲出。绿色裹人形态持续到本次冲刺结束；红色持续包裹移动，直到撞击、取消或安全时限。第一人称保留清晰视野，第三人称和旁观者可见完整薄膜。进入、发射、持续红冲与释放均用蔚蓝原声。 | 末影珍珠 + 紫水晶碎片 + 黏液球 / 推进器 + 烈焰粉 + 红石粉 |
 
 首次加载世界生成 `config/no_ultra_dash_please-server.toml`，可调整次数、冲刺速度、持续/冷却时间、起跳容错、最高保速，并可关闭蹬墙或落地回充。地图作者可用 `no_ultra_dash_please:dream_blocks` 和 `no_ultra_dash_please:no_ground_refill` 标签指定可穿行和禁止回充的方块。
 
@@ -36,7 +36,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 参考仓库：[NoelFB/Celeste](https://github.com/NoelFB/Celeste)，固定提交 `1b0ce45c75e05649ae91b44a8bb6b196684e4352`。该仓库声明 MIT 许可证仅适用于仓库中的代码，不包括商业游戏本体或资产；`reference/celeste/` 仅保存代码研究资料。
 
-冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 20 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，晶体重生使用原事件 `event:/game/general/diamond_return`，音高 1.0。来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
+冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 23 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，晶体重生使用原事件 `event:/game/general/diamond_return`，音高 1.0。来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
 
 梦境方块的黑色连续表面、起伏白色外框和彩色星点视差渲染已参考蔚蓝原版接入。40 帧像素动画、可编辑 Blockbench 方块模型、色板、来源及离线预览位于 [`art/dream_block/`](art/dream_block/)；世界渲染使用项目已有 NeoForge 与 Minecraft 原版 RenderType，不使用定制 shader。
 
@@ -53,7 +53,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.3` |
+| 模组版本 | `0.1.4` |
 
 ## 开发
 
@@ -75,7 +75,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.3.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.4.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 
