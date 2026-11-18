@@ -103,6 +103,47 @@ public final class DreamTraversalGameTests {
         helper.assertTrue(DashPhysics.clear(player, player.getBoundingBox()), "Player must exit into a clear position");
     }
 
+    @GameTest(template = "empty")
+    public static void diagonalBouncePreservesInheritedSpeed(GameTestHelper helper) {
+        fillDream(helper, new BlockPos(3, 2, 2), new BlockPos(6, 6, 5));
+        for (int y = 0; y < 8; y++) {
+            for (int z = 0; z < 8; z++) helper.setBlock(7, y, z, Blocks.STONE);
+        }
+        var player = player(helper, new Vec3(1.5, 2, 3.5));
+        player.setDeltaMovement(2, 0, 0);
+        var dash = start(player, -90, -45);
+        Vec3 enteredVelocity = null;
+        boolean bounced = false;
+        for (int i = 0; i < 12; i++) {
+            dash.tick(player);
+            if (dash.dreaming() && enteredVelocity == null) enteredVelocity = player.getDeltaMovement();
+            if (dash.dreaming() && player.getDeltaMovement().x < -1) {
+                bounced = true;
+                helper.assertTrue(player.getDeltaMovement().distanceTo(enteredVelocity.scale(-1)) < 1.0e-4,
+                        "Diagonal return must preserve horizontal carry and reverse vertical motion exactly");
+                break;
+            }
+        }
+        helper.assertTrue(bounced, "Fast diagonal dream traversal must bounce at its sealed exit");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void ordinaryWallCannotBeDreamDashed(GameTestHelper helper) {
+        for (int y = 0; y < 7; y++) {
+            for (int z = 0; z < 7; z++) helper.setBlock(3, y, z, Blocks.STONE);
+        }
+        var player = player(helper, new Vec3(1.5, 3.05, 3.5));
+        var dash = start(player, -90, 0);
+        for (int i = 0; i < 6; i++) {
+            dash.tick(player);
+            helper.assertTrue(!dash.dreaming(), "Ordinary walls must not become dream traversable");
+            helper.assertTrue(player.getBoundingBox().maxX <= helper.absolutePos(new BlockPos(3, 0, 0)).getX() + 1.0e-4,
+                    "Player must remain outside a wall with no dream block");
+        }
+        helper.succeed();
+    }
+
     private static void fillDream(GameTestHelper helper, BlockPos min, BlockPos max) {
         for (var pos : BlockPos.betweenClosed(min, max)) {
             helper.setBlock(pos, DashBlocks.block(DashBlocks.Kind.DREAM));

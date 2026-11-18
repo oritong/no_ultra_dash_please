@@ -19,7 +19,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 | 方块 | 用法 | 配方 |
 | --- | --- | --- |
-| 梦境方块 | 冲刺撞入时沿冲刺方向穿行；成功出块补充冲刺。出口被普通方块封死时会退回入口。 | 遮光玻璃 + 紫水晶碎片 |
+| 梦境方块 | 六个面（包括底部）都能冲刺进入。成功出块补充冲刺；途中撞到普通墙时完整反转速度，沿原路径穿回入口，不瞬移或清零。进入、穿梭循环、离开及反弹使用蔚蓝原版音效。 | 遮光玻璃 + 紫水晶碎片 |
 | 弹簧 / 超级弹簧 | 从上方落下时弹起、补充冲刺与攀爬体力；潜行可避开。 | 黏液块 + 红石粉 / 弹簧 + 活塞 |
 | 侧弹簧 | 冲刺或高速侧撞时向外弹开并回充。 | 弹簧 + 拉杆 |
 | 反弹 / 反射方块 | 冲刺碰撞时分别反弹起跳、沿碰撞轴反转速度；不回充。 | 黏液块 + 铁锭 / 反弹方块 + 浮冰 |
@@ -28,7 +28,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 首次加载世界生成 `config/no_ultra_dash_please-server.toml`，可调整次数、冲刺速度、持续/冷却时间、起跳容错、最高保速，并可关闭蹬墙或落地回充。地图作者可用 `no_ultra_dash_please:dream_blocks` 和 `no_ultra_dash_please:no_ground_refill` 标签指定可穿行和禁止回充的方块。
 
-客户端启动后生成 `config/no_ultra_dash_please-client.toml`。其中 `dashShaderIntensity = 100` 控制冲刺时的全屏赛博朋克故障效果：画面震动、青红色差、横向撕裂条纹和细扫描线，约 0.28 秒内衰减。范围 **0–200**，`0` 完全关闭，`100` 默认强度，`200` 双倍强度；修改文件可热重载。仅本人的服务端确认冲刺会触发，普通/红色推进器发射也会触发，打开界面或退出世界会停止。使用独立后处理通道，不占用原版后处理槽。
+客户端启动后生成 `config/no_ultra_dash_please-client.toml`。其中 `dashShaderIntensity = 100` 控制以幻棱迅光突进的视觉规格为参考重绘的棱镜效果：外围七通道径向色散、三角晶体切面、双端收尖流光和短促边缘曝光，0.40 秒内向外收缩、变细并碎裂消散。半径为屏幕高度 0.42 的中心圆内，后处理直接保留原画面；不使用全屏抖动、横向 RGB 重影、扫描线或模糊。另有短促的约 +10° 视野脉冲，恢复时不改变玩家 FOV 设置。范围 **0–200**，`0` 同时关闭后处理与视野脉冲，`100` 默认强度，`200` 双倍强度；修改文件可热重载。每次服务端确认冲刺重新开始时间轴，普通/红色推进器发射也会触发，打开界面或退出世界会停止。使用独立后处理通道，不占用原版后处理槽。此效果为原创 GLSL 实现，没有使用 Valorant 游戏资产。
 
 ## Celeste 移动机制参考
 
@@ -51,7 +51,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.2` |
+| 模组版本 | `0.1.3` |
 
 ## 开发
 
@@ -73,7 +73,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.2.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.3.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 
