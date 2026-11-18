@@ -28,13 +28,15 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 首次加载世界生成 `config/no_ultra_dash_please-server.toml`，可调整次数、冲刺速度、持续/冷却时间、起跳容错、最高保速，并可关闭蹬墙或落地回充。地图作者可用 `no_ultra_dash_please:dream_blocks` 和 `no_ultra_dash_please:no_ground_refill` 标签指定可穿行和禁止回充的方块。
 
+客户端启动后生成 `config/no_ultra_dash_please-client.toml`。其中 `dashShaderIntensity = 100` 控制冲刺时的全屏赛博朋克故障效果：画面震动、青红色差、横向撕裂条纹和细扫描线，约 0.28 秒内衰减。范围 **0–200**，`0` 完全关闭，`100` 默认强度，`200` 双倍强度；修改文件可热重载。仅本人的服务端确认冲刺会触发，普通/红色推进器发射也会触发，打开界面或退出世界会停止。使用独立后处理通道，不占用原版后处理槽。
+
 ## Celeste 移动机制参考
 
 冲刺、斜下冲刺落地、Hyper/Wavedash、Ultra 速度继承、蹬墙跳、梦境冲刺和冲刺恢复的源码摘录与参数说明保存在 [`reference/celeste`](reference/celeste/)。其中 [`DASH_MECHANICS.md`](reference/celeste/DASH_MECHANICS.md) 是面向本模组移植的中文摘要，[`EXTRACTED_SOURCE.md`](reference/celeste/EXTRACTED_SOURCE.md) 是按固定提交和行号保存的原始 `Player.cs` 代码摘录，`upstream/` 保存来源文件和许可证。
 
 参考仓库：[NoelFB/Celeste](https://github.com/NoelFB/Celeste)，固定提交 `1b0ce45c75e05649ae91b44a8bb6b196684e4352`。该仓库声明 MIT 许可证仅适用于仓库中的代码，不包括商业游戏本体或资产；`reference/celeste/` 仅保存代码研究资料。
 
-冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 17 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
+冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 18 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，晶体重生使用原事件 `event:/game/general/diamond_return`，音高 1.0。来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
 
 普通走跑、原版水下/梯子控制和普通起跳仍归 Minecraft。冲刺、抓墙和保速阶段才使用模组的运动状态；时间按 Minecraft 的 tick 计数，碰撞箱使用原版蹲姿。
 
@@ -47,7 +49,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.1` |
+| 模组版本 | `0.1.2` |
 
 ## 开发
 
@@ -69,7 +71,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.1.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.2.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 
