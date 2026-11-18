@@ -125,6 +125,13 @@
       "rendered_seconds": 1.28,
       "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_exit.ogg",
       "sha256": "0dbe4afc0ec17045be8bd02304d773cecb3ee6a8d7a2c69b4ac127a99f543d10"
+    },
+    "refill_return": {
+      "event": "event:/game/general/diamond_return",
+      "event_length_ms": 2000,
+      "rendered_seconds": 2.816,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/refill_return.ogg",
+      "sha256": "b6545634625ca4c9010cc3f590bc02bfa4b2b0fb182d844f7086ddd072cabd0c"
     }
   }
 }
