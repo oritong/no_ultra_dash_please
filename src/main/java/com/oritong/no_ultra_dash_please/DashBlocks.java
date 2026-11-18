@@ -27,18 +27,20 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 final class DashBlocks {
     private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(NoUltraDashPlease.MOD_ID);
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NoUltraDashPlease.MOD_ID);
-    private static final Map<Kind, DeferredBlock<Surface>> SURFACES = new EnumMap<>(Kind.class);
+    private static final Map<Kind, DeferredBlock<Block>> SURFACES = new EnumMap<>(Kind.class);
     static final TagKey<Block> NO_REFILL = tag("no_ground_refill");
     static final TagKey<Block> DREAM = tag("dream_blocks");
 
     static void register(IEventBus bus) {
         for (Kind kind : Kind.values()) {
-            var block = BLOCKS.register(kind.id, () -> new Surface(kind));
+            var block = BLOCKS.<Block>register(kind.id, () -> kind == Kind.REFILL
+                    ? new RefillCrystalBlock(RefillCrystalBlock.properties()) : new Surface(kind));
             SURFACES.put(kind, block);
             ITEMS.registerSimpleBlockItem(block);
         }
         BLOCKS.register(bus);
         ITEMS.register(bus);
+        RefillCrystalBlock.register(bus);
         bus.addListener(DashBlocks::creative);
     }
 
@@ -57,6 +59,9 @@ final class DashBlocks {
     }
 
     static Kind kind(BlockState state) {
+        if (state.getBlock() instanceof RefillCrystalBlock) {
+            return Kind.REFILL;
+        }
         if (state.is(DREAM)) {
             return Kind.DREAM;
         }
@@ -115,8 +120,6 @@ final class DashBlocks {
             var dash = ServerDash.get(player);
             if (kind.booster()) {
                 dash.queueBooster(kind, pos);
-            } else if (kind == Kind.REFILL) {
-                dash.touchRefill(player, pos);
             }
         }
 

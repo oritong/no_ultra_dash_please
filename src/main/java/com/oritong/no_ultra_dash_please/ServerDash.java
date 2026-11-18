@@ -37,7 +37,6 @@ public final class ServerDash {
     private DashPhysics.Contact spring;
     private DashBlocks.Kind booster;
     private BlockPos lastBooster;
-    private BlockPos lastCrystal;
     private int charges = -1;
     private int maxCharges;
     private int lastCharges = -1;
@@ -129,6 +128,9 @@ public final class ServerDash {
 
     public boolean useRefill() {
         maxCharges = DashTuning.CHARGES.get();
+        if (charges < 0) {
+            charges = maxCharges;
+        }
         if (charges == maxCharges && stamina == 110) {
             return false;
         }
@@ -136,12 +138,13 @@ public final class ServerDash {
         return true;
     }
 
-    void touchRefill(ServerPlayer player, BlockPos pos) {
-        if (!pos.equals(lastCrystal) && useRefill()) {
-            lastCrystal = pos.immutable();
+    boolean touchRefill(ServerPlayer player, BlockPos pos) {
+        if (useRefill()) {
             effect(player, DashSounds.REFILL_TOUCH.get(), 1.0F);
             trail(player, ParticleTypes.END_ROD);
+            return true;
         }
+        return false;
     }
 
     public void inheritPlatform(Vec3 motion) {
@@ -166,7 +169,6 @@ public final class ServerDash {
         spring = null;
         booster = null;
         lastBooster = null;
-        lastCrystal = null;
         platformGrace = 0;
         earnedRefill = false;
         jumpDeadline = dashDeadline = groundDeadline = -1;
@@ -196,9 +198,6 @@ public final class ServerDash {
         if (lastBooster != null && booster == null && phase != Phase.BOOSTER
                 && !player.getBoundingBox().intersects(new AABB(lastBooster).inflate(0.25))) {
             lastBooster = null;
-        }
-        if (lastCrystal != null && !player.getBoundingBox().intersects(new AABB(lastCrystal).inflate(0.25))) {
-            lastCrystal = null;
         }
         if (hasGround) {
             groundDeadline = tick + DashTuning.GRACE.get();

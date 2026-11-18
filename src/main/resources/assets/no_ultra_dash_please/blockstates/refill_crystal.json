@@ -1,1 +1,7 @@
-{"variants":{"":{"model":"no_ultra_dash_please:block/refill_crystal"}}}
+{
+  "variants": {
+    "phase=ready": { "model": "no_ultra_dash_please:block/refill_crystal" },
+    "phase=empty": { "model": "no_ultra_dash_please:block/refill_crystal_empty" },
+    "phase=regenerating": { "model": "no_ultra_dash_please:block/refill_crystal_empty" }
+  }
+}
