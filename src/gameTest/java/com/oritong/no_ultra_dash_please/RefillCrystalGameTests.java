@@ -1,5 +1,7 @@
 package com.oritong.no_ultra_dash_please;
 
+import com.mojang.authlib.GameProfile;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -8,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import net.neoforged.neoforge.common.util.FakePlayer;
 
 @GameTestHolder(NoUltraDashPlease.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -69,9 +72,9 @@ public final class RefillCrystalGameTests {
         helper.succeed();
     }
 
-    @SuppressWarnings("removal")
     private static ServerPlayer player(GameTestHelper helper) {
-        var player = helper.makeMockServerPlayerInLevel();
+        // FakePlayer supplies a no-op network handler, so movement tests need no client handshake.
+        var player = new FakePlayer(helper.getLevel(), new GameProfile(UUID.randomUUID(), "crystal-test"));
         player.setNoGravity(true);
         player.getAbilities().flying = false;
         return player;
