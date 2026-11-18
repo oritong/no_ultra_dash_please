@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "free",
+    "box_uv": false
+  },
+  "name": "refill_crystal",
+  "model_identifier": "",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "multi_file_ruleset": "",
+  "variable_placeholder_buttons": [],
+  "timeline_setups": [],
+  "unhandled_root_fields": {},
+  "ai_used": true,
+  "ai_agents": "codex-mcp-client",
+  "resolution": {
+    "width": 16,
+    "height": 16
+  },
+  "elements": [
+    {
+      "name": "refill_crystal_octahedron",
+      "color": 0,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "shading": "flat",
+      "export": true,
+      "visibility": true,
+      "locked": false,
+      "render_order": "default",
+      "scope": 0,
+      "allow_mirror_modeling": true,
+      "vertices": {
+        "TdMK": [
+          0,
+          13.65685424949238,
+          0
+        ],
+        "oK2c": [
+          0,
+          2.3431457505076194,
+          0
+        ],
+        "6WDO": [
+          0,
+          8,
+          -5.656854249492381
+        ],
+        "yFnU": [
+          5.656854249492381,
+          8,
+          0
+        ],
+        "UW0p": [
+          0,
+          8,
+          5.656854249492381
+        ],
+        "JQHs": [
+          -5.656854249492381,
+          8,
+          0
+        ]
+      },
+      "faces": {
+        "eIBxQk72": {
+          "uv": {
+            "6WDO": [
+              4,
+              8
+            ],
+            "yFnU": [
+              12,
+              8
+            ],
+            "TdMK": [
+              8,
+              1.0717967697244912
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "TdMK",
+            "yFnU",
+            "6WDO"
+          ]
+        },
+        "u3hQZsMr": {
+          "uv": {
+            "yFnU": [
+              12,
+              8
+            ],
+            "6WDO": [
+              4,
+              8
+            ],
+            "oK2c": [
+              8,
+              14.928203230275509
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "oK2c",
+            "6WDO",
+            "yFnU"
+          ]
+        },
+        "KcO7QDH4": {
+          "uv": {
+            "yFnU": [
+              4,
+              8
+            ],
+            "UW0p": [
+              12,
+              8
+            ],
+            "TdMK": [
+              8,
+              1.0717967697244912
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "TdMK",
+            "UW0p",
+            "yFnU"
+          ]
+        },
+        "xQ6rKx6k": {
+          "uv": {
+            "UW0p": [
+              12,
+              8
+            ],
+            "yFnU": [
+              4,
+              8
+            ],
+            "oK2c": [
+              8,
+              14.928203230275509
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "oK2c",
+            "yFnU",
+            "UW0p"
+          ]
+        },
+        "jfQdo6Cw": {
+          "uv": {
+            "UW0p": [
+              4,
+              8
+            ],
+            "JQHs": [
+              12,
+              8
+            ],
+            "TdMK": [
+              8,
+              1.0717967697244912
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "TdMK",
+            "JQHs",
+            "UW0p"
+          ]
+        },
+        "w7K951jz": {
+          "uv": {
+            "JQHs": [
+              12,
+              8
+            ],
+            "UW0p": [
+              4,
+              8
+            ],
+            "oK2c": [
+              8,
+              14.928203230275509
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "oK2c",
+            "UW0p",
+            "JQHs"
+          ]
+        },
+        "PLBnNeNH": {
+          "uv": {
+            "JQHs": [
+              4,
+              8
+            ],
+            "6WDO": [
+              12,
+              8
+            ],
+            "TdMK": [
+              8,
+              1.0717967697244912
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "TdMK",
+            "6WDO",
+            "JQHs"
+          ]
+        },
+        "HmqX8YQW": {
+          "uv": {
+            "6WDO": [
+              12,
+              8
+            ],
+            "JQHs": [
+              4,
+              8
+            ],
+            "oK2c": [
+              8,
+              14.928203230275509
+            ]
+          },
+          "texture": 0,
+          "vertices": [
+            "oK2c",
+            "JQHs",
+            "6WDO"
+          ]
+        }
+      },
+      "type": "mesh",
+      "uuid": "124bdccb-d041-954e-d783-83816251a7ac"
+    }
+  ],
+  "groups": [],
+  "outliner": [
+    "124bdccb-d041-954e-d783-83816251a7ac"
+  ],
+  "textures": [
+    {
+      "name": "refill_crystal.png",
+      "relative_path": "../../src/main/resources/assets/no_ultra_dash_please/textures/block/refill_crystal.png",
+      "folder": "block",
+      "namespace": "no_ultra_dash_please",
+      "id": "0",
+      "group": "",
+      "scope": 0,
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "particle": false,
+      "use_as_default": false,
+      "layers_enabled": false,
+      "sync_to_project": "",
+      "file_format": "png",
+      "render_mode": "default",
+      "render_sides": "auto",
+      "wrap_mode": "limited",
+      "pbr_channel": "color",
+      "fps": 7,
+      "force_translucent": false,
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "frame_interpolate": false,
+      "visible": true,
+      "internal": true,
+      "saved": true,
+      "uuid": "af25517a-60f0-6679-e657-212a65d1c947",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzklEQVR4AaRPMQ7CMAw0FizlBx15QVkYeBovYWWDiR32Diwg9pYBhOABsIAEuUiJrCRuhlq52LXvzimvX4tfHzD1jE6DaTEjoGuHapATOlPVAISSKsoFpwjYXlJFdzpRLlgjQHx8H2jVbuj8uGg0Ug0glkJZSzfGIAS2Lusr1e3QA6KQh2+WJFnPJ19oLJ7NgLb7kTeTPPUXrNJcEJtkj6xtw1yMZgrYYubRCbnZF0QOQUM1wCbH/TSFK6PMGGq47cZeoHHUFzglhK5O5T8AAAD//5tzCuwAAAAGSURBVAMAMyq3IYbL1zYAAAAASUVORK5CYII="
+    }
+  ]
+}

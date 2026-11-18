@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [{"item":"no_ultra_dash_please:spring"}, {"item":"minecraft:lever"}],
+  "result": {"id": "no_ultra_dash_please:side_spring"}
+}

@@ -1,0 +1,14 @@
+{
+  "parent": "no_ultra_dash_please:block/refill_crystal",
+  "loader": "neoforge:obj",
+  "model": "no_ultra_dash_please:models/block/refill_crystal_empty.obj",
+  "automatic_culling": false,
+  "shade_quads": false,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "no_ultra_dash_please:block/refill_crystal_empty"
+  }
+}

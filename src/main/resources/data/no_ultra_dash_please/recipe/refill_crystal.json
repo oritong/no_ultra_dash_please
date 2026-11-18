@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [{"item":"minecraft:amethyst_shard"}, {"item":"minecraft:amethyst_shard"}, {"item":"minecraft:glowstone_dust"}],
+  "result": {"id": "no_ultra_dash_please:refill_crystal"}
+}

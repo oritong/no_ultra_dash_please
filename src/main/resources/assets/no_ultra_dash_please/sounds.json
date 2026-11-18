@@ -1,0 +1,138 @@
+{
+  "refill_touch": {
+    "subtitle": "subtitles.no_ultra_dash_please.refill_touch",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/refill_touch"
+      }
+    ]
+  },
+  "dash": {
+    "subtitle": "subtitles.no_ultra_dash_please.dash",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/dash"
+      }
+    ]
+  },
+  "booster_enter": {
+    "subtitle": "subtitles.no_ultra_dash_please.booster_enter",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/booster_enter"
+      }
+    ]
+  },
+  "red_booster_enter": {
+    "subtitle": "subtitles.no_ultra_dash_please.red_booster_enter",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/red_booster_enter"
+      }
+    ]
+  },
+  "booster_dash": {
+    "subtitle": "subtitles.no_ultra_dash_please.booster_dash",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/booster_dash"
+      }
+    ]
+  },
+  "red_booster_dash": {
+    "subtitle": "subtitles.no_ultra_dash_please.red_booster_dash",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/red_booster_dash"
+      }
+    ]
+  },
+  "jump_super": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_super",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_super"
+      }
+    ]
+  },
+  "jump_superslide": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_superslide",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_superslide"
+      }
+    ]
+  },
+  "jump_wall": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_wall",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_wall"
+      }
+    ]
+  },
+  "jump_superwall": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_superwall",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_superwall"
+      }
+    ]
+  },
+  "jump_climb": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_climb",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_climb"
+      }
+    ]
+  },
+  "jump": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump"
+      }
+    ]
+  },
+  "jump_dreamblock": {
+    "subtitle": "subtitles.no_ultra_dash_please.jump_dreamblock",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/jump_dreamblock"
+      }
+    ]
+  },
+  "spring": {
+    "subtitle": "subtitles.no_ultra_dash_please.spring",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/spring"
+      }
+    ]
+  },
+  "rebound": {
+    "subtitle": "subtitles.no_ultra_dash_please.rebound",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/rebound"
+      }
+    ]
+  },
+  "dream_enter": {
+    "subtitle": "subtitles.no_ultra_dash_please.dream_enter",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/dream_enter"
+      }
+    ]
+  },
+  "dream_exit": {
+    "subtitle": "subtitles.no_ultra_dash_please.dream_exit",
+    "sounds": [
+      {
+        "name": "no_ultra_dash_please:celeste/dream_exit"
+      }
+    ]
+  }
+}

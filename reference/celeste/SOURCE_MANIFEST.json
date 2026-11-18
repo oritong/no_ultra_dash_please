@@ -1,0 +1,208 @@
+{
+  "repository": "https://github.com/NoelFB/Celeste",
+  "repository_revision": "1b0ce45c75e05649ae91b44a8bb6b196684e4352",
+  "repository_revision_date_utc": "2021-08-05T22:16:41Z",
+  "player_file_latest_commit": "7fd7ae760bc98bc1659c035d807cb47a3463e9b7",
+  "player_file_latest_commit_date_utc": "2019-03-28T06:38:01Z",
+  "captured_at_utc": "2026-11-14T08:41:08.7495036Z",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2018 Noel Berry",
+  "license_scope": "Code in this repository; excludes the commercial game and its assets.",
+  "player_source_line_count": 5471,
+  "files": [
+    {
+      "upstream_path": "LICENSE",
+      "local_path": "upstream/LICENSE",
+      "raw_url": "https://raw.githubusercontent.com/NoelFB/Celeste/1b0ce45c75e05649ae91b44a8bb6b196684e4352/LICENSE",
+      "sha256": "096b580c9b4f487596eeda22964610685018525a5af7bbb1518f2b5e442661d6"
+    },
+    {
+      "upstream_path": "README.md",
+      "local_path": "upstream/README.md",
+      "raw_url": "https://raw.githubusercontent.com/NoelFB/Celeste/1b0ce45c75e05649ae91b44a8bb6b196684e4352/README.md",
+      "sha256": "87615045926a881a764adfea769dcc6aea998838533af70ad133acb33c432825"
+    },
+    {
+      "upstream_path": "Source/Player/Player.cs",
+      "local_path": "upstream/Player.cs",
+      "raw_url": "https://raw.githubusercontent.com/NoelFB/Celeste/1b0ce45c75e05649ae91b44a8bb6b196684e4352/Source/Player/Player.cs",
+      "sha256": "7a8606d886c083b1f16932c919564a612e17d5c8418aec01421f877e9e92be5b"
+    },
+    {
+      "upstream_path": "Source/Player/Readme.md",
+      "local_path": "upstream/Player-Readme.md",
+      "raw_url": "https://raw.githubusercontent.com/NoelFB/Celeste/1b0ce45c75e05649ae91b44a8bb6b196684e4352/Source/Player/Readme.md",
+      "sha256": "8112be04ce7b94eec802a74362c2bdc24165fb91971fe9c5c4be13960de1713f"
+    }
+  ],
+  "excerpts": [
+    {
+      "id": "constants",
+      "title": "移动、跳跃、冲刺、攀爬和平台继承常量",
+      "start": 23,
+      "end": 125
+    },
+    {
+      "id": "states",
+      "title": "状态编号",
+      "start": 140,
+      "end": 162
+    },
+    {
+      "id": "movement-fields",
+      "title": "移动状态、计时器与命中箱",
+      "start": 210,
+      "end": 266
+    },
+    {
+      "id": "state-callbacks",
+      "title": "状态机回调注册",
+      "start": 315,
+      "end": 346
+    },
+    {
+      "id": "ground-check",
+      "title": "帧开始时的落地探测",
+      "start": 633,
+      "end": 651
+    },
+    {
+      "id": "wallboost",
+      "title": "攀爬跳后改方向的 Wall Boost",
+      "start": 688,
+      "end": 699
+    },
+    {
+      "id": "refill-timers",
+      "title": "落地处理、Dash Attack、土狼时间、恢复冲刺和变高跳计时",
+      "start": 701,
+      "end": 744
+    },
+    {
+      "id": "facing-and-retention",
+      "title": "方向输入、朝向、瞄准和碰墙保速",
+      "start": 759,
+      "end": 811
+    },
+    {
+      "id": "movement-order",
+      "title": "组件更新后：贴地、取消蹲姿、水平和垂直碰撞移动",
+      "start": 908,
+      "end": 935
+    },
+    {
+      "id": "jump-family",
+      "title": "Jump、SuperJump、WallJump、SuperWallJump、ClimbJump",
+      "start": 1660,
+      "end": 1842
+    },
+    {
+      "id": "bounce-family",
+      "title": "外部弹跳接口 Bounce、SuperBounce、SideBounce、Rebound、ReflectBounce",
+      "start": 1844,
+      "end": 1989
+    },
+    {
+      "id": "refill-api",
+      "title": "最大冲刺数、冲刺补充和体力补充接口",
+      "start": 1991,
+      "end": 2028
+    },
+    {
+      "id": "lift-boost",
+      "title": "移动平台速度继承与上限",
+      "start": 2091,
+      "end": 2107
+    },
+    {
+      "id": "ducking",
+      "title": "蹲姿、起身空间、蹲姿碰撞箱检查",
+      "start": 2113,
+      "end": 2183
+    },
+    {
+      "id": "grace-and-pointbounce",
+      "title": "外部土狼时间和点弹跳接口",
+      "start": 2261,
+      "end": 2310
+    },
+    {
+      "id": "horizontal-collision",
+      "title": "水平碰撞：冲刺方块、纠角、梦境入口、保速",
+      "start": 2359,
+      "end": 2451
+    },
+    {
+      "id": "vertical-collision",
+      "title": "垂直碰撞：冲刺方块、纠角、斜下落地乘速、撞顶",
+      "start": 2453,
+      "end": 2640
+    },
+    {
+      "id": "dream-entry",
+      "title": "梦境冲刺入口与边缘纠正",
+      "start": 2642,
+      "end": 2705
+    },
+    {
+      "id": "normal-state-entry",
+      "title": "普通状态进入、离开和爬墙检查",
+      "start": 2760,
+      "end": 2788
+    },
+    {
+      "id": "normal-dash-duck",
+      "title": "普通状态触发冲刺、蹲姿和高速摩擦",
+      "start": 2823,
+      "end": 2895
+    },
+    {
+      "id": "normal-vertical-jump",
+      "title": "快落、重力、变高跳、普通跳和后续蹬墙跳",
+      "start": 2897,
+      "end": 3007
+    },
+    {
+      "id": "climb-dash",
+      "title": "爬墙状态中跳跃和冲刺",
+      "start": 3102,
+      "end": 3126
+    },
+    {
+      "id": "dash-state",
+      "title": "完整普通冲刺状态：消耗、条件、开始、取消和协程",
+      "start": 3356,
+      "end": 3636
+    },
+    {
+      "id": "swim-dash-multiplier",
+      "title": "水中冲刺倍率",
+      "start": 3640,
+      "end": 3647
+    },
+    {
+      "id": "swim-dash",
+      "title": "水中冲刺入口：没有调用扣次数的 StartDash",
+      "start": 3684,
+      "end": 3699
+    },
+    {
+      "id": "booster-dash",
+      "title": "气泡恢复与普通/红色气泡冲刺选择",
+      "start": 3788,
+      "end": 3828
+    },
+    {
+      "id": "red-dash",
+      "title": "完整红色气泡冲刺状态",
+      "start": 3832,
+      "end": 3929
+    },
+    {
+      "id": "dream-dash",
+      "title": "完整梦境冲刺与出块跳跃逻辑",
+      "start": 4160,
+      "end": 4307
+    }
+  ]
+}

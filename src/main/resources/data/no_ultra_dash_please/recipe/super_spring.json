@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [{"item":"no_ultra_dash_please:spring"}, {"item":"minecraft:piston"}],
+  "result": {"id": "no_ultra_dash_please:super_spring"}
+}

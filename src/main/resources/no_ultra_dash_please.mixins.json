@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.oritong.no_ultra_dash_please.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["EntityMixin", "PlayerMixin", "LivingEntityMixin", "ServerMovementMixin"],
+  "client": ["LocalPlayerMixin"],
+  "injectors": {"defaultRequire": 1}
+}

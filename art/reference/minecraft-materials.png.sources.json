@@ -1,0 +1,92 @@
+[
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/iron_block.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  },
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/piston_side.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  },
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/observer_front.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  },
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/amethyst_block.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  },
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/emerald_block.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  },
+  {
+    "source": "C:\\Users\\orito\\.gradle\\caches\\neoformruntime\\artifacts\\minecraft_1.21.1_client.jar::assets/minecraft/textures/block/crying_obsidian.png",
+    "image_size": [
+      16,
+      16
+    ],
+    "displayed_box": [
+      0,
+      0,
+      16,
+      16
+    ],
+    "frame_index": 0,
+    "animation": null
+  }
+]

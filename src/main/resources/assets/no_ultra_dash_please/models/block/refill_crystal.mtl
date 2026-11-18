@@ -1,0 +1,6 @@
+# Original model and texture; Celeste palette and silhouette reference only.
+newmtl refill_crystal
+Ka 0 0 0
+Kd 1 1 1
+d 1
+map_Kd no_ultra_dash_please:block/refill_crystal

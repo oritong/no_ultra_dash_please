@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [{"item":"no_ultra_dash_please:rebound_block"}, {"item":"minecraft:packed_ice"}],
+  "result": {"id": "no_ultra_dash_please:reflect_block"}
+}

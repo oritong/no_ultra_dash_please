@@ -1,0 +1,130 @@
+{
+  "source": "Local Celeste installation / Content/FMOD/Desktop",
+  "fmod_version": "0x11014",
+  "banks": {
+    "Master Bank.strings.bank": "17972a60320cd9da8b2a68fe8e2bf2df62309e41ebd790d0db2f0ca48ffe9eca",
+    "Master Bank.bank": "577045d940ad91772a99fa627149df08cc1fdfa4f9a007eb3de91b47d0b91f7b",
+    "sfx.bank": "1f750c6df27e2e5e5ce4af8c80f22c7dd5c63999ef49b1cf67c03bb8a36dff33"
+  },
+  "events": {
+    "refill_touch": {
+      "event": "event:/game/general/diamond_touch",
+      "event_length_ms": 2000,
+      "rendered_seconds": 2.816,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/refill_touch.ogg",
+      "sha256": "425bf5556588c63f60f32bb0181cd6a176af2f2b781cc8516ab174b57950160c"
+    },
+    "dash": {
+      "event": "event:/char/madeline/dash_red_right",
+      "event_length_ms": 516,
+      "rendered_seconds": 1.3013333333333332,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dash.ogg",
+      "sha256": "f173b44615c654e457f67e10d4990a48934a707151f555f259059c571c4e15dc"
+    },
+    "booster_enter": {
+      "event": "event:/game/04_cliffside/greenbooster_enter",
+      "event_length_ms": 238,
+      "rendered_seconds": 1.024,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/booster_enter.ogg",
+      "sha256": "642f4ec66d2f364ee1070458a6086a494ad11c22a25128d5ec0d892a45e3e8ba"
+    },
+    "red_booster_enter": {
+      "event": "event:/game/05_mirror_temple/redbooster_enter",
+      "event_length_ms": 300,
+      "rendered_seconds": 1.088,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_enter.ogg",
+      "sha256": "ac7580bb83a4779c7a21a24b9a97b1c2c456c2ad122dcb66de67cd66fc0de30f"
+    },
+    "booster_dash": {
+      "event": "event:/game/04_cliffside/greenbooster_dash",
+      "event_length_ms": 366,
+      "rendered_seconds": 1.152,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/booster_dash.ogg",
+      "sha256": "18f94470f03a0eed2101880affd354efe9642004f0ee028351ce3c575d6024fe"
+    },
+    "red_booster_dash": {
+      "event": "event:/game/05_mirror_temple/redbooster_dash",
+      "event_length_ms": 330,
+      "rendered_seconds": 1.1093333333333333,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_dash.ogg",
+      "sha256": "6b8ce08bc3d03fcddfce0665146159977998a5f959347c0b60f6f7b15461b4f2"
+    },
+    "jump_super": {
+      "event": "event:/char/madeline/jump_super",
+      "event_length_ms": 716,
+      "rendered_seconds": 1.4933333333333334,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_super.ogg",
+      "sha256": "7c334aec63d4e35ffc80aa49ba67f4e55843c0e60e30e67e932699200a15316d"
+    },
+    "jump_superslide": {
+      "event": "event:/char/madeline/jump_superslide",
+      "event_length_ms": 750,
+      "rendered_seconds": 1.536,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_superslide.ogg",
+      "sha256": "af849c07cbe6ed04afbc8b6fef801c82352d579e9f488db55ce794f7824f2f95"
+    },
+    "jump_wall": {
+      "event": "event:/char/madeline/jump_wall_right",
+      "event_length_ms": 70,
+      "rendered_seconds": 0.8533333333333334,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_wall.ogg",
+      "sha256": "05f51e9829a74d46ac5ed896a3391136042ba99b984f04c3942860cd4d988c8d"
+    },
+    "jump_superwall": {
+      "event": "event:/char/madeline/jump_superwall",
+      "event_length_ms": 554,
+      "rendered_seconds": 1.344,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_superwall.ogg",
+      "sha256": "8f44f3a4b2d12348f38dd428d6bfd7d79633b3c6b1a017b90940e7cf41d4669b"
+    },
+    "jump_climb": {
+      "event": "event:/char/madeline/jump_climb_right",
+      "event_length_ms": 266,
+      "rendered_seconds": 1.0453333333333332,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_climb.ogg",
+      "sha256": "3308de2766e49ecc729d4e1b31e59f06c153e60fe0a0a0d8d0889bf029ec6acb"
+    },
+    "jump": {
+      "event": "event:/char/madeline/jump",
+      "event_length_ms": 93,
+      "rendered_seconds": 0.8746666666666667,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump.ogg",
+      "sha256": "ec2410ce23db5d45d4453bc116f109c7eff2c419348e8f2fdccde759bc1c7692"
+    },
+    "jump_dreamblock": {
+      "event": "event:/char/madeline/jump_dreamblock",
+      "event_length_ms": 350,
+      "rendered_seconds": 1.1306666666666667,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/jump_dreamblock.ogg",
+      "sha256": "13969679f3b36afa5d562906ee8be19f0b2e332df2bee0a314bf3bebfaca6aae"
+    },
+    "spring": {
+      "event": "event:/game/general/spring",
+      "event_length_ms": 899,
+      "rendered_seconds": 1.6853333333333333,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/spring.ogg",
+      "sha256": "4b10c71ebe6b2f591bb31b93d5ed77192922d788fb3f63b84fb60b8642c7e145"
+    },
+    "rebound": {
+      "event": "event:/game/06_reflection/pinballbumper_hit",
+      "event_length_ms": 816,
+      "rendered_seconds": 1.6,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/rebound.ogg",
+      "sha256": "903dbde21aab6c7f9b91f77ba04715e4a4cf6f24e3acf7b500c3525fd7780a1f"
+    },
+    "dream_enter": {
+      "event": "event:/char/madeline/dreamblock_enter",
+      "event_length_ms": 500,
+      "rendered_seconds": 1.28,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_enter.ogg",
+      "sha256": "1233c84655defaf6ecbcb851ea0389d1c66f3a2736a53447b23db79b28e01ac6"
+    },
+    "dream_exit": {
+      "event": "event:/char/madeline/dreamblock_exit",
+      "event_length_ms": 500,
+      "rendered_seconds": 1.28,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_exit.ogg",
+      "sha256": "0dbe4afc0ec17045be8bd02304d773cecb3ee6a8d7a2c69b4ac127a99f543d10"
+    }
+  }
+}

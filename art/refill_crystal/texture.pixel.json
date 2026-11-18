@@ -1,0 +1,36 @@
+{
+  "name": "refill_crystal",
+  "size": [16, 16],
+  "palette": {
+    "d": "#247568",
+    "s": "#29985e",
+    "g": "#40bb5d",
+    "m": "#7add59",
+    "l": "#a8f57a",
+    "h": "#d9ffb0",
+    "w": "#f3ffe0"
+  },
+  "rows": [
+    "llllllllllllllll",
+    "llllllllllllllll",
+    "lllllllhhlllllll",
+    "llllllhhhlllllll",
+    "llllllhwhlllllll",
+    "lllllhwhhlllllll",
+    "lllllhhlmmllllll",
+    "lllllhlmmmmlllll",
+    "mmmmmmggggmmmmmm",
+    "ggggggmggssggggg",
+    "ggggggmgssssgggg",
+    "ssssssggssssssss",
+    "ssssssggssssssss",
+    "sssssssgsdssssss",
+    "ddddddddsddddddd",
+    "dddddddddddddddd"
+  ],
+  "uv": {
+    "upper": [[8, 1.0717967697244912], [12, 8], [4, 8]],
+    "lower": [[8, 14.928203230275509], [4, 8], [12, 8]],
+    "notes": "Eight-unit equilateral triangles; one texture pixel per Blockbench unit. The two islands share the waist edge. Unused pixels provide opaque color padding."
+  }
+}

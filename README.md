@@ -1,25 +1,83 @@
+# 不要再奥歘了
 
-Installation information
-=======
+**No Ultra Dash, Please!**
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。单人世界可直接使用；联机时客户端和服务端都需要安装同版本。
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## 操作
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+- 按 `R` 冲刺，可在「选项 → 控制 → 按键绑定」里修改。水平方向取镜头朝向；仰角按最近的 `+90° / +45° / 0° / -45° / -90°` 吸附（抬头为正），分别对应上、斜上、前、斜下、下。
+- 空中默认可冲一次，快捷栏右侧显示剩余次数；落在可回充的地面上会恢复。岩浆块、仙人掌、滴水石锥默认不能回充。深水中速度降至 75%，有次数时可冲刺但不扣次数。
+- **Super / Hyper：**在地面水平冲刺后立即跳。水平冲刺时蹲着会变成低跳、快跑的 Hyper。
+- **Wavedash：**先跳，再瞄准前下方冲向地板，碰地前后按跳。斜下冲刺碰地会先进入滑行，然后把速度转成低而快的跃起。即使先起跳，只要实际碰到可回充地面，冷却结束后也会补回次数。
+- **Ultra：**Wavedash 后按住前进，等冷却结束再沿同一方向斜下冲地。冲刺会继承已有的同向速度，斜下触地再乘 `1.2`；可重复衔接，受服务端配置的速度上限限制。
+- **墙边移动：**在空中贴近墙面按跳可蹬墙；竖直上冲时按跳会触发更强的蹬墙跳。面朝墙按住潜行可抓墙，前进上爬、后退下滑。抓墙跳后马上按离墙方向可触发 Wall Boost。冲刺后的跳跃按住跳键更高，下落时按住潜行可加快下落。
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+## 玩法方块
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+方块在创造模式「功能性方块」页签中，也可用无序配方合成。
+
+| 方块 | 用法 | 配方 |
+| --- | --- | --- |
+| 梦境方块 | 冲刺撞入时沿冲刺方向穿行；成功出块补充冲刺。出口被普通方块封死时会退回入口。 | 遮光玻璃 + 紫水晶碎片 |
+| 弹簧 / 超级弹簧 | 从上方落下时弹起、补充冲刺与攀爬体力；潜行可避开。 | 黏液块 + 红石粉 / 弹簧 + 活塞 |
+| 侧弹簧 | 冲刺或高速侧撞时向外弹开并回充。 | 弹簧 + 拉杆 |
+| 反弹 / 反射方块 | 冲刺碰撞时分别反弹起跳、沿碰撞轴反转速度；不回充。 | 黏液块 + 铁锭 / 反弹方块 + 浮冰 |
+| 冲刺恢复晶体 | 碰到它时补满冲刺和攀爬体力。 | 紫水晶碎片 ×2 + 荧石粉 |
+| 推进器 / 红色推进器 | 进入或空手右键可回充，再按 `R` 或等片刻自动发射；红冲会持续到撞击、主动取消或安全时限。 | 末影珍珠 + 紫水晶碎片 + 黏液球 / 推进器 + 烈焰粉 + 红石粉 |
+
+首次加载世界生成 `config/no_ultra_dash_please-server.toml`，可调整次数、冲刺速度、持续/冷却时间、起跳容错、最高保速，并可关闭蹬墙或落地回充。地图作者可用 `no_ultra_dash_please:dream_blocks` 和 `no_ultra_dash_please:no_ground_refill` 标签指定可穿行和禁止回充的方块。
+
+## Celeste 移动机制参考
+
+冲刺、斜下冲刺落地、Hyper/Wavedash、Ultra 速度继承、蹬墙跳、梦境冲刺和冲刺恢复的源码摘录与参数说明保存在 [`reference/celeste`](reference/celeste/)。其中 [`DASH_MECHANICS.md`](reference/celeste/DASH_MECHANICS.md) 是面向本模组移植的中文摘要，[`EXTRACTED_SOURCE.md`](reference/celeste/EXTRACTED_SOURCE.md) 是按固定提交和行号保存的原始 `Player.cs` 代码摘录，`upstream/` 保存来源文件和许可证。
+
+参考仓库：[NoelFB/Celeste](https://github.com/NoelFB/Celeste)，固定提交 `1b0ce45c75e05649ae91b44a8bb6b196684e4352`。该仓库声明 MIT 许可证仅适用于仓库中的代码，不包括商业游戏本体或资产；`reference/celeste/` 仅保存代码研究资料。
+
+冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 17 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
+
+普通走跑、原版水下/梯子控制和普通起跳仍归 Minecraft。冲刺、抓墙和保速阶段才使用模组的运动状态；时间按 Minecraft 的 tick 计数，碰撞箱使用原版蹲姿。
+
+| 项目 | 值 |
+| --- | --- |
+| 中文名称 | 不要再奥歘了 |
+| 英文名称 | No Ultra Dash, Please! |
+| Mod ID | `no_ultra_dash_please` |
+| Minecraft | `1.21.1` |
+| NeoForge | `21.1.265` |
+| Java | `21` |
+| Gradle Wrapper | `8.13` |
+| 模组版本 | `0.1.0` |
+
+## 开发
+
+此项目目录为后续开发工作区：`D:\MCMOD\no_ultra_dash_please`。
+
+使用 JDK 21，将 IDE 的项目 SDK 和 Gradle JVM 设为 Java 21。通过项目自带的 Gradle Wrapper 构建，无需安装系统 Gradle。首次构建需要联网下载依赖。
+
+```powershell
+# 在本项目目录下执行
+.\gradlew.bat build
+
+# 启动开发客户端
+.\gradlew.bat runClient
+
+# 启动开发服务端；首次运行需阅读并自行接受 Minecraft EULA
+.\gradlew.bat runServer
+
+# 生成数据资源
+.\gradlew.bat runData
+```
+
+构建产物：`build/libs/no_ultra_dash_please-0.1.0.jar`。
+
+## 目录
+
+- `gradle.properties`：模组名称、版本、Minecraft 与 NeoForge 版本。
+- `src/main/java/com/oritong/no_ultra_dash_please/`：Java 源码与模组入口。
+- `src/main/templates/META-INF/neoforge.mods.toml`：模组元数据模板，构建时自动填入版本和名称。
+- `src/main/resources/`：手写资源文件。
+- `src/generated/resources/`：数据生成器输出。
+- `run/`：本地游戏运行目录，不纳入版本控制。
+
+项目基于 [NeoForge 官方 Minecraft 1.21.1 ModDevGradle MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle) 创建。模板许可证保留在 `TEMPLATE_LICENSE.txt`；模组暂沿用模板默认的 `All Rights Reserved` 声明。
