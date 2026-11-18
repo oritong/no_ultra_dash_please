@@ -1,6 +1,6 @@
 # 蔚蓝原版音效
 
-18 个事件从本机 Steam 版 Celeste 的原始 FMOD bank 离线渲染，原事件名、bank 与输出文件的 SHA-256 记录在 `sources.json`。使用游戏附带的 FMOD 1.10.14，不启动或修改 Celeste。
+20 个事件从本机 Steam 版 Celeste 的原始 FMOD bank 离线渲染，原事件名、bank 与输出文件的 SHA-256 记录在 `sources.json`。使用游戏附带的 FMOD 1.10.14，不启动或修改 Celeste。
 
 运行文件在 `src/main/resources/assets/no_ultra_dash_please/sounds/celeste/`；`sounds.json` 和 `DashSounds.java` 注册事件，`ServerDash.java` 使用它们。晶体触碰、冲刺、普通/红色推进器进入与发射、超级/滑跃/墙跳/攀爬跳、弹簧、反弹和梦境方块进入/离开均已对应接入，中英字幕一并添加。
 
@@ -8,6 +8,8 @@
 
 `extract_celeste_audio.py --game <Celeste目录> --ffmpeg <已有FFmpeg可执行文件>` 可重做音频。源游戏、DLL、WAV 中间文件与 FFmpeg 均不随模组打包。脚本需要 Windows Python 3，不需要 Python 第三方包。
 
-18 个 Ogg 均已解码核查：单声道、48 kHz、非静音、无满幅削波；资源、注册和字幕路径检查通过。
+20 个 Ogg 均已解码核查：单声道、48 kHz、非静音、无满幅削波；资源、注册和字幕路径检查通过。
 
 `refill_return` 为 `event:/game/general/diamond_return`，在晶体 50 tick 冷却结束、空水晶恢复时向附近玩家播放，使用 BLOCKS 音量分类、音高 1.0。此次新增音频为 48 kHz 单声道，约 2.62 秒，峰值 -11.43 dBFS；没有调速、移调或合成替代声音。
+
+梦境穿梭新增 `event:/char/madeline/dreamblock_travel` 循环与 `event:/game/general/assist_dreamblockbounce` 反弹音效。循环从原事件预热后的 2.160–4.320 秒截取一个完整 2160 ms 周期；进入/退出音效沿用既有蔚蓝原声。客户端由服务端穿梭状态启动循环，离开、反弹后出块、死亡、传送或退出世界时停止，不向玩家重复叠放单次声音。

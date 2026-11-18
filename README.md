@@ -36,7 +36,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 参考仓库：[NoelFB/Celeste](https://github.com/NoelFB/Celeste)，固定提交 `1b0ce45c75e05649ae91b44a8bb6b196684e4352`。该仓库声明 MIT 许可证仅适用于仓库中的代码，不包括商业游戏本体或资产；`reference/celeste/` 仅保存代码研究资料。
 
-冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 18 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，晶体重生使用原事件 `event:/game/general/diamond_return`，音高 1.0。来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
+冲刺恢复晶体已有独立的绿色八面体模型和原生 16×16 贴图，可编辑 Blockbench 工程、预览与来源说明位于 [`art/refill_crystal/`](art/refill_crystal/)。模型使用 NeoForge 自带 OBJ loader。模组触发的 20 个声音采用本机 Celeste 原始 FMOD 事件的单声道渲染，晶体重生使用原事件 `event:/game/general/diamond_return`，音高 1.0。来源、事件映射与重建脚本位于 [`art/sounds/`](art/sounds/)；音频版权归原作者，不适用代码参考的 MIT 许可。
 
 梦境方块的黑色连续表面、起伏白色外框和彩色星点视差渲染已参考蔚蓝原版接入。40 帧像素动画、可编辑 Blockbench 方块模型、色板、来源及离线预览位于 [`art/dream_block/`](art/dream_block/)；世界渲染使用项目已有 NeoForge 与 Minecraft 原版 RenderType，不使用定制 shader。
 
