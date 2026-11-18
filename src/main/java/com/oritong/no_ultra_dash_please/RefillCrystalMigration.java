@@ -32,7 +32,11 @@ public final class RefillCrystalMigration {
                     for (int x = 0; x < 16; x++) {
                         if (section.getBlockState(x, y, z).getBlock() instanceof RefillCrystalBlock) {
                             pos.set(chunk.getPos().getMinBlockX() + x, baseY + y, chunk.getPos().getMinBlockZ() + z);
-                            chunk.getBlockEntity(pos.immutable(), LevelChunk.EntityCreationType.IMMEDIATE);
+                            if (chunk.getBlockEntity(pos) == null) {
+                                chunk.getBlockEntity(pos.immutable(), LevelChunk.EntityCreationType.IMMEDIATE);
+                                chunk.getLevel().getLightEngine().checkBlock(pos.immutable());
+                                chunk.setUnsaved(true);
+                            }
                         }
                     }
                 }
