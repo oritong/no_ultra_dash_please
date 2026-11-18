@@ -38,6 +38,7 @@ public final class DashClient {
     private static double dashSpeed;
     private static boolean driven;
     private static boolean duck;
+    private static DreamTravelSound dreamSound;
 
     private DashClient() {}
 
@@ -122,6 +123,14 @@ public final class DashClient {
         cooldown = frame.cooldown();
         dashSpeed = frame.dashSpeed();
         dashTicks = frame.dashTicks();
+        if (frame.dreaming()) {
+            if (dreamSound == null || dreamSound.isStopped()) {
+                dreamSound = new DreamTravelSound(player);
+                Minecraft.getInstance().getSoundManager().play(dreamSound);
+            }
+        } else {
+            stopDreamSound();
+        }
         if (frame.mode() == REJECT && previewWait > 0) {
             previewWait = 1;
             prediction = 0;
@@ -192,6 +201,7 @@ public final class DashClient {
     }
 
     private static void reset(LocalPlayer player) {
+        stopDreamSound();
         DashScreenEffect.stop();
         owner = player;
         movement = null;
@@ -199,5 +209,13 @@ public final class DashClient {
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
         driven = duck = false;
+    }
+
+    private static void stopDreamSound() {
+        if (dreamSound != null) {
+            dreamSound.finish();
+            Minecraft.getInstance().getSoundManager().stop(dreamSound);
+            dreamSound = null;
+        }
     }
 }

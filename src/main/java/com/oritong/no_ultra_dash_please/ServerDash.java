@@ -33,6 +33,8 @@ public final class ServerDash {
     private Vec3 climbWall = Vec3.ZERO;
     private Vec3 platformSpeed = Vec3.ZERO;
     private Vec3 dreamEntrance;
+    private Vec3 dreamEntryDirection = Vec3.ZERO;
+    private boolean dreamReturning;
     private Vec3 lastGround;
     private DashPhysics.Contact spring;
     private DashBlocks.Kind booster;
@@ -166,6 +168,7 @@ public final class ServerDash {
         autoJump = false;
         duck = false;
         dreamEntrance = null;
+        dreamReturning = false;
         spring = null;
         booster = null;
         lastBooster = null;
@@ -723,7 +726,22 @@ public final class ServerDash {
                 if (!seen) {
                     return false;
                 }
-                abortDream(player);
+                // Stop at the last legal substep, then travel back on the next tick.
+                // Do not reject an entry simply because its far exit has a solid wall.
+                player.setPos(candidate);
+                if (!dreamReturning) {
+                    dreamReturning = true;
+                    direction = direction.scale(-1);
+                    speed = motion.scale(-1);
+                    remaining = MAX_DREAM_TICKS;
+                    dreamExited = false;
+                    player.setOnGround(false);
+                    player.resetFallDistance();
+                    effect(player, DashSounds.DREAM_BOUNCE.get(), 1.0F);
+                } else {
+                    // A second obstruction means the entry was changed while traversing.
+                    abortDream(player);
+                }
                 return true;
             }
             candidate = next;
@@ -731,6 +749,10 @@ public final class ServerDash {
                 if (!seen) {
                     seen = true;
                     dreamEntrance = safe;
+                    dreamEntryDirection = motion.normalize();
+                    dreamReturning = false;
+                    direction = dreamEntryDirection;
+                    speed = motion;
                     redAfterDream = phase == Phase.RED;
                     phase = Phase.DREAM;
                     remaining = MAX_DREAM_TICKS;
@@ -751,7 +773,6 @@ public final class ServerDash {
         }
         player.setPos(candidate);
         player.setOnGround(false);
-        speed = direction.scale(DashTuning.SPEED.get());
         trail(player, ParticleTypes.PORTAL);
         return true;
     }
@@ -804,7 +825,7 @@ public final class ServerDash {
             return;
         }
         for (int offset = 0; offset <= 8; offset++) {
-            Vec3 candidate = dreamEntrance.subtract(direction.scale(offset * 0.25));
+            Vec3 candidate = dreamEntrance.subtract(dreamEntryDirection.scale(offset * 0.25));
             if (DashPhysics.clear(player, player.getBoundingBox().move(candidate.subtract(player.position())))) {
                 player.setPos(candidate);
                 return;
@@ -859,7 +880,7 @@ public final class ServerDash {
         lastDashSpeed = DashTuning.SPEED.get();
         lastDashTicks = DashTuning.DURATION.get();
         PacketDistributor.sendToPlayer(player, new Frame(mode, releaseId, charges, maxCharges, cooldown, player.onGround(),
-                duck, player.position(), speed, lastDashSpeed, lastDashTicks));
+                duck, dreaming(), player.position(), speed, lastDashSpeed, lastDashTicks));
     }
 
     private static void effect(ServerPlayer player, SoundEvent sound, float pitch) {

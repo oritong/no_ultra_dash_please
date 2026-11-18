@@ -28,6 +28,8 @@ final class DashSounds {
     static final DeferredHolder<SoundEvent, SoundEvent> REBOUND = sound("rebound");
     static final DeferredHolder<SoundEvent, SoundEvent> DREAM_ENTER = sound("dream_enter");
     static final DeferredHolder<SoundEvent, SoundEvent> DREAM_EXIT = sound("dream_exit");
+    static final DeferredHolder<SoundEvent, SoundEvent> DREAM_TRAVEL = sound("dream_travel");
+    static final DeferredHolder<SoundEvent, SoundEvent> DREAM_BOUNCE = sound("dream_bounce");
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(NoUltraDashPlease.id(name)));
