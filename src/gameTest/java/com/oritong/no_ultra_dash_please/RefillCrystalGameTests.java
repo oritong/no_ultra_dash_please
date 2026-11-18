@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -58,7 +58,7 @@ public final class RefillCrystalGameTests {
         helper.assertTrue(state.getPistonPushReaction() == PushReaction.BLOCK, "Pistons must not move or break crystals");
         helper.assertTrue(state.getLightEmission(level, pos) == 12, "Ready crystal must illuminate the surroundings");
         helper.assertTrue(state.getCollisionShape(level, pos).isEmpty(), "Crystal must remain passable");
-        level.setBlock(pos, state.setValue(RefillCrystalBlock.PHASE, RefillCrystalBlock.Phase.EMPTY), Level.UPDATE_ALL);
+        level.setBlock(pos, state.setValue(RefillCrystalBlock.PHASE, RefillCrystalBlock.Phase.EMPTY), Block.UPDATE_ALL);
         helper.assertTrue(level.getBlockState(pos).getLightEmission(level, pos) == 2, "Empty outline must retain a faint light");
         var chunk = level.getChunkAt(pos);
         chunk.removeBlockEntity(pos);
