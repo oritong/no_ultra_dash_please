@@ -1,0 +1,28 @@
+{
+  "consulted": "2026-11-18",
+  "reference_page": "https://celeste.ink/wiki/Dream_Blocks",
+  "reference_image": "https://static.wikitide.net/celestewiki/3/3f/Dreamblocksquare.gif",
+  "reference_animation": {"width": 200, "height": 200, "frames": 38, "duration_ms": 1520},
+  "local_vanilla_game": {
+    "source": "E:/SteamLibrary/steamapps/common/Celeste/Content/Graphics/Atlases/Gameplay0.data",
+    "atlas_sha256": "687f3340c937e3baca71758bfb1e6b8e799ad896f2df19bef26ec64968b3490b",
+    "metadata_sha256": "1f23b1f35544a3751ffec170b0230c7c9513000ab1549f78ebb9cb9f4203c8d9",
+    "entries": {
+      "active": {"rect": [137, 2075, 24, 24], "frame": [24, 24]},
+      "disabled": {"rect": [290, 1631, 24, 24], "frame": [24, 24]},
+      "particles": {"rect": [152, 0, 17, 5], "frame": [21, 7]}
+    }
+  },
+  "vanilla_particle_frames": {
+    "logical_size": [7, 7],
+    "positions_in_particles_strip": [14, 7, 0, 7],
+    "frame_rate_hz": 6,
+    "layer_weights": [1, 2, 3],
+    "parallax_factors": [0.3, 0.55, 0.8],
+    "layer_zero_colors": ["#FFEF11", "#FF00D0", "#08A310"],
+    "layer_one_colors": ["#5FCDE4", "#7FB25E", "#E0564C"],
+    "layer_two_colors": ["#5B6EE1", "#CC3B3B", "#7DAA64"]
+  },
+  "original_artwork_in_mod": false,
+  "interpretation": "The 16x16 item texture redraws vanilla's black field, white border and shifting color motifs. The client block-entity renderer places stable 7x7 star masks over an unlit black surface; matching world-coordinate color, phase and shape let pixels traverse adjacent faces continuously. It implements vanilla's 0.3/0.55/0.8 layer scroll at the original three-color RGB palettes and 6 Hz cycle. Original Celeste art is not packaged."
+}

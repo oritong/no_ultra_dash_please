@@ -1,0 +1,25 @@
+{
+  "size": 16,
+  "frame_count": 40,
+  "ticks_per_frame": 1,
+  "background": "#000000",
+  "outline": "#ffffff",
+  "palette": {
+    "near": ["#ffef11", "#ff00d0", "#08a310"],
+    "middle": ["#5fcde4", "#7fb25e", "#e0564c"],
+    "far": ["#5b6ee1", "#cc3b3b", "#7daa64"]
+  },
+  "shapes": {
+    "point": [".....", ".....", "..#..", ".....", "....."],
+    "cross": [".....", "..#..", ".###.", "..#..", "....."],
+    "ring": ["..#..", ".###.", "##.##", ".###.", "..#.."]
+  },
+  "stars": [
+    {"x": 10, "y": 5, "layer": 0, "color": 0, "phase": 0.0},
+    {"x": 5, "y": 9, "layer": 1, "color": 0, "phase": 0.5},
+    {"x": 11, "y": 12, "layer": 2, "color": 2, "phase": 0.25}
+  ],
+  "parallax": [0.3, 0.55, 0.8],
+  "shape_rate_hz": 6,
+  "notes": "Original pixel placement using observed vanilla Celeste colors and star shape vocabulary. 16 model units per block; no gradients, antialiasing or random noise."
+}
