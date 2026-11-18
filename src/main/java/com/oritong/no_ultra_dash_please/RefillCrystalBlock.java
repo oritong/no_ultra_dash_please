@@ -49,7 +49,7 @@ final class RefillCrystalBlock extends BaseEntityBlock {
         ENTITIES.register(bus);
     }
 
-    static BlockBehaviour.Properties properties() {
+    static BlockBehaviour.Properties crystalProperties() {
         return BlockBehaviour.Properties.of().strength(-1.0F, 3_600_000.0F).sound(SoundType.AMETHYST)
                 .noCollission().noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)
                 .lightLevel(state -> state.getValue(PHASE) == Phase.READY ? 12 : 2);

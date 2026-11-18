@@ -14,9 +14,16 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 sourceSets.main.resources.srcDir('src/generated/resources')
+sourceSets {
+    gameTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
 
 neoForge {
     version = project.neo_version
+    addModdingDependenciesTo sourceSets.gameTest
 
     parchment {
         mappingsVersion = project.parchment_mappings_version
@@ -31,6 +38,13 @@ neoForge {
         server {
             server()
             programArgument '--nogui'
+        }
+
+        gameTestServer {
+            type = 'gameTestServer'
+            sourceSet = sourceSets.gameTest
+            gameDirectory = project.file('build/gameTestRun')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
@@ -48,6 +62,7 @@ neoForge {
     mods {
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.gameTest)
         }
     }
 }

@@ -34,7 +34,7 @@ final class DashBlocks {
     static void register(IEventBus bus) {
         for (Kind kind : Kind.values()) {
             var block = BLOCKS.<Block>register(kind.id, () -> kind == Kind.REFILL
-                    ? new RefillCrystalBlock(RefillCrystalBlock.properties()) : new Surface(kind));
+                    ? new RefillCrystalBlock(RefillCrystalBlock.crystalProperties()) : new Surface(kind));
             SURFACES.put(kind, block);
             ITEMS.registerSimpleBlockItem(block);
         }
