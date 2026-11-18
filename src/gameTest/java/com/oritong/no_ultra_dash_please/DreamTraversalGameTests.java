@@ -41,6 +41,7 @@ public final class DreamTraversalGameTests {
         for (int i = 0; i < 16; i++) {
             Vec3 before = player.position();
             dash.tick(player);
+            player.doTick();
             entered |= dash.dreaming();
             if (dash.dreaming() && player.getDeltaMovement().x < -0.9) {
                 bounced = true;
@@ -74,6 +75,7 @@ public final class DreamTraversalGameTests {
         boolean entered = false, bounced = false;
         for (int i = 0; i < 12; i++) {
             dash.tick(player);
+            player.doTick();
             entered |= dash.dreaming();
             bounced |= dash.dreaming() && player.getDeltaMovement().y < -0.9;
             if (bounced && !dash.dreaming()) break;
@@ -90,6 +92,7 @@ public final class DreamTraversalGameTests {
         boolean entered = false, exited = false;
         for (int i = 0; i < 12; i++) {
             dash.tick(player);
+            player.doTick();
             entered |= dash.dreaming();
             if (entered && !dash.dreaming()) {
                 exited = true;
@@ -116,6 +119,7 @@ public final class DreamTraversalGameTests {
         boolean bounced = false;
         for (int i = 0; i < 12; i++) {
             dash.tick(player);
+            player.doTick();
             if (dash.dreaming() && enteredVelocity == null) enteredVelocity = player.getDeltaMovement();
             if (dash.dreaming() && player.getDeltaMovement().x < -1) {
                 bounced = true;
@@ -137,6 +141,7 @@ public final class DreamTraversalGameTests {
         var dash = start(player, -90, 0);
         for (int i = 0; i < 6; i++) {
             dash.tick(player);
+            player.doTick();
             helper.assertTrue(!dash.dreaming(), "Ordinary walls must not become dream traversable");
             helper.assertTrue(player.getBoundingBox().maxX <= helper.absolutePos(new BlockPos(3, 0, 0)).getX() + 1.0e-4,
                     "Player must remain outside a wall with no dream block");

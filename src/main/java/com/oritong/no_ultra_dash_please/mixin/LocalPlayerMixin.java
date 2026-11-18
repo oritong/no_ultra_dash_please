@@ -15,4 +15,11 @@ abstract class LocalPlayerMixin {
             callback.cancel();
         }
     }
+
+    @Inject(method = "moveTowardsClosestSpace", at = @At("HEAD"), cancellable = true)
+    private void noUltraDash$dreamPushOut(double x, double z, CallbackInfo callback) {
+        if (DashClient.dreaming((LocalPlayer) (Object) this)) {
+            callback.cancel();
+        }
+    }
 }

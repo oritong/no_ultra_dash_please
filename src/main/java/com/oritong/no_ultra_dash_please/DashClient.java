@@ -38,6 +38,7 @@ public final class DashClient {
     private static double dashSpeed;
     private static boolean driven;
     private static boolean duck;
+    private static boolean dreaming;
     private static DreamTravelSound dreamSound;
 
     private DashClient() {}
@@ -123,6 +124,7 @@ public final class DashClient {
         cooldown = frame.cooldown();
         dashSpeed = frame.dashSpeed();
         dashTicks = frame.dashTicks();
+        dreaming = frame.dreaming();
         if (frame.dreaming()) {
             if (dreamSound == null || dreamSound.isStopped()) {
                 dreamSound = new DreamTravelSound(player);
@@ -196,6 +198,10 @@ public final class DashClient {
         return owner == player && duck;
     }
 
+    public static boolean dreaming(Player player) {
+        return owner == player && dreaming;
+    }
+
     private static void send(LocalPlayer player, boolean dash, int release) {
         PacketDistributor.sendToServer(new Input(buttons | (dash ? DASH : 0), player.getYRot(), player.getXRot(), release));
     }
@@ -208,7 +214,7 @@ public final class DashClient {
         predictedSpeed = Vec3.ZERO;
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
-        driven = duck = false;
+        driven = duck = dreaming = false;
     }
 
     private static void stopDreamSound() {
