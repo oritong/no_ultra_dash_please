@@ -150,6 +150,27 @@
       "rendered_seconds": 1.0666666666666667,
       "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_bounce.ogg",
       "sha256": "390901f439c3c7a97477bd60ea2974582148ddd68458a8af8b41599f83e26ed2"
+    },
+    "booster_end": {
+      "event": "event:/game/04_cliffside/greenbooster_end",
+      "event_length_ms": 266,
+      "rendered_seconds": 1.0453333333333332,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/booster_end.ogg",
+      "sha256": "7a3aeb314909c68c7b34b5f2c5fcc490eb0c7eb813b3f13a9115ad8e589bc0df"
+    },
+    "red_booster_move": {
+      "event": "event:/game/05_mirror_temple/redbooster_move",
+      "event_length_ms": 5166,
+      "rendered_seconds": 5.952,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_move.ogg",
+      "sha256": "bfecc6bf3565916ec80f1c5d6df6668239a15d8fb6478984a391b0fdb57e56e3"
+    },
+    "red_booster_end": {
+      "event": "event:/game/05_mirror_temple/redbooster_end",
+      "event_length_ms": 683,
+      "rendered_seconds": 1.472,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_end.ogg",
+      "sha256": "b3dad69e2b01793c1afa43994e87cee9e3f143cd2bd17e968002d25eb9f23d77"
     }
   }
 }

@@ -17,6 +17,9 @@ final class DashSounds {
     static final DeferredHolder<SoundEvent, SoundEvent> RED_BOOSTER_ENTER = sound("red_booster_enter");
     static final DeferredHolder<SoundEvent, SoundEvent> BOOSTER_DASH = sound("booster_dash");
     static final DeferredHolder<SoundEvent, SoundEvent> RED_BOOSTER_DASH = sound("red_booster_dash");
+    static final DeferredHolder<SoundEvent, SoundEvent> BOOSTER_END = sound("booster_end");
+    static final DeferredHolder<SoundEvent, SoundEvent> RED_BOOSTER_MOVE = sound("red_booster_move");
+    static final DeferredHolder<SoundEvent, SoundEvent> RED_BOOSTER_END = sound("red_booster_end");
     static final DeferredHolder<SoundEvent, SoundEvent> JUMP_SUPER = sound("jump_super");
     static final DeferredHolder<SoundEvent, SoundEvent> JUMP_SUPERSLIDE = sound("jump_superslide");
     static final DeferredHolder<SoundEvent, SoundEvent> JUMP_WALL = sound("jump_wall");

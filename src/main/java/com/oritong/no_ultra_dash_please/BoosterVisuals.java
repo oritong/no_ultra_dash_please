@@ -34,6 +34,7 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
     private static final Vec3[] UNIT = makeVertices();
     private static final int[][] FACES = makeFaces();
     private static final Map<Integer, Occupant> OCCUPANTS = new HashMap<>();
+    private static final Map<Integer, BoosterTravelSound> TRAVEL_SOUNDS = new HashMap<>();
     private static ClientLevel world;
 
     private BoosterVisuals(BlockEntityRendererProvider.Context context) { }
@@ -57,6 +58,7 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
     static void receive(DashNetwork.BubbleVisual data) {
         var level = Minecraft.getInstance().level;
         if (world != level) {
+            stopTravelSounds();
             OCCUPANTS.clear();
             world = level;
         }
@@ -70,11 +72,39 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
     static void tick(ClientTickEvent.Post event) {
         var level = Minecraft.getInstance().level;
         if (world != level) {
+            stopTravelSounds();
             OCCUPANTS.clear();
             world = level;
         }
         if (level != null) OCCUPANTS.entrySet().removeIf(e -> e.getValue().expires < level.getGameTime()
                 || !(level.getEntity(e.getKey()) instanceof Player player) || !player.isAlive());
+        TRAVEL_SOUNDS.entrySet().removeIf(entry -> {
+            Occupant occupant = OCCUPANTS.get(entry.getKey());
+            if (occupant != null && occupant.mode == 4 && !entry.getValue().isStopped()) return false;
+            entry.getValue().finish();
+            Minecraft.getInstance().getSoundManager().stop(entry.getValue());
+            return true;
+        });
+        if (level != null) OCCUPANTS.forEach((id, occupant) -> {
+            if (occupant.mode == 4 && !TRAVEL_SOUNDS.containsKey(id) && level.getEntity(id) instanceof Player player) {
+                var sound = new BoosterTravelSound(player);
+                TRAVEL_SOUNDS.put(id, sound);
+                Minecraft.getInstance().getSoundManager().play(sound);
+            }
+        });
+    }
+
+    public static int mode(Player player) {
+        Occupant occupant = OCCUPANTS.get(player.getId());
+        return player.level() == world && occupant != null ? occupant.mode : 0;
+    }
+
+    private static void stopTravelSounds() {
+        TRAVEL_SOUNDS.values().forEach(sound -> {
+            sound.finish();
+            Minecraft.getInstance().getSoundManager().stop(sound);
+        });
+        TRAVEL_SOUNDS.clear();
     }
 
     @SubscribeEvent

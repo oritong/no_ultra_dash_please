@@ -94,6 +94,12 @@ public final class ServerDash {
         return phase == Phase.DREAM && !dreamExited;
     }
 
+    public int bubbleMode() {
+        return phase == Phase.BOOSTER ? (redAfterDream ? 2 : 1)
+                : phase == Phase.RED || phase == Phase.DREAM && redAfterDream ? 4
+                : phase == Phase.DASH && bubbleTicks > 0 ? 3 : 0;
+    }
+
     void input(ServerPlayer player, Input data) {
         if (releaseWait > 0 && data.release() == releaseId) {
             releaseWait = 0;
@@ -123,7 +129,8 @@ public final class ServerDash {
     }
 
     boolean queueBooster(DashBlocks.Kind kind, BlockPos pos) {
-        if (surfaceCooldown > 0 || booster != null || phase == Phase.DREAM || pos.equals(lastBooster)) {
+        if (!kind.booster() || surfaceCooldown > 0 || booster != null || phase == Phase.BOOSTER
+                || phase == Phase.DREAM || pos.equals(lastBooster)) {
             return false;
         }
         booster = kind;
@@ -174,6 +181,7 @@ public final class ServerDash {
         dreamReturning = false;
         spring = null;
         booster = null;
+        bubbleTicks = 0;
         lastBooster = null;
         platformGrace = 0;
         earnedRefill = false;
@@ -272,7 +280,8 @@ public final class ServerDash {
                     finish(player);
                 }
             }
-            case BOOSTER, IDLE -> { }
+            case BOOSTER -> centerInBubble(player);
+            case IDLE -> { }
         }
         Vec3 displacement = player.position().subtract(previous);
         if (displacement.lengthSqr() > DashPhysics.EPSILON) {
@@ -288,6 +297,21 @@ public final class ServerDash {
     private boolean canDash() {
         return charges > 0 && cooldown == 0 && (phase == Phase.IDLE || phase == Phase.MOMENTUM
                 || phase == Phase.CLIMB || phase == Phase.RED);
+    }
+
+    private void centerInBubble(ServerPlayer player) {
+        if (bubbleOrigin == null) return;
+        Vec3 target = Vec3.atCenterOf(bubbleOrigin).add(0, -player.getBbHeight() * 0.5, 0);
+        if (!DashPhysics.clear(player, player.getBoundingBox().move(target.subtract(player.position())))) {
+            // A floor-mounted bubble must not pull the player's feet through its support.
+            target = new Vec3(target.x, player.getY(), target.z);
+        }
+        Vec3 offset = target.subtract(player.position());
+        if (offset.lengthSqr() > DashPhysics.EPSILON) {
+            move(player, offset.scale(Math.min(1, 0.35 / offset.length())));
+        }
+        player.setOnGround(false);
+        player.resetFallDistance();
     }
 
     private void updateTimers() {
@@ -891,10 +915,11 @@ public final class ServerDash {
     }
 
     private void syncBubbleVisual(ServerPlayer player) {
-        int visual = phase == Phase.BOOSTER ? (redAfterDream ? 2 : 1)
-                : phase == Phase.RED || phase == Phase.DREAM && redAfterDream ? 4
-                : phase == Phase.DASH && bubbleTicks > 0 ? 3 : 0;
+        int visual = bubbleMode();
         if (visual != lastBubbleVisual || visual != 0 && tick % 10 == 0) {
+            if (lastBubbleVisual >= 3 && visual < 3) {
+                effect(player, (lastBubbleVisual == 4 ? DashSounds.RED_BOOSTER_END : DashSounds.BOOSTER_END).get(), 1.0F);
+            }
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new BubbleVisual(player.getId(), visual,
                     bubbleOrigin == null ? player.blockPosition() : bubbleOrigin));
             lastBubbleVisual = visual;

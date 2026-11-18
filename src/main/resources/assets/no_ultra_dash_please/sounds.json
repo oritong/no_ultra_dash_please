@@ -1,4 +1,16 @@
 {
+  "booster_end": {
+    "subtitle": "subtitles.no_ultra_dash_please.booster_end",
+    "sounds": [{ "name": "no_ultra_dash_please:celeste/booster_end" }]
+  },
+  "red_booster_move": {
+    "subtitle": "subtitles.no_ultra_dash_please.red_booster_move",
+    "sounds": [{ "name": "no_ultra_dash_please:celeste/red_booster_move" }]
+  },
+  "red_booster_end": {
+    "subtitle": "subtitles.no_ultra_dash_please.red_booster_end",
+    "sounds": [{ "name": "no_ultra_dash_please:celeste/red_booster_end" }]
+  },
   "dream_travel": {
     "subtitle": "subtitles.no_ultra_dash_please.dream_travel",
     "sounds": [{ "name": "no_ultra_dash_please:celeste/dream_travel" }]
