@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -110,7 +109,7 @@ final class RefillCrystalBlock extends BaseEntityBlock {
                 level.setBlock(pos, state.setValue(PHASE, Phase.READY), Block.UPDATE_ALL);
                 level.sendParticles(GREEN, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                         16, 0.18, 0.22, 0.18, 0.015);
-                level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.5F, 1.4F);
+                level.playSound(null, pos, DashSounds.REFILL_RETURN.get(), SoundSource.BLOCKS, 0.65F, 1.0F);
             }
             case READY -> { }
         }

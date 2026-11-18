@@ -11,6 +11,7 @@ final class DashSounds {
             DeferredRegister.create(Registries.SOUND_EVENT, NoUltraDashPlease.MOD_ID);
 
     static final DeferredHolder<SoundEvent, SoundEvent> REFILL_TOUCH = sound("refill_touch");
+    static final DeferredHolder<SoundEvent, SoundEvent> REFILL_RETURN = sound("refill_return");
     static final DeferredHolder<SoundEvent, SoundEvent> DASH = sound("dash");
     static final DeferredHolder<SoundEvent, SoundEvent> BOOSTER_ENTER = sound("booster_enter");
     static final DeferredHolder<SoundEvent, SoundEvent> RED_BOOSTER_ENTER = sound("red_booster_enter");

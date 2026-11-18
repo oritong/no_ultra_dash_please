@@ -14,6 +14,7 @@ public final class NoUltraDashPlease {
         DashSounds.register(bus);
         bus.addListener(DashNetwork::register);
         container.registerConfig(ModConfig.Type.SERVER, DashTuning.SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, DashClientConfig.SPEC);
     }
 
     public static ResourceLocation id(String path) {

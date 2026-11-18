@@ -17,6 +17,7 @@ import wave
 
 EVENTS = {
     "refill_touch": "game/general/diamond_touch",
+    "refill_return": "game/general/diamond_return",
     "dash": "char/madeline/dash_red_right",
     "booster_enter": "game/04_cliffside/greenbooster_enter",
     "red_booster_enter": "game/05_mirror_temple/redbooster_enter",

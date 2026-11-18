@@ -320,6 +320,7 @@ public final class ServerDash {
         earnedRefill = false;
         player.resetFallDistance();
         effect(player, (boosted ? (red ? DashSounds.RED_BOOSTER_DASH : DashSounds.BOOSTER_DASH) : DashSounds.DASH).get(), 1.0F);
+        PacketDistributor.sendToPlayer(player, new DashStarted());
     }
 
     private void stepDash(ServerPlayer player, boolean safeBeforeMove) {

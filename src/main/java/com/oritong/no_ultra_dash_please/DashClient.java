@@ -126,6 +126,7 @@ public final class DashClient {
             previewWait = 1;
             prediction = 0;
         } else if (frame.mode() == RESET) {
+            DashScreenEffect.stop();
             movement = null;
             prediction = previewWait = 0;
             driven = duck = false;
@@ -191,6 +192,7 @@ public final class DashClient {
     }
 
     private static void reset(LocalPlayer player) {
+        DashScreenEffect.stop();
         owner = player;
         movement = null;
         predictedSpeed = Vec3.ZERO;

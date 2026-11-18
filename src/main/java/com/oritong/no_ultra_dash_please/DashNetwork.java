@@ -22,13 +22,25 @@ final class DashNetwork {
     static final int REJECT = 4;
 
     static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("1");
+        var registrar = event.registrar("2");
         registrar.playToServer(Input.TYPE, Input.CODEC, (data, context) -> {
             if (context.player() instanceof ServerPlayer player) {
                 ServerDash.get(player).input(player, data);
             }
         });
         registrar.playToClient(Frame.TYPE, Frame.CODEC, (data, context) -> DashClient.receive(data));
+        registrar.playToClient(DashStarted.TYPE, DashStarted.CODEC, (data, context) -> DashScreenEffect.start());
+    }
+
+    // Only the dashing player receives this cue, and only after the server accepts the dash.
+    record DashStarted() implements CustomPacketPayload {
+        static final Type<DashStarted> TYPE = new Type<>(NoUltraDashPlease.id("dash_started"));
+        static final StreamCodec<RegistryFriendlyByteBuf, DashStarted> CODEC = StreamCodec.unit(new DashStarted());
+
+        @Override
+        public Type<DashStarted> type() {
+            return TYPE;
+        }
     }
 
     record Input(int buttons, float yaw, float pitch, int release) implements CustomPacketPayload {
