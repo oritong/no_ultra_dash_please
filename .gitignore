@@ -1,5 +1,7 @@
 ### Gradle ###
 [Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+__pycache__/
+*.py[cod]
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
