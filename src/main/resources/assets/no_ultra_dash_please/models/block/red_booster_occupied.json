@@ -1,0 +1,50 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "no_ultra_dash_please:models/block/red_booster_occupied.obj",
+  "automatic_culling": false,
+  "shade_quads": false,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "ambientocclusion": false,
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "no_ultra_dash_please:block/red_booster_occupied"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        15,
+        35,
+        0
+      ],
+      "translation": [
+        0,
+        -5,
+        0
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    }
+  }
+}

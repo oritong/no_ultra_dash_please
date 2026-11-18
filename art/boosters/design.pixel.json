@@ -1,0 +1,31 @@
+{
+  "size": 16,
+  "idle_frames": 5,
+  "occupied_frames": 4,
+  "ticks_per_frame": 2,
+  "palette": {
+    "green": {"d": "#0e4a36", "m": "#1c7856", "a": "#4acfc6", "h": "#8cf7cf", "s": "#172b21"},
+    "red": {"d": "#9c1105", "m": "#d42c40", "a": "#ff594a", "h": "#ffc494", "s": "#5e1009"}
+  },
+  "rows": [
+    "mmmmmmmmmmmmmmmm",
+    "mmmmmhhhhhmmmmmm",
+    "mmmmhhhhhhhmmmmm",
+    "mmmhhhaahhhmmmmm",
+    "mmmhhaammmmmmmmm",
+    "mmmaammmmmmmmmmm",
+    "mmmmmmmddddmmmmm",
+    "mmmmmmddddddmmmm",
+    "mmmmddddddddddmm",
+    "mmmdddddddddddmm",
+    "mmddddddddddddmm",
+    "mmddddddddddddmm",
+    "mmdddddaddddddmm",
+    "mmmmddddddddaamm",
+    "mmmmmdddddddammm",
+    "mmmmmmmmmmmmmmmm"
+  ],
+  "geometry": {"segments": 8, "latitude_divisions": 6, "idle_radii": [7, 7, 7], "occupied_radii": [12, 18, 12]},
+  "budget": {"meshes_per_state": 1, "vertices_per_state": 42, "faces_per_state": 48, "materials_per_state": 1},
+  "notes": "Original native pixel placement. Colors, 5-frame idle and 4-frame occupied cycles sampled from vanilla Celeste booster/boosterRed source art. Occupied shell is translucent and leaves the actual player visible."
+}

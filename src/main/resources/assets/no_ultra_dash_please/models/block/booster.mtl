@@ -1,0 +1,5 @@
+newmtl membrane
+Ka 0 0 0
+Kd 1 1 1
+d 1
+map_Kd no_ultra_dash_please:block/booster

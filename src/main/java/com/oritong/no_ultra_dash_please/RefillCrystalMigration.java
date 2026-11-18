@@ -17,14 +17,14 @@ public final class RefillCrystalMigration {
         }
     }
 
-    // Earlier crystals and dream blocks have no saved block entity. Only visit relevant sections.
+    // Earlier crystals, dream blocks and boosters lack a saved block entity. Only visit relevant sections.
     static void ensureEntities(LevelChunk chunk) {
         var sections = chunk.getSections();
         var pos = new BlockPos.MutableBlockPos();
         for (int sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
             var section = sections[sectionIndex];
             if (!section.maybeHas(state -> state.getBlock() instanceof RefillCrystalBlock
-                    || state.getBlock() instanceof DreamBlock)) {
+                    || state.getBlock() instanceof DreamBlock || state.getBlock() instanceof BoosterBlock)) {
                 continue;
             }
             int baseY = chunk.getSectionYFromSectionIndex(sectionIndex) << 4;
@@ -32,7 +32,7 @@ public final class RefillCrystalMigration {
                 for (int z = 0; z < 16; z++) {
                     for (int x = 0; x < 16; x++) {
                         var block = section.getBlockState(x, y, z).getBlock();
-                        if (block instanceof RefillCrystalBlock || block instanceof DreamBlock) {
+                        if (block instanceof RefillCrystalBlock || block instanceof DreamBlock || block instanceof BoosterBlock) {
                             pos.set(chunk.getPos().getMinBlockX() + x, baseY + y, chunk.getPos().getMinBlockZ() + z);
                             if (chunk.getBlockEntity(pos) == null) {
                                 chunk.getBlockEntity(pos.immutable(), LevelChunk.EntityCreationType.IMMEDIATE);

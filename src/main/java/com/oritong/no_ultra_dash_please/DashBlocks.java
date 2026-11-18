@@ -35,7 +35,8 @@ final class DashBlocks {
         for (Kind kind : Kind.values()) {
             var block = BLOCKS.<Block>register(kind.id, () -> kind == Kind.REFILL
                     ? new RefillCrystalBlock(RefillCrystalBlock.crystalProperties())
-                    : kind == Kind.DREAM ? new DreamBlock(DreamBlock.dreamProperties()) : new Surface(kind));
+                    : kind == Kind.DREAM ? new DreamBlock(DreamBlock.dreamProperties())
+                    : kind.booster() ? new BoosterBlock(BoosterBlock.bubbleProperties()) : new Surface(kind));
             SURFACES.put(kind, block);
             ITEMS.registerSimpleBlockItem(block);
         }
@@ -43,6 +44,7 @@ final class DashBlocks {
         ITEMS.register(bus);
         RefillCrystalBlock.register(bus);
         DreamBlock.register(bus);
+        BoosterBlock.register(bus);
         bus.addListener(DashBlocks::creative);
     }
 
@@ -61,6 +63,9 @@ final class DashBlocks {
     }
 
     static Kind kind(BlockState state) {
+        if (state.getBlock() instanceof BoosterBlock) {
+            return BoosterBlock.kind(state);
+        }
         if (state.getBlock() instanceof RefillCrystalBlock) {
             return Kind.REFILL;
         }

@@ -1,0 +1,154 @@
+{
+  "atlas_sha256": "687f3340c937e3baca71758bfb1e6b8e799ad896f2df19bef26ec64968b3490b",
+  "meta_sha256": "1f23b1f35544a3751ffec170b0230c7c9513000ab1549f78ebb9cb9f4203c8d9",
+  "entries": [
+    {
+      "name": "objects/booster/booster00",
+      "atlas": "Gameplay0",
+      "rect": [
+        0,
+        2867,
+        18,
+        18
+      ],
+      "offset": [
+        -7,
+        -7
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "objects/booster/booster05",
+      "atlas": "Gameplay0",
+      "rect": [
+        19,
+        2236,
+        20,
+        22
+      ],
+      "offset": [
+        -6,
+        -4
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "objects/booster/booster18",
+      "atlas": "Gameplay0",
+      "rect": [
+        19,
+        2213,
+        20,
+        22
+      ],
+      "offset": [
+        -6,
+        -4
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "objects/booster/boosterRed00",
+      "atlas": "Gameplay0",
+      "rect": [
+        0,
+        2791,
+        18,
+        18
+      ],
+      "offset": [
+        -7,
+        -7
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "objects/booster/boosterRed05",
+      "atlas": "Gameplay0",
+      "rect": [
+        86,
+        1967,
+        20,
+        22
+      ],
+      "offset": [
+        -6,
+        -4
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "objects/booster/boosterRed18",
+      "atlas": "Gameplay0",
+      "rect": [
+        19,
+        2282,
+        20,
+        22
+      ],
+      "offset": [
+        -6,
+        -4
+      ],
+      "frame": [
+        32,
+        32
+      ]
+    }
+  ],
+  "consulted": "2026-11-18",
+  "source": "Local Steam Celeste, Content/Graphics/Atlases/Gameplay0.data and Sprites.xml",
+  "sprite_definitions": {
+    "green": "booster",
+    "red": "boosterRed",
+    "loop": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "delay_seconds": 0.1
+    },
+    "inside": {
+      "frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "delay_seconds": 0.1
+    },
+    "spin_reference": {
+      "frames": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "delay_seconds": 0.06
+    }
+  },
+  "sprites_xml_sha256": "baec20ec28911be5ef8acc6b181c6818095aa867c692c14d57d26e42c00fc04a",
+  "design": "Original native 16x16 pixel materials and a 42-vertex rounded 3D membrane using sampled vanilla Celeste colors. Original sprite images are not packaged. The player itself is rendered by Minecraft."
+}

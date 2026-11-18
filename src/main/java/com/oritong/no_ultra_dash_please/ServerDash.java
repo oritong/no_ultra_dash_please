@@ -39,6 +39,9 @@ public final class ServerDash {
     private DashPhysics.Contact spring;
     private DashBlocks.Kind booster;
     private BlockPos lastBooster;
+    private BlockPos bubbleOrigin;
+    private int bubbleTicks;
+    private int lastBubbleVisual;
     private int charges = -1;
     private int maxCharges;
     private int lastCharges = -1;
@@ -223,6 +226,7 @@ public final class ServerDash {
 
         if (booster != null) {
             phase = Phase.BOOSTER;
+            bubbleOrigin = lastBooster;
             redAfterDream = booster == DashBlocks.Kind.RED_BOOSTER;
             booster = null;
             remaining = 5;
@@ -287,6 +291,7 @@ public final class ServerDash {
     }
 
     private void updateTimers() {
+        bubbleTicks = Math.max(0, bubbleTicks - 1);
         cooldown = Math.max(0, cooldown - 1);
         refillDelay = Math.max(0, refillDelay - 1);
         surfaceCooldown = Math.max(0, surfaceCooldown - 1);
@@ -301,6 +306,7 @@ public final class ServerDash {
     }
 
     private void startDash(ServerPlayer player, Vec3 aim, boolean red, boolean boosted) {
+        bubbleTicks = boosted && !red ? DashTuning.DURATION.get() : 0;
         dashDeadline = -1;
         if (!boosted && !player.isUnderWater() && !player.isSwimming()) {
             charges = Math.max(0, charges - 1);
@@ -874,6 +880,7 @@ public final class ServerDash {
     }
 
     private void send(ServerPlayer player, int mode) {
+        syncBubbleVisual(player);
         lastCharges = charges;
         lastMaximum = maxCharges;
         lastCooldown = cooldown;
@@ -881,6 +888,17 @@ public final class ServerDash {
         lastDashTicks = DashTuning.DURATION.get();
         PacketDistributor.sendToPlayer(player, new Frame(mode, releaseId, charges, maxCharges, cooldown, player.onGround(),
                 duck, dreaming(), player.position(), speed, lastDashSpeed, lastDashTicks));
+    }
+
+    private void syncBubbleVisual(ServerPlayer player) {
+        int visual = phase == Phase.BOOSTER ? (redAfterDream ? 2 : 1)
+                : phase == Phase.RED || phase == Phase.DREAM && redAfterDream ? 4
+                : phase == Phase.DASH && bubbleTicks > 0 ? 3 : 0;
+        if (visual != lastBubbleVisual || visual != 0 && tick % 10 == 0) {
+            PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new BubbleVisual(player.getId(), visual,
+                    bubbleOrigin == null ? player.blockPosition() : bubbleOrigin));
+            lastBubbleVisual = visual;
+        }
     }
 
     private static void effect(ServerPlayer player, SoundEvent sound, float pitch) {

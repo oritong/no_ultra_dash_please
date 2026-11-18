@@ -3,6 +3,7 @@ package com.oritong.no_ultra_dash_please;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -22,7 +23,7 @@ final class DashNetwork {
     static final int REJECT = 4;
 
     static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("3");
+        var registrar = event.registrar("4");
         registrar.playToServer(Input.TYPE, Input.CODEC, (data, context) -> {
             if (context.player() instanceof ServerPlayer player) {
                 ServerDash.get(player).input(player, data);
@@ -30,6 +31,23 @@ final class DashNetwork {
         });
         registrar.playToClient(Frame.TYPE, Frame.CODEC, (data, context) -> DashClient.receive(data));
         registrar.playToClient(DashStarted.TYPE, DashStarted.CODEC, (data, context) -> DashScreenEffect.start());
+        registrar.playToClient(BubbleVisual.TYPE, BubbleVisual.CODEC, (data, context) -> BoosterVisuals.receive(data));
+    }
+
+    // Visual-only payload shared with nearby viewers; movement Frame remains owner-only.
+    record BubbleVisual(int playerId, int mode, BlockPos origin) implements CustomPacketPayload {
+        static final Type<BubbleVisual> TYPE = new Type<>(NoUltraDashPlease.id("bubble_visual"));
+        static final StreamCodec<RegistryFriendlyByteBuf, BubbleVisual> CODEC = StreamCodec.of(
+                (buffer, data) -> {
+                    buffer.writeVarInt(data.playerId);
+                    buffer.writeByte(data.mode);
+                    buffer.writeBlockPos(data.origin);
+                }, buffer -> new BubbleVisual(buffer.readVarInt(), buffer.readUnsignedByte(), buffer.readBlockPos()));
+
+        @Override
+        public Type<BubbleVisual> type() {
+            return TYPE;
+        }
     }
 
     // Only the dashing player receives this cue, and only after the server accepts the dash.
