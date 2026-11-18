@@ -1,4 +1,12 @@
 {
+  "dream_travel": {
+    "subtitle": "subtitles.no_ultra_dash_please.dream_travel",
+    "sounds": [{ "name": "no_ultra_dash_please:celeste/dream_travel" }]
+  },
+  "dream_bounce": {
+    "subtitle": "subtitles.no_ultra_dash_please.dream_bounce",
+    "sounds": [{ "name": "no_ultra_dash_please:celeste/dream_bounce" }]
+  },
   "refill_return": {
     "subtitle": "subtitles.no_ultra_dash_please.refill_return",
     "sounds": [{ "name": "no_ultra_dash_please:celeste/refill_return" }]

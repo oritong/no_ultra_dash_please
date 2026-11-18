@@ -1,6 +1,6 @@
 {
   "vertex": "minecraft:blit",
-  "fragment": "no_ultra_dash_please:dash_glitch",
+  "fragment": "no_ultra_dash_please:dash_prism",
   "attributes": ["Position"],
   "samplers": [{ "name": "DiffuseSampler" }],
   "uniforms": [
@@ -8,6 +8,7 @@
     { "name": "OutSize", "type": "float", "count": 2, "values": [1,1] },
     { "name": "InSize", "type": "float", "count": 2, "values": [1,1] },
     { "name": "Intensity", "type": "float", "count": 1, "values": [0] },
-    { "name": "Phase", "type": "float", "count": 1, "values": [0] }
+    { "name": "Progress", "type": "float", "count": 1, "values": [1] },
+    { "name": "DashSeed", "type": "float", "count": 1, "values": [0] }
   ]
 }

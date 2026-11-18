@@ -132,6 +132,24 @@
       "rendered_seconds": 2.816,
       "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/refill_return.ogg",
       "sha256": "b6545634625ca4c9010cc3f590bc02bfa4b2b0fb182d844f7086ddd072cabd0c"
+    },
+    "dream_travel": {
+      "event": "event:/char/madeline/dreamblock_travel",
+      "event_length_ms": 2160,
+      "rendered_seconds": 5.0986666666666665,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_travel.ogg",
+      "sha256": "f220a49e43ac07ef3e2c86c7a54799f1004c34da809a26c75220c529b6ebcfee",
+      "loop_window_seconds": [
+        2.16,
+        4.32
+      ]
+    },
+    "dream_bounce": {
+      "event": "event:/game/general/assist_dreamblockbounce",
+      "event_length_ms": 287,
+      "rendered_seconds": 1.0666666666666667,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/dream_bounce.ogg",
+      "sha256": "390901f439c3c7a97477bd60ea2974582148ddd68458a8af8b41599f83e26ed2"
     }
   }
 }

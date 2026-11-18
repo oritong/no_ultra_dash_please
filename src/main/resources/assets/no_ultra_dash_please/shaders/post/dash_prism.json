@@ -1,0 +1,7 @@
+{
+  "targets": ["dash_swap"],
+  "passes": [
+    { "name": "no_ultra_dash_please:dash_prism", "intarget": "minecraft:main", "outtarget": "dash_swap" },
+    { "name": "minecraft:blit", "intarget": "dash_swap", "outtarget": "minecraft:main" }
+  ]
+}

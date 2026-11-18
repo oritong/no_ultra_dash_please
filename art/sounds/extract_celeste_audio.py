@@ -34,6 +34,8 @@ EVENTS = {
     "rebound": "game/06_reflection/pinballbumper_hit",
     "dream_enter": "char/madeline/dreamblock_enter",
     "dream_exit": "char/madeline/dreamblock_exit",
+    "dream_travel": "char/madeline/dreamblock_travel",
+    "dream_bounce": "game/general/assist_dreamblockbounce",
 }
 
 
@@ -116,7 +118,8 @@ class Fmod:
             self.check(self.studio.FMOD_Studio_EventDescription_CreateInstance(description, c.byref(instance)))
             self.check(self.studio.FMOD_Studio_EventInstance_Start(instance))
             self.check(self.studio.FMOD_Studio_System_FlushCommands(system))
-            for _ in range(math.ceil((length.value / 1000 + 0.5) * 48000 / 1024)):
+            repeats = 2 if event.endswith("/dreamblock_travel") else 1
+            for _ in range(math.ceil((length.value / 1000 * repeats + 0.5) * 48000 / 1024)):
                 self.check(self.studio.FMOD_Studio_System_Update(system))
             self.check(self.studio.FMOD_Studio_EventInstance_Release(instance))
             return length.value
@@ -145,9 +148,13 @@ def main():
             continue
         wav_path, ogg_path = scratch / (name + ".wav"), output / (name + ".ogg")
         length = fmod.render(event, wav_path)
+        filters = "silenceremove=start_periods=1:start_threshold=-80dB"
+        if name == "dream_travel":
+            # Keep one full 2160 ms period after the FMOD loop has already warmed up.
+            filters = f"atrim=start={length / 1000}:duration={length / 1000},asetpts=PTS-STARTPTS"
         subprocess.run([str(args.ffmpeg), "-hide_banner", "-loglevel", "error", "-y",
                         "-i", str(wav_path), "-ac", "1", "-ar", "48000", "-af",
-                        "silenceremove=start_periods=1:start_threshold=-80dB",
+                        filters,
                         "-c:a", "libvorbis", "-q:a", "6", str(ogg_path)], check=True)
         with wave.open(str(wav_path)) as audio:
             duration = audio.getnframes() / audio.getframerate()
@@ -155,6 +162,8 @@ def main():
                                     "event_length_ms": length, "rendered_seconds": duration,
                                     "file": ogg_path.relative_to(root).as_posix(),
                                     "sha256": digest(ogg_path)}
+        if name == "dream_travel":
+            manifest["events"][name]["loop_window_seconds"] = [length / 1000, length / 500]
         print(name, length, ogg_path.stat().st_size, flush=True)
     manifest_path = scratch / "sources.json" if args.only else root / "art/sounds/sources.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
