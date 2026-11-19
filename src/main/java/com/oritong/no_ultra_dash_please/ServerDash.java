@@ -767,6 +767,9 @@ public final class ServerDash {
         for (int step = 0; step < steps; step++) {
             Vec3 next = candidate.add(increment);
             var space = DashPhysics.dreamSpace(player, player.getBoundingBox().move(next.subtract(origin)));
+            // Shrink before a low exit blocks the head. Downward exits also need this
+            // while the old standing box still intersects dream blocks above the gap.
+            // Do not shrink out of an upward entry before reaching the dream block.
             if (space == DashPhysics.DreamSpace.BLOCKED && compactDreamPose(player, candidate, next, seen, false)
                     || seen && space == DashPhysics.DreamSpace.INSIDE && motion.y <= DashPhysics.EPSILON
                     && compactDreamPose(player, candidate, next, true, true)) {

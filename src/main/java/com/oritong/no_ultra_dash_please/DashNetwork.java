@@ -77,6 +77,7 @@ final class DashNetwork {
         }
     }
 
+    // compactPose: 0 = ordinary vanilla pose, 1 = crouching exit, 2 = crawling exit.
     record Frame(int mode, int release, int charges, int maximum, int cooldown, boolean grounded, boolean duck,
                  boolean dreaming, int compactPose, Vec3 position, Vec3 speed, double dashSpeed, int dashTicks) implements CustomPacketPayload {
         static final Type<Frame> TYPE = new Type<>(NoUltraDashPlease.id("frame"));
