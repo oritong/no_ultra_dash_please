@@ -40,7 +40,8 @@ public final class DashScreenEffect {
     @SubscribeEvent
     static void fieldOfView(ViewportEvent.ComputeFov event) {
         var minecraft = Minecraft.getInstance();
-        if (!event.usedConfiguredFov() || !canRender(minecraft) || startedNanos == 0 || failed) {
+        if (!event.usedConfiguredFov() || !canRender(minecraft) || startedNanos == 0 || failed
+                || DashClient.dreaming(minecraft.player) || DreamTravelScreen.active()) {
             return;
         }
         double progress = progress();
@@ -78,6 +79,10 @@ public final class DashScreenEffect {
             return;
         }
         if (minecraft.screen != null || minecraft.getOverlay() != null || minecraft.isPaused()) {
+            stop();
+            return;
+        }
+        if (DashClient.dreaming(minecraft.player) || DreamTravelScreen.active()) {
             stop();
             return;
         }

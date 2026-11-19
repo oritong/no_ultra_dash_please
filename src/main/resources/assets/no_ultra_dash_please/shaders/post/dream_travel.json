@@ -1,0 +1,7 @@
+{
+  "targets": ["dream_swap"],
+  "passes": [
+    { "name": "no_ultra_dash_please:dream_travel", "intarget": "minecraft:main", "outtarget": "dream_swap" },
+    { "name": "minecraft:blit", "intarget": "dream_swap", "outtarget": "minecraft:main" }
+  ]
+}

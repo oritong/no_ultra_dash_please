@@ -40,6 +40,7 @@ public final class DashClient {
     private static boolean driven;
     private static boolean duck;
     private static boolean dreaming;
+    private static Vec3 dreamSpeed = Vec3.ZERO;
     private static Pose exitPose;
     private static DreamTravelSound dreamSound;
 
@@ -127,6 +128,7 @@ public final class DashClient {
         dashSpeed = frame.dashSpeed();
         dashTicks = frame.dashTicks();
         dreaming = frame.dreaming();
+        dreamSpeed = dreaming ? frame.speed() : Vec3.ZERO;
         exitPose = switch (frame.compactPose()) {
             case 1 -> Pose.CROUCHING;
             case 2 -> Pose.SWIMMING;
@@ -210,6 +212,10 @@ public final class DashClient {
         return owner == player && dreaming;
     }
 
+    static Vec3 dreamSpeed(Player player) {
+        return owner == player ? dreamSpeed : Vec3.ZERO;
+    }
+
     public static boolean applyExitPose(Player player) {
         if (owner != player || exitPose == null || player.getForcedPose() != null) return false;
         player.setPose(exitPose);
@@ -229,6 +235,7 @@ public final class DashClient {
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
         driven = duck = dreaming = false;
+        dreamSpeed = Vec3.ZERO;
         exitPose = null;
     }
 
