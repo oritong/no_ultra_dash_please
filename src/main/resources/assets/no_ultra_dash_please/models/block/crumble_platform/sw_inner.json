@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": true,
+  "textures": {
+    "top": "no_ultra_dash_please:block/crumble_platform_inner",
+    "side": "no_ultra_dash_please:block/crumble_platform_side",
+    "particle": "no_ultra_dash_please:block/crumble_platform_fill"
+  },
+  "elements": [
+    {
+      "name": "sw_inner",
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        8,
+        8,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            8,
+            8,
+            16
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#top",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}

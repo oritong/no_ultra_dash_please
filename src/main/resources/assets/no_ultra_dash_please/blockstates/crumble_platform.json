@@ -1,0 +1,740 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/nw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_nw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_nw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_nw_outer",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/nw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_nw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_nw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_nw_horizontal",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/nw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_nw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_nw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_nw_vertical",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "west": "true",
+        "north_west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/nw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_nw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_nw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_nw_inner",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "west": "true",
+        "north_west": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/nw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_nw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_nw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_nw_fill",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/ne_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_ne_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_ne_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_ne_outer",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/ne_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_ne_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_ne_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_ne_horizontal",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/ne_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_ne_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_ne_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_ne_vertical",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "east": "true",
+        "north_east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/ne_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_ne_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_ne_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_ne_inner",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "north": "true",
+        "east": "true",
+        "north_east": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/ne_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_ne_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_ne_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_ne_fill",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/se_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_se_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_se_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_se_outer",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/se_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_se_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_se_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_se_horizontal",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/se_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_se_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_se_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_se_vertical",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "east": "true",
+        "south_east": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/se_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_se_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_se_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_se_inner",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "east": "true",
+        "south_east": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/se_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_se_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_se_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_se_fill",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/sw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_sw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_sw_outer",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_sw_outer",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/sw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_sw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_sw_horizontal",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_sw_horizontal",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/sw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_sw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_sw_vertical",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_sw_vertical",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "west": "true",
+        "south_west": "false"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/sw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_sw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_sw_inner",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_sw_inner",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "normal|crumbling",
+        "south": "true",
+        "west": "true",
+        "south_west": "true"
+      },
+      "apply": [
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/sw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v1_sw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v2_sw_fill",
+          "weight": 1
+        },
+        {
+          "model": "no_ultra_dash_please:block/crumble_platform/v3_sw_fill",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_nw_outer",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_nw_horizontal",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_nw_vertical",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "west": "true",
+        "north_west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_nw_inner",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "west": "true",
+        "north_west": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_nw_fill",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_ne_outer",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_ne_horizontal",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_ne_vertical",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "east": "true",
+        "north_east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_ne_inner",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "north": "true",
+        "east": "true",
+        "north_east": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_ne_fill",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_se_outer",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_se_horizontal",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_se_vertical",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "east": "true",
+        "south_east": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_se_inner",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "east": "true",
+        "south_east": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_se_fill",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_sw_outer",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_sw_horizontal",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_sw_vertical",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "west": "true",
+        "south_west": "false"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_sw_inner",
+        "weight": 1
+      }
+    },
+    {
+      "when": {
+        "phase": "collapsed",
+        "south": "true",
+        "west": "true",
+        "south_west": "true"
+      },
+      "apply": {
+        "model": "no_ultra_dash_please:block/crumble_platform/collapsed_sw_fill",
+        "weight": 1
+      }
+    }
+  ]
+}

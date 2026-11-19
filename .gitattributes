@@ -3,3 +3,13 @@
 # are changed when only line endings change.
 src/generated/**/.cache/* text eol=lf
 src/generated/**/*.json text eol=lf
+
+# Keep generated crumble assets and their SHA-256 manifest reproducible on Windows.
+art/crumble_platform/*.py text eol=lf
+art/crumble_platform/*.js text eol=lf
+art/crumble_platform/*.json text eol=lf
+art/crumble_platform/*.bbmodel text eol=lf
+src/main/resources/assets/no_ultra_dash_please/blockstates/crumble_platform.json text eol=lf
+src/main/resources/assets/no_ultra_dash_please/models/block/crumble_platform*.json text eol=lf
+src/main/resources/assets/no_ultra_dash_please/models/block/crumble_platform/*.json text eol=lf
+src/main/resources/assets/no_ultra_dash_please/models/item/crumble_platform.json text eol=lf

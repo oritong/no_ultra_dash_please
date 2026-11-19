@@ -1,0 +1,28 @@
+{
+  "consulted": "2026-11-18",
+  "style_guide": "https://www.blockbench.net/wiki/guides/minecraft-style-guide/",
+  "style_guide_applied": ["Native 16px grid and 1 texel per model unit", "Purposeful stone clusters and restricted palette", "Low element count and no per-pixel cuboids", "Connected tiling and repeated-pattern review"],
+  "local_original": {
+    "game": "Celeste, local Steam installation",
+    "atlas": "E:/SteamLibrary/steamapps/common/Celeste/Content/Graphics/Atlases/Gameplay0.data",
+    "atlas_sha256": "687f3340c937e3baca71758bfb1e6b8e799ad896f2df19bef26ec64968b3490b",
+    "metadata_sha256": "1f23b1f35544a3751ffec170b0230c7c9513000ab1549f78ebb9cb9f4203c8d9",
+    "entries": {
+      "objects/crumbleBlock/default": {"rect": [409, 754, 32, 8], "offset": [0, 0], "logical_frame": [32, 8]},
+      "objects/crumbleBlock/outline": {"rect": [428, 306, 32, 6], "offset": [0, 0], "logical_frame": [32, 8]}
+    },
+    "normal_palette": ["#A69FA4", "#847E87", "#564759", "#000000"],
+    "outline_palette": ["#FFFFFF", "transparent"],
+    "visual_reference_viewed": true,
+    "original_sprites_packaged": false
+  },
+  "adaptation": "Four original 16x16 top and side stone patterns use the Chapter 1 gray-purple material colors. A half-height Java slab and hollow dashed-white cuboid adapt the 2D floor into Minecraft. Eight-neighbor multipart connections and four coherent weighted material choices provide connected and stable random textures.",
+  "runtime_reference": {
+    "version": "Minecraft 1.21.1 / NeoForge 21.1.265",
+    "local_source_jar": "build/moddev/artifacts/neoforge-21.1.265-sources.jar",
+    "examined_classes": ["net.minecraft.client.resources.model.MultiPartBakedModel", "net.minecraft.client.resources.model.WeightedBakedModel", "net.minecraft.util.Mth", "net.minecraft.util.RandomSource", "net.minecraft.world.level.levelgen.LegacyRandomSource", "net.minecraft.client.renderer.FaceInfo", "net.minecraft.world.level.block.state.BlockBehaviour", "net.minecraft.world.level.chunk.LevelChunk"]
+  },
+  "editor_validation": {"blockbench": "5.2.2", "mcp": "1.10.1", "java_block_version": "1.9.0", "projects_opened": 5, "views_per_project": 7, "display_slots": ["gui", "thirdperson_righthand", "firstperson_righthand", "ground"]},
+  "minecraft_runtime_tested": false,
+  "build_run": false
+}

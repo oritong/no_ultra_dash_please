@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "elements": [],
+  "textures": {
+    "particle": "no_ultra_dash_please:block/crumble_platform_fill"
+  }
+}

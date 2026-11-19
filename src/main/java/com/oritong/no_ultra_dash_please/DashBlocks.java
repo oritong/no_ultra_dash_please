@@ -36,7 +36,8 @@ final class DashBlocks {
             var block = BLOCKS.<Block>register(kind.id, () -> kind == Kind.REFILL
                     ? new RefillCrystalBlock(RefillCrystalBlock.crystalProperties())
                     : kind == Kind.DREAM ? new DreamBlock(DreamBlock.dreamProperties())
-                    : kind.booster() ? new BoosterBlock(BoosterBlock.bubbleProperties()) : new Surface(kind));
+                    : kind.booster() ? new BoosterBlock(BoosterBlock.bubbleProperties())
+                    : kind == Kind.CRUMBLE ? new CrumblePlatformBlock(CrumblePlatformBlock.platformProperties()) : new Surface(kind));
             SURFACES.put(kind, block);
             ITEMS.registerSimpleBlockItem(block);
         }
@@ -77,7 +78,8 @@ final class DashBlocks {
 
     enum Kind {
         DREAM("dream_block"), SPRING("spring"), SUPER_SPRING("super_spring"), SIDE_SPRING("side_spring"),
-        REBOUND("rebound_block"), REFLECT("reflect_block"), REFILL("refill_crystal"), BOOSTER("booster"), RED_BOOSTER("red_booster");
+        REBOUND("rebound_block"), REFLECT("reflect_block"), REFILL("refill_crystal"), BOOSTER("booster"), RED_BOOSTER("red_booster"),
+        CRUMBLE("crumble_platform");
 
         private final String id;
 

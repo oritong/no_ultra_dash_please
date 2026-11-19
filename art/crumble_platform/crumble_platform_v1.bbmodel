@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "format_version": "4.10",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "crumble_platform_v1",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "java_block_version": "1.9.0",
+  "unhandled_root_fields": {
+    "render_type": "minecraft:cutout"
+  },
+  "resolution": {
+    "width": 16,
+    "height": 16
+  },
+  "elements": [
+    {
+      "name": "crumble_platform",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        8,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 0
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 0
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "texture": 1
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            8
+          ],
+          "texture": 1
+        }
+      },
+      "uuid": "eb625be0-b43b-5ab0-b3a3-24d175ef4376",
+      "type": "cube",
+      "box_uv": false,
+      "origin": [
+        8,
+        0,
+        8
+      ],
+      "autouv": 0,
+      "export": true
+    }
+  ],
+  "outliner": [
+    "eb625be0-b43b-5ab0-b3a3-24d175ef4376"
+  ],
+  "textures": [
+    {
+      "name": "crumble_platform_v1_outer.png",
+      "id": "0",
+      "uuid": "06d71fd3-7618-59cc-b3d6-6807a37449c2",
+      "namespace": "no_ultra_dash_please",
+      "folder": "block",
+      "relative_path": "../../src/main/resources/assets/no_ultra_dash_please/textures/block/crumble_platform_v1_outer.png",
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR4nGNcNn/JfwYywYYVWxlY0AXv3X+MU4OSoiyGGiZcivCJI7OZSHIzFgOZ0J2EzL508hIY4wMs2DTCNOMDMPVMhJyqZ66HYQEym4UYzbhcidcFemiacQEWXBLo0YkrfTAhc/CFOq70wYSsmRDAZggTjEFMgGEDKGFAKOBIigV0DbhcxBjmHkl2dgYZAADHwkBAZd7Y7gAAAABJRU5ErkJggg==",
+      "render_mode": "default",
+      "render_sides": "front",
+      "saved": true,
+      "internal": true,
+      "particle": false
+    },
+    {
+      "name": "crumble_platform_v1_side_end.png",
+      "id": "1",
+      "uuid": "1ad1a74c-8a43-5113-8593-8524bfe01d77",
+      "namespace": "no_ultra_dash_please",
+      "folder": "block",
+      "relative_path": "../../src/main/resources/assets/no_ultra_dash_please/textures/block/crumble_platform_v1_side_end.png",
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAl0lEQVR4nGNcNn/JfwYKAMuGFVsZAiK8Ge7df4wioaQoi8JHlofJNTW1MzChS146eQlDAzbNMDEmZFtgmpE1gjCya0AuRjaQCV2znrke3CZ022BqkC1igglcunUJp/+xWQADLKt2LmfQUNRm0FNDSMBshBkEt/kWwpAli5cw3Lh/FcwHReP/MPdIMIaxYeLY5NHwKBgFDAA1dl/EmpwVwwAAAABJRU5ErkJggg==",
+      "render_mode": "default",
+      "render_sides": "front",
+      "saved": true,
+      "internal": true,
+      "particle": false
+    },
+    {
+      "name": "crumble_platform_v1_fill.png",
+      "id": "2",
+      "uuid": "fc804383-8bc0-5fe1-b898-f6e124a7a54d",
+      "namespace": "no_ultra_dash_please",
+      "folder": "block",
+      "relative_path": "../../src/main/resources/assets/no_ultra_dash_please/textures/block/crumble_platform_v1_fill.png",
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkElEQVR4nGNcNn/JfwYouHf/MQOpgAmZo6Qoi1cxSB5dDRM2Rbg0Y2MzkeNsZEOYQASyIcjsSycvgTE+wIJNI0wzPgBTz0TIqXrmehgWILNZiNGMy5V4XaCHphkXYMElgR6duGKLCZmDL9RxpQ8mZM2EADZDmGAMYgIMG0AJA0IBR1IsoGvA5SK86QCfRhgAAG6yP58/Yh54AAAAAElFTkSuQmCC",
+      "render_mode": "default",
+      "render_sides": "front",
+      "saved": true,
+      "internal": true,
+      "particle": true
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "fixed": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
+}

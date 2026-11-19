@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {"item": "minecraft:stone_slab"},
+    {"item": "minecraft:gravel"}
+  ],
+  "result": {"id": "no_ultra_dash_please:crumble_platform", "count": 2}
+}

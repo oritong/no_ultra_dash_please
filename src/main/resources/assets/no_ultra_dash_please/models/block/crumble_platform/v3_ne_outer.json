@@ -1,0 +1,9 @@
+{
+  "parent": "no_ultra_dash_please:block/crumble_platform/ne_outer",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "top": "no_ultra_dash_please:block/crumble_platform_v3_outer",
+    "side": "no_ultra_dash_please:block/crumble_platform_v3_side_end",
+    "particle": "no_ultra_dash_please:block/crumble_platform_v3_fill"
+  }
+}
