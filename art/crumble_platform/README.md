@@ -49,7 +49,7 @@ python art/crumble_platform/check_assets.py
 - 检查 34 张 PNG 的尺寸、0/255 透明度和源/运行资源一致性；BB 内嵌图与外链 PNG 一致。
 - 五份 BB 工程已在 Blockbench 5.2.2 / MCP 1.10.1 打开，并通过 Java 原生导出器以 `1.9.0` 格式编译；捕获每份七个视角，以及正常模型的 GUI、第一/第三人称和地面 Display。
 - 对 5 份 BB、100 份连接模型及 1 份物品模型执行技能结构审计，无结构错误。审计使用 `generic` 作公共 cuboid 检查；其 `parent_unresolved` 警告只涉及未随本项目复制的原版 `minecraft:block/block`。本项目的纹理及自定义父模型另由资源检查器完整解析。
-- Java 21 仅做语法解析，无语法错误；没有类型检查。按用户要求未运行 Gradle、构建、Minecraft、部署或游戏性能测试。
+- 0.1.6 已用 Java 21 执行 Gradle 构建，全部 29 项游戏测试通过。地牢餐厅独立 QA 世界中，已通过 AutoJS 检查正常石台、整片塌陷空框、四邻接联动、2 秒恢复及原版解体/返回音效；当前 Iris 光影下两种形态均正常显示。未测量游戏性能。
 - 离屏相机删除遇到该版本插件已知的 `onContextMenu is not defined`，已核对工具注册表与 `Preview.all`，本次创建的视图均已移除；不据此保证所有 controls 监听器已释放。
 
 模型、贴图和导出检查不代替游戏验证。详细离线报告与原生导出位于忽略提交的 `build/art-validation/crumble/`。
