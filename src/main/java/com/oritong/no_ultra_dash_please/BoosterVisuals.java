@@ -31,7 +31,7 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
             material("booster"), material("red_booster"),
             material("booster_occupied"), material("red_booster_occupied")
     };
-    private static final RenderType EMPTY_OUTLINE = material("booster_outline");
+    private static final RenderType EMPTY_OUTLINE = material("booster_outline", true);
     private static final Vec3[] UNIT = makeVertices();
     private static final int[][] FACES = makeFaces();
     private static final Map<Integer, Occupant> OCCUPANTS = new HashMap<>();
@@ -41,12 +41,17 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
     private BoosterVisuals(BlockEntityRendererProvider.Context context) { }
 
     private static RenderType material(String name) {
+        return material(name, false);
+    }
+
+    private static RenderType material(String name, boolean twoSided) {
         return RenderType.create("no_ultra_dash_please_" + name,
                 DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 4096, false, true,
                 RenderType.CompositeState.builder().setShaderState(RenderStateShard.RENDERTYPE_TEXT_SHADER)
                         .setTextureState(new RenderStateShard.TextureStateShard(
                                 NoUltraDashPlease.id("textures/block/" + name + ".png"), false, false))
                         .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+                        .setCullState(twoSided ? RenderStateShard.NO_CULL : RenderStateShard.CULL)
                         .setWriteMaskState(RenderStateShard.COLOR_WRITE).setLightmapState(RenderStateShard.LIGHTMAP)
                         .createCompositeState(false));
     }
