@@ -46,6 +46,7 @@ final class DashBlocks {
         RefillCrystalBlock.register(bus);
         DreamBlock.register(bus);
         BoosterBlock.register(bus);
+        CrumblePlatformBlock.register(bus);
         bus.addListener(DashBlocks::creative);
     }
 

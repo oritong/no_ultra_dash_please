@@ -24,7 +24,8 @@ public final class RefillCrystalMigration {
         for (int sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
             var section = sections[sectionIndex];
             if (!section.maybeHas(state -> state.getBlock() instanceof RefillCrystalBlock
-                    || state.getBlock() instanceof DreamBlock || state.getBlock() instanceof BoosterBlock)) {
+                    || state.getBlock() instanceof DreamBlock || state.getBlock() instanceof BoosterBlock
+                    || state.getBlock() instanceof CrumblePlatformBlock)) {
                 continue;
             }
             int baseY = chunk.getSectionYFromSectionIndex(sectionIndex) << 4;
@@ -32,7 +33,8 @@ public final class RefillCrystalMigration {
                 for (int z = 0; z < 16; z++) {
                     for (int x = 0; x < 16; x++) {
                         var block = section.getBlockState(x, y, z).getBlock();
-                        if (block instanceof RefillCrystalBlock || block instanceof DreamBlock || block instanceof BoosterBlock) {
+                        if (block instanceof RefillCrystalBlock || block instanceof DreamBlock || block instanceof BoosterBlock
+                                || block instanceof CrumblePlatformBlock) {
                             pos.set(chunk.getPos().getMinBlockX() + x, baseY + y, chunk.getPos().getMinBlockZ() + z);
                             if (chunk.getBlockEntity(pos) == null) {
                                 chunk.getBlockEntity(pos.immutable(), LevelChunk.EntityCreationType.IMMEDIATE);

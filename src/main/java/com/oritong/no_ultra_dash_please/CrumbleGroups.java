@@ -142,12 +142,29 @@ public final class CrumbleGroups extends SavedData {
             var state = level.getBlockState(pos);
             if (state.getBlock() instanceof CrumblePlatformBlock) {
                 level.setBlock(pos, state.setValue(CrumblePlatformBlock.PHASE, phase), Block.UPDATE_CLIENTS);
+                if (phase == CrumblePlatformBlock.Phase.CRUMBLING
+                        && level.getBlockEntity(pos) instanceof CrumblePlatformBlock.ShakeEntity shake) {
+                    shake.startWarning(group.started, group.origin.asLong());
+                }
             }
         }
         // Finish the whole phase change before rebuilding each multipart seam.
         for (BlockPos pos : group.positions) {
             if (level.getBlockState(pos).getBlock() instanceof CrumblePlatformBlock block) block.refresh(level, pos);
         }
+    }
+
+    static void restoreWarning(ServerLevel level, BlockPos pos, CrumblePlatformBlock.ShakeEntity shake) {
+        var data = level.getDataStorage().get(FACTORY, DATA_ID);
+        if (data != null) {
+            for (Group group : data.groups) {
+                if (!group.collapsed && group.positions.contains(pos)) {
+                    shake.startWarning(group.started, group.origin.asLong());
+                    return;
+                }
+            }
+        }
+        shake.startWarning(level.getGameTime(), pos.asLong());
     }
 
     static CrumbleGroups load(CompoundTag tag, HolderLookup.Provider registries) {
