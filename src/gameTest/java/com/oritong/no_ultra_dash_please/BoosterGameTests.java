@@ -109,6 +109,58 @@ public final class BoosterGameTests {
         helper.succeed();
     }
 
+    @GameTest(template = "empty", timeoutTicks = 45)
+    public static void bothColorsKeepEmptyOutlineForOneSecondAfterRelease(GameTestHelper helper) {
+        var level = helper.getLevel();
+        for (var kind : new DashBlocks.Kind[] {DashBlocks.Kind.BOOSTER, DashBlocks.Kind.RED_BOOSTER}) {
+            BlockPos relative = kind == DashBlocks.Kind.BOOSTER ? BUBBLE : BUBBLE.east(3);
+            helper.setBlock(relative, DashBlocks.block(kind));
+            var pos = helper.absolutePos(relative);
+            var player = player(helper, new Vec3(relative.getX() + 0.5, relative.getY() - 0.4, relative.getZ() + 0.5));
+            var state = level.getBlockState(pos);
+            state.entityInside(level, pos, player);
+            helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.OCCUPIED,
+                    "The bubble must be reserved immediately on contact");
+            var other = player(helper, new Vec3(relative.getX() + 0.5, relative.getY() - 0.4, relative.getZ() + 0.5));
+            state.entityInside(level, pos, other);
+            ServerDash.get(other).tick(other);
+            helper.assertTrue(ServerDash.get(other).bubbleMode() == 0, "A second player must not reuse an occupied bubble");
+            tick(player, 5);
+            helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.EMPTY,
+                    "Launching must leave the empty outline at the origin");
+            ServerDash.get(player).interrupt(player);
+            helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.COOLDOWN,
+                    "Releasing must start a shared one-second empty cooldown");
+            level.getBlockState(pos).entityInside(level, pos, other);
+            tick(other, 1);
+            helper.assertTrue(ServerDash.get(other).bubbleMode() == 0, "The outline cannot boost anyone during cooldown");
+            helper.runAfterDelay(19, () -> helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE)
+                    == BoosterBlock.Phase.COOLDOWN, "Both colors must keep the outline until the full second elapses"));
+            helper.runAfterDelay(21, () -> helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE)
+                    == BoosterBlock.Phase.READY, "Both colors must become reusable after one second"));
+        }
+        helper.runAfterDelay(22, helper::succeed);
+    }
+
+    @GameTest(template = "empty")
+    public static void switchingBoostersReleasesOnlyThePreviousOrigin(GameTestHelper helper) {
+        var player = enter(helper, DashBlocks.Kind.RED_BOOSTER);
+        tick(player, 5);
+        var dash = ServerDash.get(player);
+        BlockPos next = helper.absolutePos(BUBBLE.south(3));
+        tick(player, 8);
+        helper.setBlock(BUBBLE.south(3), DashBlocks.block(DashBlocks.Kind.BOOSTER));
+        player.setPos(next.getX() + 0.5, next.getY() - 0.4, next.getZ() + 0.5);
+        helper.getLevel().getBlockState(next).entityInside(helper.getLevel(), next, player);
+        tick(player, 1);
+        helper.assertTrue(dash.bubbleMode() == 1, "The next bubble must hold the chaining player");
+        helper.assertTrue(helper.getBlockState(BUBBLE).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.COOLDOWN,
+                "Chaining must release the prior origin");
+        helper.assertTrue(helper.getLevel().getBlockState(next).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.OCCUPIED,
+                "A previous release must never put the newly occupied bubble on cooldown");
+        helper.succeed();
+    }
+
     private static ServerPlayer enter(GameTestHelper helper, DashBlocks.Kind kind) {
         helper.setBlock(BUBBLE, DashBlocks.block(kind));
         var player = player(helper, new Vec3(3.8, 3.6, 3.5));
