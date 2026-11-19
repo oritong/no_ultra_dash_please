@@ -25,6 +25,11 @@ abstract class PlayerMixin {
     @Inject(method = "updatePlayerPose", at = @At("HEAD"), cancellable = true)
     private void noUltraDash$pose(CallbackInfo callback) {
         Player player = (Player) (Object) this;
+        if (player instanceof ServerPlayer server ? ServerDash.get(server).applyExitPose(player)
+                : player.level().isClientSide && DashClient.applyExitPose(player)) {
+            callback.cancel();
+            return;
+        }
         // Dream movement deliberately overlaps solid dream blocks. Vanilla's fit test would
         // shrink a standing player to SWIMMING and make underside entry immediately "exit".
         if (player instanceof ServerPlayer server ? ServerDash.get(server).dreaming()

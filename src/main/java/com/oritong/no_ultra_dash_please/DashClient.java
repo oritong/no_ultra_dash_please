@@ -5,6 +5,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -39,6 +40,7 @@ public final class DashClient {
     private static boolean driven;
     private static boolean duck;
     private static boolean dreaming;
+    private static Pose exitPose;
     private static DreamTravelSound dreamSound;
 
     private DashClient() {}
@@ -125,6 +127,12 @@ public final class DashClient {
         dashSpeed = frame.dashSpeed();
         dashTicks = frame.dashTicks();
         dreaming = frame.dreaming();
+        exitPose = switch (frame.compactPose()) {
+            case 1 -> Pose.CROUCHING;
+            case 2 -> Pose.SWIMMING;
+            default -> null;
+        };
+        applyExitPose(player);
         if (frame.dreaming()) {
             if (dreamSound == null || dreamSound.isStopped()) {
                 dreamSound = new DreamTravelSound(player);
@@ -202,6 +210,12 @@ public final class DashClient {
         return owner == player && dreaming;
     }
 
+    public static boolean applyExitPose(Player player) {
+        if (owner != player || exitPose == null || player.getForcedPose() != null) return false;
+        player.setPose(exitPose);
+        return true;
+    }
+
     private static void send(LocalPlayer player, boolean dash, int release) {
         PacketDistributor.sendToServer(new Input(buttons | (dash ? DASH : 0), player.getYRot(), player.getXRot(), release));
     }
@@ -215,6 +229,7 @@ public final class DashClient {
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
         driven = duck = dreaming = false;
+        exitPose = null;
     }
 
     private static void stopDreamSound() {

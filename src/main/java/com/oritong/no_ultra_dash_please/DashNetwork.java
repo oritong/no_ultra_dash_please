@@ -23,7 +23,7 @@ final class DashNetwork {
     static final int REJECT = 4;
 
     static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("4");
+        var registrar = event.registrar("5");
         registrar.playToServer(Input.TYPE, Input.CODEC, (data, context) -> {
             if (context.player() instanceof ServerPlayer player) {
                 ServerDash.get(player).input(player, data);
@@ -78,7 +78,7 @@ final class DashNetwork {
     }
 
     record Frame(int mode, int release, int charges, int maximum, int cooldown, boolean grounded, boolean duck,
-                 boolean dreaming, Vec3 position, Vec3 speed, double dashSpeed, int dashTicks) implements CustomPacketPayload {
+                 boolean dreaming, int compactPose, Vec3 position, Vec3 speed, double dashSpeed, int dashTicks) implements CustomPacketPayload {
         static final Type<Frame> TYPE = new Type<>(NoUltraDashPlease.id("frame"));
         static final StreamCodec<RegistryFriendlyByteBuf, Frame> CODEC = StreamCodec.of(
                 (buffer, data) -> {
@@ -90,13 +90,14 @@ final class DashNetwork {
                     buffer.writeBoolean(data.grounded);
                     buffer.writeBoolean(data.duck);
                     buffer.writeBoolean(data.dreaming);
+                    buffer.writeByte(data.compactPose);
                     buffer.writeVec3(data.position);
                     buffer.writeVec3(data.speed);
                     buffer.writeDouble(data.dashSpeed);
                     buffer.writeByte(data.dashTicks);
                 }, buffer -> new Frame(buffer.readUnsignedByte(), buffer.readVarInt(), buffer.readUnsignedByte(),
                         buffer.readUnsignedByte(), buffer.readUnsignedByte(), buffer.readBoolean(), buffer.readBoolean(),
-                        buffer.readBoolean(), buffer.readVec3(), buffer.readVec3(), buffer.readDouble(), buffer.readUnsignedByte()));
+                        buffer.readBoolean(), buffer.readUnsignedByte(), buffer.readVec3(), buffer.readVec3(), buffer.readDouble(), buffer.readUnsignedByte()));
 
         @Override
         public Type<Frame> type() {

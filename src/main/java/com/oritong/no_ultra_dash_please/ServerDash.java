@@ -10,6 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -33,6 +35,8 @@ public final class ServerDash {
     private Vec3 climbWall = Vec3.ZERO;
     private Vec3 platformSpeed = Vec3.ZERO;
     private Vec3 dreamEntrance;
+    private Pose exitPose;
+    private Pose lastExitPose;
     private Vec3 dreamEntryDirection = Vec3.ZERO;
     private boolean dreamReturning;
     private Vec3 lastGround;
@@ -92,6 +96,12 @@ public final class ServerDash {
 
     public boolean dreaming() {
         return phase == Phase.DREAM && !dreamExited;
+    }
+
+    public boolean applyExitPose(Player player) {
+        if (exitPose == null || player.getForcedPose() != null) return false;
+        player.setPose(exitPose);
+        return true;
     }
 
     public int bubbleMode() {
@@ -178,6 +188,7 @@ public final class ServerDash {
         autoJump = false;
         duck = false;
         dreamEntrance = null;
+        exitPose = null;
         dreamReturning = false;
         spring = null;
         booster = null;
@@ -207,6 +218,7 @@ public final class ServerDash {
             return wasMoving;
         }
 
+        updateExitPose(player);
         boolean hasGround = phase != Phase.DREAM && DashPhysics.grounded(player);
         boolean safeGround = hasGround && DashPhysics.refillable(player);
         if (lastBooster != null && booster == null && phase != Phase.BOOSTER
@@ -231,6 +243,7 @@ public final class ServerDash {
             if (releaseWait == 0) {
                 player.connection.teleport(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
             }
+            syncIdle(player);
             return true;
         }
 
@@ -754,6 +767,11 @@ public final class ServerDash {
         for (int step = 0; step < steps; step++) {
             Vec3 next = candidate.add(increment);
             var space = DashPhysics.dreamSpace(player, player.getBoundingBox().move(next.subtract(origin)));
+            if (space == DashPhysics.DreamSpace.BLOCKED && compactDreamPose(player, candidate, next, seen, false)
+                    || seen && space == DashPhysics.DreamSpace.INSIDE && motion.y <= DashPhysics.EPSILON
+                    && compactDreamPose(player, candidate, next, true, true)) {
+                space = DashPhysics.dreamSpace(player, player.getBoundingBox().move(next.subtract(origin)));
+            }
             if (space == DashPhysics.DreamSpace.BLOCKED) {
                 if (!seen) {
                     return false;
@@ -807,6 +825,38 @@ public final class ServerDash {
         player.setOnGround(false);
         trail(player, ParticleTypes.PORTAL);
         return true;
+    }
+
+    private boolean compactDreamPose(ServerPlayer player, Vec3 current, Vec3 next, boolean seen, boolean clearExit) {
+        if (player.getForcedPose() != null) return false;
+        for (Pose pose : new Pose[] {Pose.CROUCHING, Pose.SWIMMING}) {
+            var dimensions = player.getDimensions(pose);
+            if (dimensions.height() >= player.getBbHeight() - DashPhysics.EPSILON) continue;
+            var space = DashPhysics.dreamSpace(player, dimensions.makeBoundingBox(next));
+            if (space == DashPhysics.DreamSpace.BLOCKED || !seen && space != DashPhysics.DreamSpace.INSIDE
+                    || clearExit && space != DashPhysics.DreamSpace.CLEAR
+                    || DashPhysics.dreamSpace(player, dimensions.makeBoundingBox(current)) == DashPhysics.DreamSpace.BLOCKED) {
+                continue;
+            }
+            exitPose = pose;
+            player.setPose(pose);
+            return true;
+        }
+        return false;
+    }
+
+    private void updateExitPose(ServerPlayer player) {
+        if (exitPose == null || dreaming()) return;
+        if (player.getForcedPose() != null) {
+            exitPose = null;
+            return;
+        }
+        for (Pose pose : new Pose[] {Pose.STANDING, Pose.CROUCHING, Pose.SWIMMING}) {
+            if (!DashPhysics.clear(player, player.getDimensions(pose).makeBoundingBox(player.position()))) continue;
+            exitPose = pose == Pose.STANDING ? null : pose;
+            player.setPose(pose == Pose.STANDING && player.isShiftKeyDown() ? Pose.CROUCHING : pose);
+            return;
+        }
     }
 
     private void stepDream(ServerPlayer player) {
@@ -900,7 +950,8 @@ public final class ServerDash {
 
     private void syncIdle(ServerPlayer player) {
         if (lastCharges != charges || lastMaximum != maxCharges || lastCooldown != cooldown
-                || lastDashSpeed != DashTuning.SPEED.get() || lastDashTicks != DashTuning.DURATION.get()) {
+                || lastDashSpeed != DashTuning.SPEED.get() || lastDashTicks != DashTuning.DURATION.get()
+                || lastExitPose != exitPose) {
             send(player, IDLE);
         }
     }
@@ -912,8 +963,10 @@ public final class ServerDash {
         lastCooldown = cooldown;
         lastDashSpeed = DashTuning.SPEED.get();
         lastDashTicks = DashTuning.DURATION.get();
+        lastExitPose = exitPose;
         PacketDistributor.sendToPlayer(player, new Frame(mode, releaseId, charges, maxCharges, cooldown, player.onGround(),
-                duck, dreaming(), player.position(), speed, lastDashSpeed, lastDashTicks));
+                duck, dreaming(), exitPose == Pose.CROUCHING ? 1 : exitPose == Pose.SWIMMING ? 2 : 0,
+                player.position(), speed, lastDashSpeed, lastDashTicks));
     }
 
     private void syncBubbleVisual(ServerPlayer player) {
