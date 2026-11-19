@@ -29,7 +29,7 @@ python art/crumble_platform/check_assets.py
 
 ## 连接与随机纹理
 
-使用 Minecraft/NeoForge 自带 multipart 和等权重模型，无连接纹理依赖、无方块实体、无定制 shader。四个四分片分别依据两个边邻接和一个对角邻接选择五种拓扑，组合覆盖 47 种有意义的连接图案。
+使用 Minecraft/NeoForge 自带 multipart 和等权重模型，无连接纹理依赖、无定制 shader；正常和塌陷形态仍由区块批量绘制，预警阶段使用方块实体绘制同一份连接模型。四个四分片分别依据两个边邻接和一个对角邻接选择五种拓扑，组合覆盖 47 种有意义的连接图案。
 
 四套正常纹理在每条 multipart 规则中按相同顺序、相同权重排列。已核对目标版本的 `MultiPartBakedModel`：它把同一随机种子交给每个选中的子模型；`WeightedBakedModel` 因而对四分片选择一致的图案。随机结果由位置决定，邻接变化、预塌陷及恢复不会让正常图案跳变。预览按目标版本的 `Mth.getSeed`、`LegacyRandomSource` 与两层 `nextLong` 选择规则取样。
 
@@ -53,3 +53,5 @@ python art/crumble_platform/check_assets.py
 - 离屏相机删除遇到该版本插件已知的 `onContextMenu is not defined`，已核对工具注册表与 `Preview.all`，本次创建的视图均已移除；不据此保证所有 controls 监听器已释放。
 
 模型、贴图和导出检查不代替游戏验证。详细离线报告与原生导出位于忽略提交的 `build/art-validation/crumble/`。
+
+0.1.7 增加预警抖动：同一群组共享起始时间与随机种子，整体水平位移最多 1/16 格，竖直位移更小；抖动随倒计时增强。碰撞箱固定，正常与塌陷时立即停止；绘制仍使用原位置模型种子，因此四套随机贴图不会变化。旧地图加载时自动补建抖动显示所需数据。
