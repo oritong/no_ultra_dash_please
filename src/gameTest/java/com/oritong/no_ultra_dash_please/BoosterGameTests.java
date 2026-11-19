@@ -136,8 +136,17 @@ public final class BoosterGameTests {
             helper.assertTrue(ServerDash.get(other).bubbleMode() == 0, "The outline cannot boost anyone during cooldown");
             helper.runAfterDelay(19, () -> helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE)
                     == BoosterBlock.Phase.COOLDOWN, "Both colors must keep the outline until the full second elapses"));
-            helper.runAfterDelay(21, () -> helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE)
-                    == BoosterBlock.Phase.READY, "Both colors must become reusable after one second"));
+            helper.runAfterDelay(21, () -> {
+                helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE)
+                        == BoosterBlock.Phase.READY, "Both colors must become reusable after one second");
+                tick(player, 12);
+                player.setPos(pos.getX() + 0.5, pos.getY() - 0.4, pos.getZ() + 0.5);
+                level.getBlockState(pos).entityInside(level, pos, player);
+                tick(player, 1);
+                helper.assertTrue(level.getBlockState(pos).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.OCCUPIED
+                                && ServerDash.get(player).bubbleMode() == (kind == DashBlocks.Kind.BOOSTER ? 1 : 2),
+                        "The same player must be able to reuse the same regenerated origin");
+            });
         }
         helper.runAfterDelay(22, helper::succeed);
     }
@@ -148,12 +157,19 @@ public final class BoosterGameTests {
         tick(player, 5);
         var dash = ServerDash.get(player);
         BlockPos next = helper.absolutePos(BUBBLE.south(3));
-        tick(player, 8);
+        // Keep flight inside this test's empty structure while its entry lock elapses.
+        for (int tick = 0; tick < 8; tick++) {
+            player.setPos(helper.absoluteVec(new Vec3(3.5, 3.6, 3.5)));
+            tick(player, 1);
+        }
         helper.setBlock(BUBBLE.south(3), DashBlocks.block(DashBlocks.Kind.BOOSTER));
         player.setPos(next.getX() + 0.5, next.getY() - 0.4, next.getZ() + 0.5);
         helper.getLevel().getBlockState(next).entityInside(helper.getLevel(), next, player);
+        helper.assertTrue(helper.getLevel().getBlockState(next).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.OCCUPIED,
+                "Fixture must enter next bubble: prior mode=" + dash.bubbleMode() + ", eligible=" + DashPhysics.eligible(player)
+                        + ", state=" + helper.getLevel().getBlockState(next) + ", player=" + player.position());
         tick(player, 1);
-        helper.assertTrue(dash.bubbleMode() == 1, "The next bubble must hold the chaining player");
+        helper.assertTrue(dash.bubbleMode() == 1, "The next bubble must hold the chaining player: mode=" + dash.bubbleMode());
         helper.assertTrue(helper.getBlockState(BUBBLE).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.COOLDOWN,
                 "Chaining must release the prior origin");
         helper.assertTrue(helper.getLevel().getBlockState(next).getValue(BoosterBlock.PHASE) == BoosterBlock.Phase.OCCUPIED,

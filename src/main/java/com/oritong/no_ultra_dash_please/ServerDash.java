@@ -255,7 +255,7 @@ public final class ServerDash {
         }
 
         if (booster != null) {
-            BoosterBlock.released(player, bubbleOrigin);
+            if (!lastBooster.equals(bubbleOrigin)) BoosterBlock.released(player, bubbleOrigin);
             phase = Phase.BOOSTER;
             bubbleOrigin = lastBooster;
             redAfterDream = booster == DashBlocks.Kind.RED_BOOSTER;
