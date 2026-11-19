@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "format_version": "4.10",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "red_booster_outline",
+  "java_block_version": "1.9.0",
+  "ambientocclusion": false,
+  "parent": "minecraft:block/block",
+  "unhandled_root_fields": {
+    "render_type": "minecraft:translucent"
+  },
+  "resolution": {
+    "width": 16,
+    "height": 16
+  },
+  "elements": [
+    {
+      "name": "vacated_booster_ring",
+      "from": [
+        0,
+        0,
+        8
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": 0
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": null
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": null
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": null
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": null
+        }
+      },
+      "uuid": "59a09d6f-655b-5404-af00-56e4803bf3e1",
+      "type": "cube",
+      "box_uv": false,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "autouv": 0
+    }
+  ],
+  "outliner": [
+    "59a09d6f-655b-5404-af00-56e4803bf3e1"
+  ],
+  "textures": [
+    {
+      "name": "booster_outline.png",
+      "id": "0",
+      "uuid": "4314ea02-d221-5732-952f-452c44f70e1b",
+      "namespace": "no_ultra_dash_please",
+      "folder": "block",
+      "relative_path": "../textures/booster_outline.png",
+      "width": 16,
+      "height": 16,
+      "uv_width": 16,
+      "uv_height": 16,
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAOElEQVR4nGNgoBX4////fmxskjSiA5IMIhn8J8F06rvkPxkm0jY8hqgX/g9oNDIQaTrZeYKmTgYAbyc7wXtIWvsAAAAASUVORK5CYII=",
+      "render_mode": "default",
+      "render_sides": "front",
+      "particle": true,
+      "internal": true,
+      "saved": true
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.9,
+        0.9
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    }
+  }
+}

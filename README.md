@@ -41,7 +41,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 梦境方块的黑色连续表面、起伏白色外框和彩色星点视差渲染已参考蔚蓝原版接入。40 帧像素动画、可编辑 Blockbench 方块模型、色板、来源及离线预览位于 [`art/dream_block/`](art/dream_block/)；世界渲染使用项目已有 NeoForge 与 Minecraft 原版 RenderType，不使用定制 shader。
 
-绿、红推进器都有圆润待机模型和能裹住实际玩家的半透明形态，使用蔚蓝原版色板与 16×16 动画贴图。四个 BB 工程、源图、对照预览及显示同步说明位于 [`art/boosters/`](art/boosters/)。
+绿、红推进器都有圆润待机模型和能裹住实际玩家的半透明形态，使用蔚蓝原版色板与 16×16 动画贴图。另补有原版共用的白色虚线空框，发射后留在原位置。六个 BB 工程、源图、对照预览及显示同步说明位于 [`art/boosters/`](art/boosters/)。
 
 塌陷石台的正常碎石、白色虚线空框与八邻域连接纹理位于 [`art/crumble_platform/`](art/crumble_platform/)。提供原生 16×16 像素源、五份可编辑 BB 工程（四套随机碎石及塌陷空框）和实际 BB 预览；只使用原版 multipart 方块模型，不依赖连接纹理模组。
 

@@ -1,0 +1,26 @@
+{
+  "size": 16,
+  "palette": {".": "#00000000", "w": "#FFFFFFBF"},
+  "rows": [
+    "................",
+    "......w..w......",
+    "....w......w....",
+    "................",
+    "..w..........w..",
+    "................",
+    ".w............w.",
+    "................",
+    "................",
+    ".w............w.",
+    "................",
+    "..w..........w..",
+    "................",
+    "....w......w....",
+    "......w..w......",
+    "................"
+  ],
+  "forms": ["booster_outline", "red_booster_outline"],
+  "geometry": {"from": [0, 0, 8], "to": [16, 16, 8]},
+  "budget": {"elements_per_model": 1, "faces_per_model": 2, "shared_textures": 1},
+  "notes": "Both original Celeste booster colors share objects/booster/outline, tinted white at 0.75 alpha. This is a native 16px redraw, rendered as a stationary camera-facing ring at the vacated source position."
+}

@@ -150,5 +150,19 @@
     }
   },
   "sprites_xml_sha256": "baec20ec28911be5ef8acc6b181c6818095aa867c692c14d57d26e42c00fc04a",
-  "design": "Original native 16x16 pixel materials and a 42-vertex rounded 3D membrane using sampled vanilla Celeste colors. Original sprite images are not packaged. The player itself is rendered by Minecraft."
+  "design": "Original native 16x16 pixel materials and a 42-vertex rounded 3D membrane using sampled vanilla Celeste colors. Original sprite images are not packaged. The player itself is rendered by Minecraft.",
+  "outline_reference": {
+    "entry": "objects/booster/outline",
+    "atlas": "Gameplay0",
+    "rect": [801, 167, 18, 18],
+    "offset": [-7, -7],
+    "logical_frame": [32, 32],
+    "shared_by_green_and_red": true,
+    "original_color": "#FFFFFF",
+    "original_entity_alpha": 0.75,
+    "visually_inspected": true,
+    "original_sprite_packaged": false,
+    "behavior_reference": "Local Celeste.dll: Booster.Added uses the same white outline at alpha 0.75, PlayerBoosted makes it visible, and Respawn hides it.",
+    "adaptation": "Native 16x16 redraw with a transparent center; two named Java plane models share one static RGBA texture. The existing BubbleVisual launch states display one camera-facing quad at the original block position. Existing movement, reuse timing and audio are unchanged."
+  }
 }

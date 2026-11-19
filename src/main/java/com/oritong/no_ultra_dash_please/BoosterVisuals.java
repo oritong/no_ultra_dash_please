@@ -31,6 +31,7 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
             material("booster"), material("red_booster"),
             material("booster_occupied"), material("red_booster_occupied")
     };
+    private static final RenderType EMPTY_OUTLINE = material("booster_outline");
     private static final Vec3[] UNIT = makeVertices();
     private static final int[][] FACES = makeFaces();
     private static final Map<Integer, Occupant> OCCUPANTS = new HashMap<>();
@@ -133,8 +134,22 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
                        MultiBufferSource buffers, int packedLight, int packedOverlay) {
         var level = bubble.getLevel();
         if (level == null) return;
-        // The membrane moves with the actual player while occupied, leaving no duplicate at its origin.
-        if (OCCUPANTS.values().stream().anyMatch(o -> o.origin.equals(bubble.getBlockPos()))) return;
+        // Celeste leaves a stationary dashed-white marker when the membrane launches with its player.
+        // Waiting players still have their occupied membrane at the origin; avoid overlapping the marker.
+        boolean occupied = false;
+        boolean launched = false;
+        boolean waiting = false;
+        for (Occupant occupant : OCCUPANTS.values()) {
+            if (occupant.origin.equals(bubble.getBlockPos())) {
+                occupied = true;
+                if (occupant.mode >= 3) launched = true;
+                else waiting = true;
+            }
+        }
+        if (occupied) {
+            if (launched && !waiting) outline(poses, buffers);
+            return;
+        }
         double seconds = ((level.getGameTime() % 120_000L) + partialTick) / 20;
         double seed = Math.floorMod(bubble.getBlockPos().asLong(), 1024) / 1024.0 * Math.PI * 2;
         double pulse = 1 + Math.sin(seconds * Math.PI * 4 + seed) * 0.045;
@@ -145,6 +160,20 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
                 .subtract(Vec3.atCenterOf(bubble.getBlockPos()).add(0, bob, 0));
         shell(poses, buffers, camera, BoosterBlock.kind(bubble.getBlockState()) == DashBlocks.Kind.RED_BOOSTER,
                 false, seconds, 0.4375 * pulse, 0.4375 / pulse, 0.4375 * pulse);
+        poses.popPose();
+    }
+
+    private static void outline(PoseStack poses, MultiBufferSource buffers) {
+        poses.pushPose();
+        poses.translate(0.5, 0.5, 0.5);
+        // A billboard preserves the original circular marker from above, below and at oblique angles.
+        poses.mulPose(Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+        VertexConsumer out = buffers.getBuffer(EMPTY_OUTLINE);
+        var pose = poses.last();
+        out.addVertex(pose, -0.5F, 0.5F, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(LightTexture.FULL_BRIGHT);
+        out.addVertex(pose, -0.5F, -0.5F, 0).setColor(255, 255, 255, 255).setUv(0, 1).setLight(LightTexture.FULL_BRIGHT);
+        out.addVertex(pose, 0.5F, -0.5F, 0).setColor(255, 255, 255, 255).setUv(1, 1).setLight(LightTexture.FULL_BRIGHT);
+        out.addVertex(pose, 0.5F, 0.5F, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(LightTexture.FULL_BRIGHT);
         poses.popPose();
     }
 
