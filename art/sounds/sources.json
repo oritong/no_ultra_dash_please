@@ -171,6 +171,34 @@
       "rendered_seconds": 1.472,
       "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_end.ogg",
       "sha256": "b3dad69e2b01793c1afa43994e87cee9e3f143cd2bd17e968002d25eb9f23d77"
+    },
+    "booster_reappear": {
+      "event": "event:/game/04_cliffside/greenbooster_reappear",
+      "event_length_ms": 316,
+      "rendered_seconds": 1.1306666666666667,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/booster_reappear.ogg",
+      "sha256": "2a2138b280d52773d72feceffdcf33a173377137cb4bb1a39be3da2b2414d6db"
+    },
+    "red_booster_reappear": {
+      "event": "event:/game/05_mirror_temple/redbooster_reappear",
+      "event_length_ms": 400,
+      "rendered_seconds": 1.1946666666666668,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/red_booster_reappear.ogg",
+      "sha256": "81006cda565d37034cd915e7289897fda5364a233e96f718aa09620a19858180"
+    },
+    "platform_disintegrate": {
+      "event": "event:/game/general/platform_disintegrate",
+      "event_length_ms": 250,
+      "rendered_seconds": 1.0453333333333332,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/platform_disintegrate.ogg",
+      "sha256": "5f18da9f202e11be78bb46eac2fbbf203967a86b5774103a98bdbcb036f6c89f"
+    },
+    "platform_return": {
+      "event": "event:/game/general/platform_return",
+      "event_length_ms": 100,
+      "rendered_seconds": 0.896,
+      "file": "src/main/resources/assets/no_ultra_dash_please/sounds/celeste/platform_return.ogg",
+      "sha256": "fbea96ba5add759d4c9cbf0236bf73d13c51dc080fb4440b17e300a9da4c365e"
     }
   }
 }

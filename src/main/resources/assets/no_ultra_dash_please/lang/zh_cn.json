@@ -33,5 +33,9 @@
   "subtitles.no_ultra_dash_please.spring": "弹簧弹起",
   "subtitles.no_ultra_dash_please.rebound": "冲刺反弹",
   "subtitles.no_ultra_dash_please.dream_enter": "进入梦境方块",
-  "subtitles.no_ultra_dash_please.dream_exit": "离开梦境方块"
+  "subtitles.no_ultra_dash_please.dream_exit": "离开梦境方块",
+  "subtitles.no_ultra_dash_please.booster_reappear": "推进器重现",
+  "subtitles.no_ultra_dash_please.red_booster_reappear": "红色推进器重现",
+  "subtitles.no_ultra_dash_please.platform_disintegrate": "石台碎裂",
+  "subtitles.no_ultra_dash_please.platform_return": "石台恢复"
 }

@@ -44,6 +44,7 @@ public final class ServerDash {
     private DashBlocks.Kind booster;
     private BlockPos lastBooster;
     private BlockPos bubbleOrigin;
+    private BlockPos lastBubbleOrigin;
     private int bubbleTicks;
     private int lastBubbleVisual;
     private int charges = -1;
@@ -110,6 +111,10 @@ public final class ServerDash {
                 : phase == Phase.DASH && bubbleTicks > 0 ? 3 : 0;
     }
 
+    boolean usesBooster(BlockPos pos) {
+        return pos.equals(bubbleOrigin) && bubbleMode() != 0 || pos.equals(lastBooster) && booster != null;
+    }
+
     void input(ServerPlayer player, Input data) {
         if (releaseWait > 0 && data.release() == releaseId) {
             releaseWait = 0;
@@ -143,6 +148,7 @@ public final class ServerDash {
                 || phase == Phase.DREAM || pos.equals(lastBooster)) {
             return false;
         }
+        // Chaining a second booster releases the previous origin before replacing it.
         booster = kind;
         lastBooster = pos.immutable();
         return true;
@@ -178,6 +184,7 @@ public final class ServerDash {
     }
 
     public void interrupt(ServerPlayer player) {
+        BoosterBlock.released(player, bubbleOrigin);
         boolean notify = ownsMovement() || dashDeadline >= 0;
         phase = Phase.IDLE;
         releaseWait = 0;
@@ -248,6 +255,7 @@ public final class ServerDash {
         }
 
         if (booster != null) {
+            BoosterBlock.released(player, bubbleOrigin);
             phase = Phase.BOOSTER;
             bubbleOrigin = lastBooster;
             redAfterDream = booster == DashBlocks.Kind.RED_BOOSTER;
@@ -345,6 +353,7 @@ public final class ServerDash {
     }
 
     private void startDash(ServerPlayer player, Vec3 aim, boolean red, boolean boosted) {
+        if (boosted) BoosterBlock.launched(player, bubbleOrigin);
         bubbleTicks = boosted && !red ? DashTuning.DURATION.get() : 0;
         dashDeadline = -1;
         if (!boosted && !player.isInWater()) {
@@ -976,11 +985,13 @@ public final class ServerDash {
         int visual = bubbleMode();
         if (visual != lastBubbleVisual || visual != 0 && tick % 10 == 0) {
             if (lastBubbleVisual >= 3 && visual < 3) {
+                BoosterBlock.released(player, lastBubbleOrigin);
                 effect(player, (lastBubbleVisual == 4 ? DashSounds.RED_BOOSTER_END : DashSounds.BOOSTER_END).get(), 1.0F);
             }
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new BubbleVisual(player.getId(), visual,
                     bubbleOrigin == null ? player.blockPosition() : bubbleOrigin));
             lastBubbleVisual = visual;
+            lastBubbleOrigin = bubbleOrigin;
         }
     }
 

@@ -3,13 +3,10 @@ package com.oritong.no_ultra_dash_please;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -40,10 +37,7 @@ final class CrumblePlatformBlock extends Block {
     private static final int[][] OFFSETS = {
             {0, -1}, {1, 0}, {0, 1}, {-1, 0}, {1, -1}, {1, 1}, {-1, 1}, {-1, -1}
     };
-    private static final VoxelShape SLAB = box(0, 0, 0, 16, 8, 16);
-    // Minecraft adaptation: 0.6 s warning, then a 2 s absence before safe recovery.
-    private static final int WARNING_TICKS = 12;
-    private static final int RETURN_TICKS = 40;
+    static final VoxelShape SLAB = box(0, 0, 0, 16, 8, 16);
 
     static BlockBehaviour.Properties platformProperties() {
         return BlockBehaviour.Properties.of().strength(1.0F).sound(SoundType.STONE).noOcclusion()
@@ -94,7 +88,7 @@ final class CrumblePlatformBlock extends Block {
         return connected(state, level, pos);
     }
 
-    private void refresh(Level level, BlockPos pos) {
+    void refresh(Level level, BlockPos pos) {
         BlockState current = level.getBlockState(pos);
         if (current.is(this)) {
             BlockState updated = connected(current, level, pos);
@@ -118,8 +112,9 @@ final class CrumblePlatformBlock extends Block {
         }
         boolean added = !oldState.is(this);
         if (added || oldState.getValue(PHASE) != state.getValue(PHASE)) {
-            if (state.getValue(PHASE) != Phase.NORMAL) {
-                level.scheduleTick(pos, this, state.getValue(PHASE) == Phase.COLLAPSED ? RETURN_TICKS : WARNING_TICKS);
+            if (added && state.getValue(PHASE) != Phase.NORMAL) {
+                // Adopt a command-placed/legacy outline into the persistent group timer.
+                level.scheduleTick(pos, this, 1);
             }
         }
         if (added || (oldState.getValue(PHASE) == Phase.COLLAPSED) != (state.getValue(PHASE) == Phase.COLLAPSED)) {
@@ -152,25 +147,13 @@ final class CrumblePlatformBlock extends Block {
         BlockState current = level.getBlockState(pos);
         if (!level.isClientSide && entity instanceof Player player && !player.isSpectator()
                 && current.is(this) && current.getValue(PHASE) == Phase.NORMAL) {
-            level.setBlock(pos, current.setValue(PHASE, Phase.CRUMBLING), UPDATE_ALL);
+            CrumbleGroups.begin((ServerLevel) level, pos);
         }
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(PHASE) == Phase.CRUMBLING) {
-            level.setBlock(pos, state.setValue(PHASE, Phase.COLLAPSED), UPDATE_ALL);
-            level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state),
-                    pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 16, 0.35, 0.08, 0.35, 0.03);
-        } else if (state.getValue(PHASE) == Phase.COLLAPSED) {
-            // Never regenerate a solid slab inside a player or mob passing through its outline.
-            if (level.getEntitiesOfClass(LivingEntity.class, SLAB.bounds().move(pos),
-                    entity -> entity.isAlive() && !entity.isSpectator()).isEmpty()) {
-                level.setBlock(pos, state.setValue(PHASE, Phase.NORMAL), UPDATE_ALL);
-            } else {
-                level.scheduleTick(pos, this, 2);
-            }
-        }
+        if (state.getValue(PHASE) != Phase.NORMAL) CrumbleGroups.begin(level, pos);
     }
 
     enum Phase implements StringRepresentable {

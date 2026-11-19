@@ -33,5 +33,9 @@
   "subtitles.no_ultra_dash_please.spring": "Spring bounces",
   "subtitles.no_ultra_dash_please.rebound": "Dash rebounds",
   "subtitles.no_ultra_dash_please.dream_enter": "Entering dream block",
-  "subtitles.no_ultra_dash_please.dream_exit": "Leaving dream block"
+  "subtitles.no_ultra_dash_please.dream_exit": "Leaving dream block",
+  "subtitles.no_ultra_dash_please.booster_reappear": "Booster reappears",
+  "subtitles.no_ultra_dash_please.red_booster_reappear": "Red booster reappears",
+  "subtitles.no_ultra_dash_please.platform_disintegrate": "Platform crumbles",
+  "subtitles.no_ultra_dash_please.platform_return": "Platform returns"
 }

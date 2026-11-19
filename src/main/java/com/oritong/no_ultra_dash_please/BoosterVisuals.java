@@ -134,20 +134,12 @@ public final class BoosterVisuals implements BlockEntityRenderer<BoosterBlock.Bu
                        MultiBufferSource buffers, int packedLight, int packedOverlay) {
         var level = bubble.getLevel();
         if (level == null) return;
-        // Celeste leaves a stationary dashed-white marker when the membrane launches with its player.
-        // Waiting players still have their occupied membrane at the origin; avoid overlapping the marker.
-        boolean occupied = false;
-        boolean launched = false;
-        boolean waiting = false;
-        for (Occupant occupant : OCCUPANTS.values()) {
-            if (occupant.origin.equals(bubble.getBlockPos())) {
-                occupied = true;
-                if (occupant.mode >= 3) launched = true;
-                else waiting = true;
-            }
-        }
-        if (occupied) {
-            if (launched && !waiting) outline(poses, buffers);
+        // Block state is authoritative for the shared empty marker and its 1 s recovery,
+        // including observers who join after the player has already launched.
+        var phase = bubble.getBlockState().getValue(BoosterBlock.PHASE);
+        if (phase == BoosterBlock.Phase.OCCUPIED) return;
+        if (phase == BoosterBlock.Phase.EMPTY || phase == BoosterBlock.Phase.COOLDOWN) {
+            outline(poses, buffers);
             return;
         }
         double seconds = ((level.getGameTime() % 120_000L) + partialTick) / 20;
