@@ -7,7 +7,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 ## 操作
 
 - 按 `R` 冲刺，可在「选项 → 控制 → 按键绑定」里修改。水平方向取镜头朝向；仰角按最近的 `+90° / +45° / 0° / -45° / -90°` 吸附（抬头为正），分别对应上、斜上、前、斜下、下。
-- 空中默认可冲一次，快捷栏右侧显示剩余次数；落在可回充的地面上会恢复。岩浆块、仙人掌、滴水石锥默认不能回充。深水中速度降至 75%，有次数时可冲刺但不扣次数。
+- 空中默认可冲一次，快捷栏右侧显示剩余次数；落在可回充的地面上会恢复。岩浆块、仙人掌、滴水石锥默认不能回充。身体接触水就立即补满冲刺，浅水和流水同样生效，不受地面回充开关及回充延迟限制；水中冲刺不扣次数，速度降至 75%。
 - **Super / Hyper：**在地面水平冲刺后立即跳。水平冲刺时蹲着会变成低跳、快跑的 Hyper。
 - **Wavedash：**先跳，再瞄准前下方冲向地板，碰地前后按跳。斜下冲刺碰地会先进入滑行，然后把速度转成低而快的跃起。即使先起跳，只要实际碰到可回充地面，冷却结束后也会补回次数。
 - **Ultra：**Wavedash 后按住前进，等冷却结束再沿同一方向斜下冲地。冲刺会继承已有的同向速度，斜下触地再乘 `1.2`；可重复衔接，受服务端配置的速度上限限制。
@@ -53,11 +53,9 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.4` |
+| 模组版本 | `0.1.5` |
 
 ## 开发
-
-此项目目录为后续开发工作区：`D:\MCMOD\no_ultra_dash_please`。
 
 使用 JDK 21，将 IDE 的项目 SDK 和 Gradle JVM 设为 Java 21。通过项目自带的 Gradle Wrapper 构建，无需安装系统 Gradle。首次构建需要联网下载依赖。
 
@@ -75,7 +73,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.4.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.5.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 

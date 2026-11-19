@@ -220,7 +220,9 @@ public final class ServerDash {
                 stamina = 110;
             }
         }
-        if (refillDelay == 0 && DashTuning.GROUND_REFILL.get() && (safeGround || earnedRefill)) {
+        // Any water contact refills immediately, including shallow/flowing water.
+        // The ground-refill setting and post-dash refill delay apply only to land.
+        if (player.isInWater() || refillDelay == 0 && DashTuning.GROUND_REFILL.get() && (safeGround || earnedRefill)) {
             refill();
         }
 
@@ -332,7 +334,7 @@ public final class ServerDash {
     private void startDash(ServerPlayer player, Vec3 aim, boolean red, boolean boosted) {
         bubbleTicks = boosted && !red ? DashTuning.DURATION.get() : 0;
         dashDeadline = -1;
-        if (!boosted && !player.isUnderWater() && !player.isSwimming()) {
+        if (!boosted && !player.isInWater()) {
             charges = Math.max(0, charges - 1);
         }
         Vec3 incoming = phase == Phase.IDLE ? player.getDeltaMovement() : speed;

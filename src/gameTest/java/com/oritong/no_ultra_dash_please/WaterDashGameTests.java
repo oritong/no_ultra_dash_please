@@ -76,13 +76,15 @@ public final class WaterDashGameTests {
             dash.interrupt(player);
             for (int tick = 0; tick < DashTuning.COOLDOWN.get() + 1; tick++) dash.tick(player);
         }
-        player.setPos(helper.absoluteVec(new Vec3(3.5, 8, 2.5)));
+        player.setPos(helper.absoluteVec(new Vec3(7.5, 3.1, 2.5)));
         player.baseTick();
         helper.assertTrue(!player.isInWater(), "Exit fixture must be in dry air");
         double before = player.getZ();
         start(player);
         dash.tick(player);
-        helper.assertTrue(player.getZ() > before + 0.9, "The retained charge must work after leaving water");
+        helper.assertTrue(player.getZ() > before + 0.9, "The retained charge must work after leaving water: before="
+                + before + ", after=" + player.getZ() + ", velocity=" + player.getDeltaMovement()
+                + ", eligible=" + DashPhysics.eligible(player));
         helper.assertTrue(dash.useRefill(), "A dry-air dash must still consume a charge");
         helper.succeed();
     }
