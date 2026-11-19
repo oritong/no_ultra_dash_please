@@ -28,7 +28,10 @@ final class DreamBlock extends BaseEntityBlock {
     }
 
     static BlockBehaviour.Properties dreamProperties() {
-        return BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.AMETHYST).lightLevel(state -> 6);
+        // The camera travels inside this block. Keep ordinary neighboring faces
+        // and their chunk sections visible from there; collision stays solid.
+        return BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.AMETHYST)
+                .lightLevel(state -> 6).noOcclusion();
     }
 
     DreamBlock(BlockBehaviour.Properties properties) {
