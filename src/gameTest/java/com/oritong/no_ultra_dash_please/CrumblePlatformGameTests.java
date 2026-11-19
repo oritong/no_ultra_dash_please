@@ -10,6 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -128,6 +130,73 @@ public final class CrumblePlatformGameTests {
             phase(helper, CrumblePlatformBlock.Phase.NORMAL);
             helper.succeed();
         });
+    }
+
+    @GameTest(template = "empty", timeoutTicks = 70)
+    public static void warningShakesVisualsTogetherWithoutMovingCollision(GameTestHelper helper) {
+        place(helper);
+        var level = helper.getLevel();
+        var origin = helper.absolutePos(PATCH.getFirst());
+        var player = new FakePlayer(level, new GameProfile(UUID.randomUUID(), "shake-standing"));
+        player.setPos(origin.getX() + 0.5, origin.getY() + 0.5, origin.getZ() + 0.5);
+        player.setNoGravity(true);
+        level.addFreshEntity(player);
+        CrumbleGroups.begin(level, origin);
+        helper.runAfterDelay(2, () -> {
+            Vec3 shared = null;
+            for (BlockPos relative : PATCH) {
+                var pos = helper.absolutePos(relative);
+                var state = level.getBlockState(pos);
+                var shake = (CrumblePlatformBlock.ShakeEntity) level.getBlockEntity(pos);
+                Vec3 offset = shake.visualOffset(0.75F);
+                helper.assertTrue(offset.lengthSqr() > 0, "Every warning tile must visibly shake");
+                helper.assertTrue(Math.abs(offset.x) <= 1.0 / 16 && Math.abs(offset.z) <= 1.0 / 16
+                                && Math.abs(offset.y) <= 0.2 / 16, "Warning jitter must remain within one texture pixel");
+                if (shared != null) helper.assertTrue(shared.equals(offset), "A connected platform must keep its seams joined while shaking");
+                shared = offset;
+                helper.assertTrue(state.getRenderShape() == RenderShape.ENTITYBLOCK_ANIMATED,
+                        "The warning must replace, rather than overlap, its stationary chunk model");
+                helper.assertTrue(state.getCollisionShape(level, pos).bounds().equals(CrumblePlatformBlock.SLAB.bounds()),
+                        "Visual jitter must never move the supporting collision");
+                var copy = new CrumblePlatformBlock.ShakeEntity(pos, state);
+                copy.setLevel(level);
+                copy.loadAdditional(shake.getUpdateTag(level.registryAccess()), level.registryAccess());
+                helper.assertTrue(copy.visualOffset(0.75F).equals(offset), "Synchronized warning data must preserve the animation phase");
+            }
+        });
+        helper.runAfterDelay(12, () -> {
+            advance(helper);
+            phase(helper, CrumblePlatformBlock.Phase.COLLAPSED);
+            for (BlockPos pos : PATCH) {
+                var state = helper.getBlockState(pos);
+                helper.assertTrue(state.getRenderShape() == RenderShape.MODEL, "The collapsed outline must return to static rendering");
+                helper.assertTrue(((CrumblePlatformBlock.ShakeEntity) level.getBlockEntity(helper.absolutePos(pos)))
+                        .visualOffset(0.5F).equals(Vec3.ZERO), "The collapsed outline must stop shaking immediately");
+            }
+            player.discard();
+        });
+        helper.runAfterDelay(52, () -> {
+            advance(helper);
+            phase(helper, CrumblePlatformBlock.Phase.NORMAL);
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty")
+    public static void oldPlatformsGainWarningEntitiesAndKeepTheirStableModel(GameTestHelper helper) {
+        place(helper);
+        for (BlockPos relative : PATCH) {
+            var pos = helper.absolutePos(relative);
+            var state = helper.getLevel().getBlockState(pos);
+            var chunk = helper.getLevel().getChunkAt(pos);
+            chunk.removeBlockEntity(pos);
+            RefillCrystalMigration.ensureEntities(chunk);
+            helper.assertTrue(chunk.getBlockEntity(pos) instanceof CrumblePlatformBlock.ShakeEntity,
+                    "Existing saved platforms must gain their warning renderer");
+            helper.assertTrue(helper.getLevel().getBlockState(pos).equals(state) && state.getRenderShape() == RenderShape.MODEL,
+                    "Migration must retain phase, connection flags and the stationary model");
+        }
+        helper.succeed();
     }
 
     private static CrumblePlatformBlock block() { return (CrumblePlatformBlock) DashBlocks.block(DashBlocks.Kind.CRUMBLE); }
