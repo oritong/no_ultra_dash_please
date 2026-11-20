@@ -142,14 +142,17 @@ public final class CrumblePlatformGameTests {
         player.setNoGravity(true);
         level.addFreshEntity(player);
         CrumbleGroups.begin(level, origin);
-        helper.runAfterDelay(2, () -> {
+        boolean[] observedMotion = {false};
+        for (int warningTick = 1; warningTick < 12; warningTick++) helper.runAfterDelay(warningTick, () -> {
             Vec3 shared = null;
             for (BlockPos relative : PATCH) {
                 var pos = helper.absolutePos(relative);
                 var state = level.getBlockState(pos);
                 var shake = (CrumblePlatformBlock.ShakeEntity) level.getBlockEntity(pos);
                 Vec3 offset = shake.visualOffset(0.75F);
-                helper.assertTrue(offset.lengthSqr() > 0, "Every warning tile must visibly shake");
+                // A random shake can pass through zero. Require visible motion over the
+                // warning interval, while checking seams and collision on every frame.
+                observedMotion[0] |= offset.lengthSqr() > 0;
                 helper.assertTrue(Math.abs(offset.x) <= 1.0 / 16 && Math.abs(offset.z) <= 1.0 / 16
                                 && Math.abs(offset.y) <= 0.2 / 16, "Warning jitter must remain within one texture pixel");
                 if (shared != null) helper.assertTrue(shared.equals(offset), "A connected platform must keep its seams joined while shaking");
@@ -165,6 +168,7 @@ public final class CrumblePlatformGameTests {
             }
         });
         helper.runAfterDelay(12, () -> {
+            helper.assertTrue(observedMotion[0], "The warning interval must contain visible movement");
             advance(helper);
             phase(helper, CrumblePlatformBlock.Phase.COLLAPSED);
             for (BlockPos pos : PATCH) {
