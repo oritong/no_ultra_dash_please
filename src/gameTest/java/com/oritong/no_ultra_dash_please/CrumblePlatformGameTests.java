@@ -183,7 +183,7 @@ public final class CrumblePlatformGameTests {
     }
 
     @GameTest(template = "empty")
-    public static void oldPlatformsGainWarningEntitiesAndKeepTheirStableModel(GameTestHelper helper) {
+    public static void oldPlatformsGainTheSharedRendererAndRemainStationary(GameTestHelper helper) {
         place(helper);
         for (BlockPos relative : PATCH) {
             var pos = helper.absolutePos(relative);
@@ -193,8 +193,15 @@ public final class CrumblePlatformGameTests {
             RefillCrystalMigration.ensureEntities(chunk);
             helper.assertTrue(chunk.getBlockEntity(pos) instanceof CrumblePlatformBlock.ShakeEntity,
                     "Existing saved platforms must gain their warning renderer");
-            helper.assertTrue(helper.getLevel().getBlockState(pos).equals(state) && state.getRenderShape() == RenderShape.MODEL,
-                    "Migration must retain phase, connection flags and the stationary model");
+            helper.assertTrue(helper.getLevel().getBlockState(pos).equals(state),
+                    "Migration must retain the phase and every connection flag");
+            helper.assertTrue(state.getRenderShape() == RenderShape.ENTITYBLOCK_ANIMATED
+                            && state.setValue(CrumblePlatformBlock.PHASE, CrumblePlatformBlock.Phase.CRUMBLING)
+                            .getRenderShape() == RenderShape.ENTITYBLOCK_ANIMATED,
+                    "Both intact phases must share the renderer, avoiding texture changes during the warning");
+            helper.assertTrue(((CrumblePlatformBlock.ShakeEntity) chunk.getBlockEntity(pos))
+                            .visualOffset(0.75F).equals(Vec3.ZERO),
+                    "A migrated normal platform must remain completely stationary");
         }
         helper.succeed();
     }
