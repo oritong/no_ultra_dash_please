@@ -15,6 +15,8 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 
 右键攀爬的空手例外可通过数据包的 `data/no_ultra_dash/tags/item/empty_hand.json` 添加，例如 `{"replace":false,"values":["minecraft:stick"]}`。默认标签为空，主手和副手分别检查。攀爬体力为 110，上爬每秒消耗约 45.45，悬挂每秒消耗 10，下滑不扣，攀爬跳消耗 27.5；落地或回充恢复。
 
+第一人称准星外显示类似塞尔达的绿色体力环，按服务端的剩余体力缩短，低体力转黄、濒空转红并轻微闪动。满体力时整圈隐藏；松手后仍未恢复的体力继续显示，落地或回充到满值即消失。F1、第三人称、旁观、死亡和打开界面时隐藏，不覆盖准星中心。客户端与服务端需同时更新到网络协议 7。
+
 ## 玩法方块
 
 方块在创造模式「功能性方块」页签中，也可用无序配方合成。
@@ -60,7 +62,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.9` |
+| 模组版本 | `0.1.10` |
 
 ## 开发
 
@@ -80,7 +82,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.9.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.10.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 

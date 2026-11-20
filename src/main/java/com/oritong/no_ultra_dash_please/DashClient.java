@@ -42,6 +42,7 @@ public final class DashClient {
     private static boolean duck;
     private static boolean dreaming;
     private static boolean climbing;
+    private static float stamina = 110;
     private static Vec3 dreamSpeed = Vec3.ZERO;
     private static Pose exitPose;
     private static DreamTravelSound dreamSound;
@@ -132,6 +133,7 @@ public final class DashClient {
         dashTicks = frame.dashTicks();
         dreaming = frame.dreaming();
         climbing = frame.climbing();
+        stamina = Float.isFinite(frame.stamina()) ? Math.clamp(frame.stamina(), 0, 110) : 110;
         dreamSpeed = dreaming ? frame.speed() : Vec3.ZERO;
         exitPose = switch (frame.compactPose()) {
             case 1 -> Pose.CROUCHING;
@@ -218,6 +220,8 @@ public final class DashClient {
 
     public static boolean climbing(Player player) { return owner == player && climbing; }
 
+    public static float stamina(Player player) { return owner == player ? stamina : 110; }
+
     @SubscribeEvent
     static void grabInsteadOfUsingItem(InputEvent.InteractionKeyMappingTriggered event) {
         var minecraft = Minecraft.getInstance();
@@ -255,6 +259,7 @@ public final class DashClient {
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
         driven = duck = dreaming = climbing = false;
+        stamina = 110;
         dreamSpeed = Vec3.ZERO;
         exitPose = null;
     }

@@ -1,10 +1,12 @@
 package com.oritong.no_ultra_dash_please;
 
 import com.mojang.authlib.GameProfile;
+import io.netty.buffer.Unpooled;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +20,48 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @GameTestHolder(NoUltraDashPlease.MOD_ID)
 @PrefixGameTestTemplate(false)
 public final class ClimbGameTests {
+    @GameTest(template = "empty")
+    public static void movementFramesPreserveFractionalAndFullStamina(GameTestHelper helper) {
+        var buffer = new RegistryFriendlyByteBuf(Unpooled.buffer(), helper.getLevel().registryAccess());
+        try {
+            for (float stamina : new float[]{110, 109.5F, 55.25F, 0}) {
+                var frame = new DashNetwork.Frame(DashNetwork.MOVING, 7, 1, 2, 3, false, false,
+                        false, true, stamina, 0, new Vec3(1, 2, 3), new Vec3(0, 0.1875, 0), 1, 8);
+                buffer.clear();
+                DashNetwork.Frame.CODEC.encode(buffer, frame);
+                var decoded = DashNetwork.Frame.CODEC.decode(buffer);
+                helper.assertTrue(frame.equals(decoded) && !buffer.isReadable(),
+                        "Stamina and all following movement fields must survive the protocol round trip");
+            }
+        } finally { buffer.release(); }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void staminaTracksClimbingAndRefillsWithoutUsingDashCharges(GameTestHelper helper) {
+        var player = wallPlayer(helper);
+        var dash = ServerDash.get(player);
+        helper.assertTrue(dash.stamina() == 110, "A fresh player starts with full stamina");
+        input(player, DashNetwork.GRAB);
+        tick(player, 10);
+        helper.assertTrue(dash.stamina() == 105, "Ten hanging ticks consume exactly five stamina");
+        helper.assertTrue(dash.useRefill() && dash.stamina() == 110,
+                "A refill restores stamina even when dash charges are already full");
+        input(player, DashNetwork.GRAB | DashNetwork.FORWARD);
+        dash.tick(player);
+        helper.assertTrue(Math.abs(dash.stamina() - (110 - 100.0 / 2.2 / 20)) < 0.0001,
+                "The HUD source must retain the original fractional climb cost");
+        input(player, 0);
+        dash.tick(player);
+        helper.assertTrue(dash.stamina() < 110, "Releasing the wall must not falsely refill the HUD");
+        dash.interrupt(player);
+        for (int x = 1; x <= 3; x++) for (int z = 1; z <= 5; z++) helper.setBlock(x, 2, z, Blocks.STONE);
+        player.setPos(helper.absoluteVec(new Vec3(3.68, 3, 3.5)));
+        dash.tick(player);
+        helper.assertTrue(dash.stamina() == 110, "Safe ground refills stamina even while ordinary movement is idle");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty")
     public static void rightClickGrabsClimbsDescendsAndReleases(GameTestHelper helper) {
         var player = wallPlayer(helper);

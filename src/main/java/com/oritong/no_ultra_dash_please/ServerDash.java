@@ -65,6 +65,7 @@ public final class ServerDash {
     private int variableJump;
     private int climbBoost;
     private double stamina = 110;
+    private float lastStamina = -1;
     private int input;
     private int releaseId;
     private int releaseWait;
@@ -103,6 +104,8 @@ public final class ServerDash {
     }
 
     public boolean climbing() { return phase == Phase.CLIMB; }
+
+    public float stamina() { return (float) stamina; }
 
     public boolean applyExitPose(Player player) {
         if (exitPose == null || player.getForcedPose() != null) return false;
@@ -975,7 +978,7 @@ public final class ServerDash {
     private void syncIdle(ServerPlayer player) {
         if (lastCharges != charges || lastMaximum != maxCharges || lastCooldown != cooldown
                 || lastDashSpeed != DashTuning.SPEED.get() || lastDashTicks != DashTuning.DURATION.get()
-                || lastExitPose != exitPose) {
+                || lastExitPose != exitPose || lastStamina != stamina()) {
             send(player, IDLE);
         }
     }
@@ -988,8 +991,9 @@ public final class ServerDash {
         lastDashSpeed = DashTuning.SPEED.get();
         lastDashTicks = DashTuning.DURATION.get();
         lastExitPose = exitPose;
+        lastStamina = stamina();
         PacketDistributor.sendToPlayer(player, new Frame(mode, releaseId, charges, maxCharges, cooldown, player.onGround(),
-                duck, dreaming(), climbing(), exitPose == Pose.CROUCHING ? 1 : exitPose == Pose.SWIMMING ? 2 : 0,
+                duck, dreaming(), climbing(), lastStamina, exitPose == Pose.CROUCHING ? 1 : exitPose == Pose.SWIMMING ? 2 : 0,
                 player.position(), speed, lastDashSpeed, lastDashTicks));
     }
 

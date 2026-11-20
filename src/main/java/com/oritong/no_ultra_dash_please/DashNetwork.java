@@ -24,7 +24,7 @@ final class DashNetwork {
     static final int REJECT = 4;
 
     static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("6");
+        var registrar = event.registrar("7");
         registrar.playToServer(Input.TYPE, Input.CODEC, (data, context) -> {
             if (context.player() instanceof ServerPlayer player) {
                 ServerDash.get(player).input(player, data);
@@ -80,7 +80,7 @@ final class DashNetwork {
 
     // compactPose: 0 = ordinary vanilla pose, 1 = crouching exit, 2 = crawling exit.
     record Frame(int mode, int release, int charges, int maximum, int cooldown, boolean grounded, boolean duck,
-                 boolean dreaming, boolean climbing, int compactPose, Vec3 position, Vec3 speed, double dashSpeed, int dashTicks) implements CustomPacketPayload {
+                 boolean dreaming, boolean climbing, float stamina, int compactPose, Vec3 position, Vec3 speed, double dashSpeed, int dashTicks) implements CustomPacketPayload {
         static final Type<Frame> TYPE = new Type<>(NoUltraDashPlease.id("frame"));
         static final StreamCodec<RegistryFriendlyByteBuf, Frame> CODEC = StreamCodec.of(
                 (buffer, data) -> {
@@ -93,6 +93,7 @@ final class DashNetwork {
                     buffer.writeBoolean(data.duck);
                     buffer.writeBoolean(data.dreaming);
                     buffer.writeBoolean(data.climbing);
+                    buffer.writeFloat(data.stamina);
                     buffer.writeByte(data.compactPose);
                     buffer.writeVec3(data.position);
                     buffer.writeVec3(data.speed);
@@ -100,7 +101,7 @@ final class DashNetwork {
                     buffer.writeByte(data.dashTicks);
                 }, buffer -> new Frame(buffer.readUnsignedByte(), buffer.readVarInt(), buffer.readUnsignedByte(),
                         buffer.readUnsignedByte(), buffer.readUnsignedByte(), buffer.readBoolean(), buffer.readBoolean(),
-                        buffer.readBoolean(), buffer.readBoolean(), buffer.readUnsignedByte(), buffer.readVec3(), buffer.readVec3(), buffer.readDouble(), buffer.readUnsignedByte()));
+                        buffer.readBoolean(), buffer.readBoolean(), buffer.readFloat(), buffer.readUnsignedByte(), buffer.readVec3(), buffer.readVec3(), buffer.readDouble(), buffer.readUnsignedByte()));
 
         @Override
         public Type<Frame> type() {
