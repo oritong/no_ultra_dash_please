@@ -38,7 +38,7 @@ public final class CrumblePlatformRenderer implements BlockEntityRenderer<Crumbl
         // Tessellate the exact same multipart model with its original position seed.
         // renderSingleBlock uses a constant seed and would change the four random textures.
         dispatcher.getModelRenderer().tesselateBlock(level, model, state, block.getBlockPos(), poses,
-                buffers.getBuffer(RenderTypeHelper.getEntityRenderType(RenderType.cutout(), false)), false,
+                buffers.getBuffer(RenderTypeHelper.getMovingBlockRenderType(RenderType.cutout())), false,
                 RandomSource.create(seed), seed, packedOverlay, ModelData.EMPTY, RenderType.cutout());
         poses.popPose();
     }
