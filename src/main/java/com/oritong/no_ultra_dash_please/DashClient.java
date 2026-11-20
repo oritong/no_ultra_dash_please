@@ -11,6 +11,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RenderBlockScreenEffectEvent;
@@ -40,6 +41,7 @@ public final class DashClient {
     private static boolean driven;
     private static boolean duck;
     private static boolean dreaming;
+    private static boolean climbing;
     private static Vec3 dreamSpeed = Vec3.ZERO;
     private static Pose exitPose;
     private static DreamTravelSound dreamSound;
@@ -99,7 +101,8 @@ public final class DashClient {
         boolean allowed = minecraft.screen == null && DashPhysics.eligible(player);
         int next = allowed ? (options.keyJump.isDown() ? JUMP : 0) | (options.keyShift.isDown() ? SNEAK : 0)
                 | (options.keyUp.isDown() ? FORWARD : 0) | (options.keyDown.isDown() ? BACK : 0)
-                | (options.keyLeft.isDown() ? LEFT : 0) | (options.keyRight.isDown() ? RIGHT : 0) : 0;
+                | (options.keyLeft.isDown() ? LEFT : 0) | (options.keyRight.isDown() ? RIGHT : 0)
+                | (options.keyUse.isDown() && ClimbHands.empty(player) ? GRAB : 0) : 0;
         if (next != buttons || allowed && clicked) {
             buttons = next;
             send(player, allowed && clicked, 0);
@@ -128,6 +131,7 @@ public final class DashClient {
         dashSpeed = frame.dashSpeed();
         dashTicks = frame.dashTicks();
         dreaming = frame.dreaming();
+        climbing = frame.climbing();
         dreamSpeed = dreaming ? frame.speed() : Vec3.ZERO;
         exitPose = switch (frame.compactPose()) {
             case 1 -> Pose.CROUCHING;
@@ -150,7 +154,7 @@ public final class DashClient {
             DashScreenEffect.stop();
             movement = null;
             prediction = previewWait = 0;
-            driven = duck = false;
+            driven = duck = climbing = false;
         } else if (frame.mode() == MOVING || frame.mode() == RELEASE) {
             prediction = previewWait = 0;
             movement = frame;
@@ -212,6 +216,22 @@ public final class DashClient {
         return owner == player && dreaming;
     }
 
+    public static boolean climbing(Player player) { return owner == player && climbing; }
+
+    @SubscribeEvent
+    static void grabInsteadOfUsingItem(InputEvent.InteractionKeyMappingTriggered event) {
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
+        if (!event.isUseItem() || player == null || minecraft.screen != null || !DashPhysics.eligible(player)
+                || !ClimbHands.empty(player) || !DashTuning.WALL_JUMPS.get()
+                || player.isInWater() || player.onClimbable()) return;
+        Vec3 facing = Vec3.directionFromRotation(0, player.getYRot());
+        if (climbing(player) || DashPhysics.wall(player, facing).dot(facing) > 0.4) {
+            event.setSwingHand(false);
+            event.setCanceled(true);
+        }
+    }
+
     static Vec3 dreamSpeed(Player player) {
         return owner == player ? dreamSpeed : Vec3.ZERO;
     }
@@ -234,7 +254,7 @@ public final class DashClient {
         predictedSpeed = Vec3.ZERO;
         prediction = previewWait = buttons = charges = maximum = cooldown = dashTicks = 0;
         dashSpeed = 0;
-        driven = duck = dreaming = false;
+        driven = duck = dreaming = climbing = false;
         dreamSpeed = Vec3.ZERO;
         exitPose = null;
     }

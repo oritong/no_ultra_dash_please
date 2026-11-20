@@ -25,6 +25,9 @@ public final class ServerDash {
     private static final int MAX_DREAM_TICKS = 40;
     private static final int MIN_DREAM_TICKS = 2;
     private static final int MAX_RELEASE_WAIT = 40;
+    private static final double CLIMB_UP_COST = 100.0 / 2.2 / 20;
+    private static final double CLIMB_STILL_COST = 100.0 / 10 / 20;
+    private static final double CLIMB_JUMP_COST = 110.0 / 4;
 
     private Phase phase = Phase.IDLE;
     private Vec3 direction = Vec3.ZERO;
@@ -61,7 +64,7 @@ public final class ServerDash {
     private int retention;
     private int variableJump;
     private int climbBoost;
-    private int stamina = 110;
+    private double stamina = 110;
     private int input;
     private int releaseId;
     private int releaseWait;
@@ -99,6 +102,8 @@ public final class ServerDash {
         return phase == Phase.DREAM && !dreamExited;
     }
 
+    public boolean climbing() { return phase == Phase.CLIMB; }
+
     public boolean applyExitPose(Player player) {
         if (exitPose == null || player.getForcedPose() != null) return false;
         player.setPose(exitPose);
@@ -119,7 +124,7 @@ public final class ServerDash {
         if (releaseWait > 0 && data.release() == releaseId) {
             releaseWait = 0;
         }
-        if (data.buttons() > 127 || !Float.isFinite(data.yaw()) || !Float.isFinite(data.pitch())) {
+        if (data.buttons() < 0 || data.buttons() > 255 || !Float.isFinite(data.yaw()) || !Float.isFinite(data.pitch())) {
             return;
         }
         int updated = data.buttons() & ~DASH;
@@ -284,7 +289,7 @@ public final class ServerDash {
         if (phase == Phase.IDLE && jumpDeadline >= tick) {
             tryFreeJump(player, hasGround);
         }
-        if (phase == Phase.IDLE && !hasGround) {
+        if (phase == Phase.IDLE && (!hasGround || (input & FORWARD) != 0)) {
             tryGrab(player);
         }
         if (phase == Phase.IDLE) {
@@ -504,12 +509,12 @@ public final class ServerDash {
 
     private void wallJump(ServerPlayer player, Vec3 wall, boolean strong) {
         Vec3 away = wall.scale(-1);
-        boolean climb = !strong && (input & SNEAK) != 0 && wish(player).dot(away) <= 0.01 && stamina >= 27;
+        boolean climb = !strong && grabHeld(player) && wish(player).dot(away) <= 0.01 && stamina >= CLIMB_JUMP_COST;
         speed = climb ? Vec3.ZERO : away.scale(DashTuning.SPEED.get() * (strong ? 170.0 : 130.0) / 240.0);
         speed = speed.add(0, strong ? 0.64 : 0.42, 0);
         beginJump(player, (strong ? DashSounds.JUMP_SUPERWALL : climb ? DashSounds.JUMP_CLIMB : DashSounds.JUMP_WALL).get());
         if (climb) {
-            stamina -= 27;
+            stamina -= CLIMB_JUMP_COST;
             climbAway = away;
             climbBoost = 4;
         }
@@ -548,12 +553,12 @@ public final class ServerDash {
     }
 
     private void tryGrab(ServerPlayer player) {
-        if (!DashTuning.WALL_JUMPS.get() || (input & SNEAK) == 0 || stamina == 0 || player.isInWater() || player.onClimbable()) {
+        if (!DashTuning.WALL_JUMPS.get() || !grabHeld(player) || stamina <= 0 || player.isInWater() || player.onClimbable()) {
             return;
         }
         Vec3 facing = horizontalFacing(player);
         Vec3 wall = DashPhysics.wall(player, facing);
-        if (wall.dot(facing) > 0.4 && wish(player).dot(wall) >= -0.1) {
+        if (wall.dot(facing) > 0.4 && ((input & GRAB) != 0 || wish(player).dot(wall) >= -0.1)) {
             phase = Phase.CLIMB;
             climbWall = wall;
             clearAttack();
@@ -563,7 +568,7 @@ public final class ServerDash {
     }
 
     private void stepClimb(ServerPlayer player, boolean hasGround) {
-        if ((input & SNEAK) == 0 || stamina == 0 || player.isInWater()
+        if (!grabHeld(player) || stamina <= 0 || player.isInWater()
                 || DashPhysics.wall(player, climbWall).dot(climbWall) < 0.99 || hasGround && (input & FORWARD) == 0) {
             finish(player);
             return;
@@ -572,13 +577,19 @@ public final class ServerDash {
             wallJump(player, climbWall, false);
             return;
         }
-        double vertical = (input & FORWARD) != 0 ? 0.16 : (input & BACK) != 0 ? -0.19 : 0;
+        double vertical = (input & FORWARD) != 0 ? DashTuning.SPEED.get() * 45.0 / 240
+                : (input & BACK) != 0 ? -DashTuning.SPEED.get() * 80.0 / 240 : 0;
         if (vertical != 0) {
             move(player, new Vec3(0, vertical, 0));
         }
         speed = Vec3.ZERO;
         player.resetFallDistance();
-        stamina = Math.max(0, stamina - (vertical > 0 ? 5 : 1));
+        stamina = Math.max(0, stamina - (vertical > 0 ? CLIMB_UP_COST : vertical == 0 ? CLIMB_STILL_COST : 0));
+    }
+
+    private boolean grabHeld(ServerPlayer player) {
+        // Inventory is checked every tick, so switching either hand releases a right-click grab.
+        return (input & SNEAK) != 0 || (input & GRAB) != 0 && ClimbHands.empty(player);
     }
 
     private void stepMomentum(ServerPlayer player, boolean hasGround) {
@@ -598,7 +609,7 @@ public final class ServerDash {
         if (climbBoost > 0) {
             if (wish.dot(climbAway) > 0.25) {
                 speed = climbAway.scale(DashTuning.SPEED.get() * 130.0 / 240.0).add(0, speed.y, 0);
-                stamina = Math.min(110, stamina + 27);
+                stamina = Math.min(110, stamina + CLIMB_JUMP_COST);
                 climbBoost = 0;
             } else {
                 climbBoost--;
@@ -977,7 +988,7 @@ public final class ServerDash {
         lastDashTicks = DashTuning.DURATION.get();
         lastExitPose = exitPose;
         PacketDistributor.sendToPlayer(player, new Frame(mode, releaseId, charges, maxCharges, cooldown, player.onGround(),
-                duck, dreaming(), exitPose == Pose.CROUCHING ? 1 : exitPose == Pose.SWIMMING ? 2 : 0,
+                duck, dreaming(), climbing(), exitPose == Pose.CROUCHING ? 1 : exitPose == Pose.SWIMMING ? 2 : 0,
                 player.position(), speed, lastDashSpeed, lastDashTicks));
     }
 
