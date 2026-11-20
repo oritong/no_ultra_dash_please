@@ -11,7 +11,9 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 - **Super / Hyper：**在地面水平冲刺后立即跳。水平冲刺时蹲着会变成低跳、快跑的 Hyper。
 - **Wavedash：**先跳，再瞄准前下方冲向地板，碰地前后按跳。斜下冲刺碰地会先进入滑行，然后把速度转成低而快的跃起。即使先起跳，只要实际碰到可回充地面，冷却结束后也会补回次数。
 - **Ultra：**Wavedash 后按住前进，等冷却结束再沿同一方向斜下冲地。冲刺会继承已有的同向速度，斜下触地再乘 `1.2`；可重复衔接，受服务端配置的速度上限限制。
-- **墙边移动：**在空中贴近墙面按跳可蹬墙；竖直上冲时按跳会触发更强的蹬墙跳。面朝墙按住潜行可抓墙，前进上爬、后退下滑。抓墙跳后马上按离墙方向可触发 Wall Boost。冲刺后的跳跃按住跳键更高，下落时按住潜行可加快下落。
+- **墙边移动：**在空中贴近墙面按跳可蹬墙；竖直上冲时按跳会触发更强的蹬墙跳。双手空置时面朝墙按住右键可抓墙，前进上爬、后退下滑、空格攀爬跳；松开右键或任一手改持普通物品即脱离。物品标签 `#no_ultra_dash:empty_hand` 内的物品视为空手，原有潜行键抓墙保留。抓墙跳后马上按离墙方向可触发 Wall Boost。冲刺后的跳跃按住跳键更高，下落时按住潜行可加快下落。
+
+右键攀爬的空手例外可通过数据包的 `data/no_ultra_dash/tags/item/empty_hand.json` 添加，例如 `{"replace":false,"values":["minecraft:stick"]}`。默认标签为空，主手和副手分别检查。攀爬体力为 110，上爬每秒消耗约 45.45，悬挂每秒消耗 10，下滑不扣，攀爬跳消耗 27.5；落地或回充恢复。
 
 ## 玩法方块
 
@@ -58,7 +60,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.7` |
+| 模组版本 | `0.1.8` |
 
 ## 开发
 
@@ -78,7 +80,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.7.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.8.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 
