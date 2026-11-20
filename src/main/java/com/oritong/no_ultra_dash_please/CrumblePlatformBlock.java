@@ -85,8 +85,9 @@ final class CrumblePlatformBlock extends BaseEntityBlock {
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        // Only the warning model moves; stable and collapsed geometry remains chunk-batched.
-        return state.getValue(PHASE) == Phase.CRUMBLING ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.MODEL;
+        // Keep the intact floor on one render path. Switching between chunk geometry and
+        // a block entity changes texture filtering/material processing in renderer mods.
+        return state.getValue(PHASE) == Phase.COLLAPSED ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override

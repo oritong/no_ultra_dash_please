@@ -28,18 +28,28 @@ public final class CrumblePlatformRenderer implements BlockEntityRenderer<Crumbl
                        MultiBufferSource buffers, int packedLight, int packedOverlay) {
         var level = block.getLevel();
         var state = block.getBlockState();
-        if (level == null || state.getValue(CrumblePlatformBlock.PHASE) != CrumblePlatformBlock.Phase.CRUMBLING) return;
+        if (level == null || state.getValue(CrumblePlatformBlock.PHASE) == CrumblePlatformBlock.Phase.COLLAPSED) return;
+        // Use the normal state even while shaking: phase affects the transform only,
+        // never model selection, material selection, or the weighted texture seed.
+        state = state.setValue(CrumblePlatformBlock.PHASE, CrumblePlatformBlock.Phase.NORMAL);
         var offset = block.visualOffset(partialTick);
         var dispatcher = Minecraft.getInstance().getBlockRenderer();
         var model = dispatcher.getBlockModel(state);
         long seed = state.getSeed(block.getBlockPos());
         poses.pushPose();
         poses.translate(offset.x, offset.y, offset.z);
-        // Tessellate the exact same multipart model with its original position seed.
-        // renderSingleBlock uses a constant seed and would change the four random textures.
+        // Both intact phases use the same model, buffer, lighting and seed. The collapsed
+        // outline remains chunk-batched. Only the warning applies a nonzero translation.
         dispatcher.getModelRenderer().tesselateBlock(level, model, state, block.getBlockPos(), poses,
                 buffers.getBuffer(RenderTypeHelper.getMovingBlockRenderType(RenderType.cutout())), false,
                 RandomSource.create(seed), seed, packedOverlay, ModelData.EMPTY, RenderType.cutout());
         poses.popPose();
+    }
+
+    @Override
+    public int getViewDistance() {
+        // Intact floors must remain visible throughout the configured terrain distance,
+        // rather than inheriting the 64-block default used by small block entities.
+        return Minecraft.getInstance().options.getEffectiveRenderDistance() * 16;
     }
 }
