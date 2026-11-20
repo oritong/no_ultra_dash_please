@@ -553,7 +553,7 @@ public final class ServerDash {
     }
 
     private void tryGrab(ServerPlayer player) {
-        if (!DashTuning.WALL_JUMPS.get() || !grabHeld(player) || stamina <= 0 || player.isInWater() || player.onClimbable()) {
+        if (!grabHeld(player) || stamina <= 0 || player.isInWater() || player.onClimbable()) {
             return;
         }
         Vec3 facing = horizontalFacing(player);
@@ -589,7 +589,8 @@ public final class ServerDash {
 
     private boolean grabHeld(ServerPlayer player) {
         // Inventory is checked every tick, so switching either hand releases a right-click grab.
-        return (input & SNEAK) != 0 || (input & GRAB) != 0 && ClimbHands.empty(player);
+        return (input & SNEAK) != 0 && DashTuning.WALL_JUMPS.get()
+                || (input & GRAB) != 0 && DashTuning.WALL_CLIMBING.get() && ClimbHands.empty(player);
     }
 
     private void stepMomentum(ServerPlayer player, boolean hasGround) {

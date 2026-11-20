@@ -122,15 +122,28 @@ public final class ClimbGameTests {
         ServerDash.get(player).tick(player);
         helper.assertTrue(!ServerDash.get(player).climbing(), "Right click in the air must not suspend the player");
         player.setPos(helper.absoluteVec(new Vec3(3.68, 3, 3.5)));
-        boolean enabled = DashTuning.WALL_JUMPS.get();
+        boolean enabled = DashTuning.WALL_CLIMBING.get();
         try {
-            DashTuning.WALL_JUMPS.set(false);
+            DashTuning.WALL_CLIMBING.set(false);
             ServerDash.get(player).tick(player);
-            helper.assertTrue(!ServerDash.get(player).climbing(), "The existing wall movement config must also disable right-click grab");
-        } finally { DashTuning.WALL_JUMPS.set(enabled); }
+            helper.assertTrue(!ServerDash.get(player).climbing(), "The climbing config must disable right-click grab");
+        } finally { DashTuning.WALL_CLIMBING.set(enabled); }
         input(player, DashNetwork.SNEAK);
         ServerDash.get(player).tick(player);
         helper.assertTrue(ServerDash.get(player).climbing(), "The existing sneak grab must remain available");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void rightClickClimbingWorksWithWallJumpsDisabled(GameTestHelper helper) {
+        var player = wallPlayer(helper);
+        boolean wallJumps = DashTuning.WALL_JUMPS.get();
+        try {
+            DashTuning.WALL_JUMPS.set(false);
+            input(player, DashNetwork.GRAB | DashNetwork.FORWARD);
+            ServerDash.get(player).tick(player);
+            helper.assertTrue(ServerDash.get(player).climbing(), "Right-click climbing has its own setting and must work with wallJumps disabled");
+        } finally { DashTuning.WALL_JUMPS.set(wallJumps); }
         helper.succeed();
     }
 

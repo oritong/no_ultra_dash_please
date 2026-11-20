@@ -223,7 +223,7 @@ public final class DashClient {
         var minecraft = Minecraft.getInstance();
         var player = minecraft.player;
         if (!event.isUseItem() || player == null || minecraft.screen != null || !DashPhysics.eligible(player)
-                || !ClimbHands.empty(player) || !DashTuning.WALL_JUMPS.get()
+                || !ClimbHands.empty(player) || !DashTuning.WALL_CLIMBING.get()
                 || player.isInWater() || player.onClimbable()) return;
         Vec3 facing = Vec3.directionFromRotation(0, player.getYRot());
         if (climbing(player) || DashPhysics.wall(player, facing).dot(facing) > 0.4) {

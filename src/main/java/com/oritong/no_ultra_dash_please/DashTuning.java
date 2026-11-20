@@ -16,6 +16,8 @@ final class DashTuning {
     static final ModConfigSpec.IntValue GRACE = BUILDER.defineInRange("jumpGraceTicks", 2, 0, 6);
     static final ModConfigSpec.IntValue BUFFER = BUILDER.defineInRange("jumpBufferTicks", 2, 0, 6);
     static final ModConfigSpec.BooleanValue WALL_JUMPS = BUILDER.define("wallJumps", true);
+    static final ModConfigSpec.BooleanValue WALL_CLIMBING = BUILDER.comment("Hold use with empty hands to grab and climb walls.")
+            .define("wallClimbing", true);
     static final ModConfigSpec.BooleanValue GROUND_REFILL = BUILDER.define("groundRefill", true);
     static final ModConfigSpec SPEC = BUILDER.build();
 
