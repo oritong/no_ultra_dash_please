@@ -60,7 +60,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 | NeoForge | `21.1.265` |
 | Java | `21` |
 | Gradle Wrapper | `8.13` |
-| 模组版本 | `0.1.8` |
+| 模组版本 | `0.1.9` |
 
 ## 开发
 
@@ -80,7 +80,7 @@ Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21 的 Celeste 风格移动模组。
 .\gradlew.bat runData
 ```
 
-构建产物：`build/libs/no_ultra_dash_please-0.1.8.jar`。
+构建产物：`build/libs/no_ultra_dash_please-0.1.9.jar`。
 
 运行服务端行为测试：`.\gradlew.bat runGameTestServer`。测试资源位于 `src/gameTest/`，不会打入发布包。晶体时间参数与来源记录见 [`reference/celeste/REFILL_MECHANICS.md`](reference/celeste/REFILL_MECHANICS.md)。
 
